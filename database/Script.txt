@@ -1,0 +1,12 @@
+-->Script de CRUD EMPLEADO
+
+CREATE TABLE empleado(
+id int PRIMARY KEY AUTO_INCREMENT,
+nombre varchar(50),
+paterno varchar(50),
+materno varchar(50),
+fechaNacimiento date,
+sexo varchar(1),
+telefono int,
+direccion varchar(50)
+)
