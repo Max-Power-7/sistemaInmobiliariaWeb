@@ -11,6 +11,9 @@ use App\Http\Controllers\ctrUsuario;
 use App\Http\Controllers\ctrPropiedad;
 use App\Http\Controllers\ctrImagen;
 use App\Http\Controllers\ctrNotaVenta;
+use App\Http\Controllers\ctrAgente;
+use App\Http\Controllers\ctrPago;
+use App\Http\Controllers\ctrCuota;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +80,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/empleado/modificar',[ctrEmpleado::class,'modificar']);
     Route::put('/empleado/desactivar',[ctrEmpleado::class,'desactivar']);
     Route::put('/empleado/activar',[ctrEmpleado::class,'activar']);
+    Route::get('/empleado/select',[ctrEmpleado::class,'selectEmpleado']);
 
     //USUARIO
     Route::get('/usuario',[ctrUsuario::class,'listar']);
@@ -94,8 +98,24 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/propiedad/modificar',[ctrPropiedad::class,'modificar']);
     Route::put('/propiedad/desactivar',[ctrPropiedad::class,'desactivar']);
     Route::put('/propiedad/activar',[ctrPropiedad::class,'activar']);
+    //Route::delete('/empleado/eliminar/{id}', 'ctrlEmpleado@eliminar');
 
     //NOTA VENTA
     Route::get('/notaventa',[ctrNotaVenta::class,'listar']);
     Route::post('/notaventa/guardar',[ctrNotaVenta::class,'guardar']); 
+
+    //AGENTE
+    Route::get('/agente',[ctrAgente::class,'listar']);
+    Route::post('/agente/guardar',[ctrAgente::class,'guardar']);
+    Route::put('/agente/modificar',[ctrAgente::class,'modificar']);
+    Route::put('/agente/desactivar',[ctrAgente::class,'desactivar']);
+    Route::put('/agente/activar',[ctrAgente::class,'activar']);
+    Route::get('/agente/listado',[ctrAgente::class,'listarAgente']);
+
+    //PAGO
+    //Route::get('/pago',[ctrPago::class,'listar']);
+    Route::post('/pago/guardar',[ctrPago::class,'guardar']);
+    
+    //CUOTA
+    Route::get('/cuota',[ctrCuota::class,'listar']);
 });

@@ -6,19 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\NotaVenta;
 use App\Models\PlanCredito;
 use App\Models\Cuota;
+use App\Models\Propiedad;
+
 use DB;
 class ctrNotaVenta extends Controller
 {
     public function listar(Request $request){     
         $buscar=$request->buscar;
         $criterio=$request->criterio;
-        if($criterio==''){
+        if($buscar==''){
             $obj=DB::table('notaventa')
             ->join('cliente','notaventa.idCliente','=','cliente.id')
             ->join('propiedad','notaventa.idPropiedad','=','propiedad.id')
             ->select('notaventa.idCliente','notaventa.id','notaventa.fecha',
-                    'notaventa.montoTotal','notaventa.estado','cliente.nombre as nombreClie','cliente.razonSocial',
-                    'cliente.tipo as tipoCliente')
+                    'notaventa.montoTotal','notaventa.estado','notaventa.tipoPago','cliente.nombre as nombreClie','cliente.apellidos'
+                    ,'cliente.razonSocial','cliente.tipo as tipoCliente','propiedad.tipo as tipoPropiedad')
             ->orderBy('notaventa.id','desc')
             ->paginate(15);
         }else{
@@ -26,9 +28,9 @@ class ctrNotaVenta extends Controller
             ->join('cliente','notaventa.idCliente','=','cliente.id')
             ->join('propiedad','notaventa.idPropiedad','=','propiedad.id')
             ->select('notaventa.idCliente','notaventa.id','notaventa.fecha',
-                    'notaventa.montoTotal','notaventa.estado','cliente.nombre as nombreClie','cliente.razonSocial',
-                    'cliente.tipo as tipoCliente')
-            ->where('cliente.'.$criterio, 'like', '%'.$buscar.'%')        
+                    'notaventa.montoTotal','notaventa.estado','notaventa.tipoPago','cliente.nombre as nombreClie','cliente.apellidos'
+                    ,'cliente.razonSocial','cliente.tipo as tipoCliente','propiedad.tipo as tipoPropiedad')
+            ->where($criterio, 'like', '%'.$buscar.'%')        
             ->orderBy('notaventa.id','desc')
             ->paginate(5);
         }   
@@ -48,8 +50,16 @@ class ctrNotaVenta extends Controller
 			$venta->idPropiedad=$request->idPropiedad;
 			$venta->idCliente=$request->idCliente;
 			$venta->save();
+
+            //modificar el estado a vendido a una propiedad
+            
+            $prop= Propiedad::findOrFail($request->idPropiedad);
+            $prop->estado='vendido';
+            $prop->save();
+
 			//variable para capturar tipoPago
-			$tipoDato=$request->tipoPago;
+			
+            $tipoDato=$request->tipoPago;
 
             if($tipoDato=='credito'){
                 $planCredito=new PlanCredito();
@@ -70,6 +80,7 @@ class ctrNotaVenta extends Controller
                     $cuota = new Cuota(); 
                     $cuota->fecha= $det['fecha'];
                     $cuota->monto= $det['monto'];
+                    $cuota->estado='0';
                     $cuota->idPlanCredito = $planCredito->id;
                     $cuota->save();
                 }

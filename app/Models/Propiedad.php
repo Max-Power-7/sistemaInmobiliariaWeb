@@ -10,6 +10,7 @@ class Propiedad extends Model
     use HasFactory;
     protected $table='propiedad';
     protected $fillable=[
+        'codigo',
         'descripcion',
         'metroCuadrado',
         'nroPiso',
@@ -19,7 +20,8 @@ class Propiedad extends Model
         'tipo',
         'estado',
         'idPropietario',
-        'idLocalidad'
+        'idLocalidad',
+        'idAgente'
     ];
     public $timestamps=false;
 }

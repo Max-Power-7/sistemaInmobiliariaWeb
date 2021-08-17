@@ -5,8 +5,8 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Categoria
-                        <button type="button" @click="abrirModal('categoria','registrar')" class="btn btn-secondary">
+                        Agente
+                        <button type="button" @click="abrirModal('agente','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
                     </div>
@@ -14,43 +14,54 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control col-md-3">
+                                    <select class="form-control col-md-3" v-model="criterio">
+                                      <option value="ci">Cedula Identidad</option>
                                       <option value="nombre">Nombre</option>
+                                      <option value="apellidos">Apellidos</option>
+                                      <option value="telefono">Telefono</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarCategoria(1,buscar)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarCategoria(1,buscar)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listar(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
                         <table class="table table-bordered table-sm">
                             <thead>
                                 <tr>
+                                    <th>Cedula Identidad</th>
                                     <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Telefono</th>
+                                    <th>Direccion</th>
                                     <th>Opciones</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="categoria in arrayCategoria" :key="categoria.id">
-                                    <td v-text="categoria.nombre"></td>
+                                <tr v-for="agente in arrayAgente" :key="agente.id">
+                                    <td v-text="agente.ci"></td>
+                                    <td v-text="agente.nombre"></td>
+                                    <td v-text="agente.apellidos"></td>
+                                    <td v-text="agente.telefono"></td>
+                                    <td v-text="agente.direccion"></td>
                                     <td>
                                         <div class="dropdown">
                                                 <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Accion
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <template v-if="categoria.estado==1">
-                                                        <a class="dropdown-item bg-light" href="#" @click="abrirModal('categoria','modificar',categoria)"><i class="icon-pencil text-warning"></i>Modificar</a>
-                                                        <a class="dropdown-item bg-light" href="#" @click="desactivarCategoria(categoria.id)"><i class="fa fa-toggle-on text-success"></i>Desactivar</a>    
+                                                    <template v-if="agente.estado=='1'">
+                                                        <a class="dropdown-item bg-light" href="#" @click="abrirModal('agente','modificar',agente)"><i class="icon-pencil text-warning"></i>Modificar</a>
+                                                        <a class="dropdown-item bg-light" href="#" @click="desactivarAgente(agente.id)"><i class="fa fa-toggle-on text-success"></i>Desactivar</a>    
                                                     </template>
                                                     <template v-else>
-                                                        <a class="dropdown-item bg-light" href="#" @click="activarCategoria(categoria.id)"><i class="fa fa-toggle-off text-danger"></i>Activar</a>
+                                                        <a class="dropdown-item bg-light" href="#" @click="activarAgente(agente.id)"><i class="fa fa-toggle-off text-danger"></i>Activar</a>
                                                     </template>
                                                 </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div v-if="categoria.estado==1">
+                                        <div v-if="agente.estado=='1'">
                                                 <span class="badge badge-success">Activo</span>
                                             </div>
                                             <div v-else>
@@ -64,13 +75,13 @@
                         <nav>
                             <ul class="pagination">
                                 <li class="page-item" v-if="pagination.current_page > 1">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar)">Ant</a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
                                 </li>
                                 <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page==isActived ? 'active' :'']">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar)" v-text="page">1</a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar,criterio)" v-text="page">1</a>
                                 </li>
                                 <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1,buscar)">Sig</a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
                                 </li>
                             </ul>
                         </nav>
@@ -94,27 +105,56 @@
                         
                         <div class="modal-body">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Cedula Identidad</label>
+                                    <div class="col-md-9">
+                                        <input type="number" v-model="ci" class="form-control" placeholder="Ingrese Cedula Identidad">
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                     <div class="col-md-9">
                                         <input type="text" v-model="nombre" class="form-control" placeholder="Ingrese Nombre">
                                     </div>
                                 </div>
-                                                               
-                                <div v-show="errorCategoria" class="form-group row div-error">
-                                        <div class="text-center text-error">
-                                            <div v-for="error in errorMostrarMsjCategoria" :key="error" v-text="error">
-                                            </div>    
-                                        </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Apellidos</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="apellidos" class="form-control" placeholder="Ingrese Apellidos">
+                                    </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
+                                    <div class="col-md-9">
+                                        <input type="number" v-model="telefono" class="form-control" placeholder="Ingrese Telefono">
+                                    </div>
+                                </div>
+                        
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese Direccion">
+                                    </div>
+                                </div>
+                                           
+                                <div v-show="errorAgente" class="form-group row div-error">
+                                    <div class="text-center text-error">
+                                        <div v-for="error in errorMostrarMsjAgente" :key="error" v-text="error">
+                                        </div>    
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                         
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                            <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="guardarCategoria()">Guardar</button>
-                            <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizarCategoria()">Modificar</button>
+                            <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="guardar()">Guardar</button>
+                            <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizar()">Modificar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -129,15 +169,19 @@
     export default {
         data(){
             return {
-                categoriaId:0,
+                agenteId:0,
+                ci:'',
                 nombre:'',
-                arrayCategoria:[],
+                apellidos:'',
+                telefono:'',
+                direccion:'',
+                arrayAgente:[],
                 modal:0,
                 tituloModal:'',
+                errorAgente:0,
                 tipoAccion:0,
-                errorCategoria:0,
                 message : '',
-                errorMostrarMsjCategoria:[],
+                errorMostrarMsjAgente:[],
                 pagination : {
                     'total' : 0,
                     'current_page' : 0,
@@ -147,6 +191,7 @@
                     'to' : 0,
                 },
                 offset : 3,
+                criterio : 'ci',
                 buscar : '',
             }
         },
@@ -178,11 +223,11 @@
             }
         },
        methods: {           
-           listarCategoria(page,buscar,criterio){
+           listar(page,buscar,criterio){
                 let me=this;
-                    var url='/categoria?page=' + page + '&buscar=' + buscar;
+                    var url='/agente?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                     axios.get(url).then(function (response) {
-                    me.arrayCategoria=response.data.data;
+                    me.arrayAgente=response.data.data;
                     me.pagination={total:response.data.total, 
                         current_page:response.data.current_page,
                         per_page: response.data.per_page,
@@ -199,42 +244,53 @@
            cambiarPagina(page,buscar,criterio){
                 let me=this;
                 me.pagination.current_page=page;
-                me.listarCategoria(page,buscar,criterio);
+                me.listar(page,buscar,criterio);
             },
-           guardarCategoria(){
-               if(this.validarCategoria()){
+
+           guardar(){
+               if(this.validar()){
                    return; 
-               }
+                }
             let me = this;
-                axios.post('/categoria/guardar',{
-                    'nombre':this.nombre
+                axios.post('/agente/guardar',{
+                    'ci':this.ci,
+                    'nombre':this.nombre,
+                    'apellidos':this.apellidos,
+                    'telefono':this.telefono,
+                    'direccion':this.direccion
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listarCategoria(1,'');           
+                    me.listar(1,'','ci');           
                 })
                 .catch(function(error){
                     console.log(error);
                 });   
            },
-           actualizarCategoria(){
-                if(this.validarCategoria()){
+
+           actualizar(){
+                if(this.validar()){
                    return; 
                 }
                 let me = this;
-                axios.put('/categoria/modificar',{
-                    'id':this.categoriaId,
-                    'nombre':this.nombre
+                axios.put('/agente/modificar',{
+                    'id':this.agenteId,
+                    'ci':this.ci,
+                    'nombre':this.nombre,
+                    'apellidos':this.apellidos,
+                    'telefono':this.telefono,
+                    'direccion':this.direccion
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listarCategoria(1,'');           
+                    me.listar(1,'','ci');           
                 })
                 .catch(function(error){
                     console.log(error);
                 });
            },
-           desactivarCategoria(id){
+
+           desactivarAgente(id){
                swal({
-                title: 'Esta seguro de desactivar esta Categoria?',
+                title: 'Esta seguro de desactivar este Agente?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -248,8 +304,8 @@
                 }).then((result) => {
                 if (result.value) {
                     let me = this;
-                    axios.put('/categoria/desactivar',{'id': id}).then(function (response) {
-                        me.listarCategoria(1,'');
+                    axios.put('/agente/desactivar',{'id': id}).then(function (response) {
+                        me.listar(1,'','ci');
                         swal(
                         'Desactivado!',
                         'El registro ha sido desactivado con éxito.',
@@ -266,9 +322,10 @@
                 }
                 }) 
             },
-            activarCategoria(id){
+
+            activarAgente(id){
                swal({
-                title: 'Esta seguro de activar esta Categoria?',
+                title: 'Esta seguro de activar este Agente?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -282,8 +339,8 @@
                 }).then((result) => {
                 if (result.value) {
                     let me = this;
-                    axios.put('/categoria/activar',{'id': id}).then(function (response) {
-                        me.listarCategoria(1,'');
+                    axios.put('/agente/activar',{'id': id}).then(function (response) {
+                        me.listar(1,'','ci');
                         swal(
                         'Activado!',
                         'El registro ha sido activado con éxito.',
@@ -301,41 +358,58 @@
                 }) 
             },
 
-           validarCategoria(){
-               this.errorCategoria=0;
-               this.errorMostrarMsjCategoria=[];
+           validar(){
+               this.errorAgente=0;
+               this.errorMostrarMsjAgente=[];
 
-               if(!this.nombre)this.errorMostrarMsjCategoria.push('El nombre de la Categoria esta vacia!');
-               if(this.errorMostrarMsjCategoria.length)this.errorCategoria=1;
+               if(!this.ci)this.errorMostrarMsjAgente.push('La Cedula Identidad del Agente esta vacia!');
+               if(!this.nombre)this.errorMostrarMsjAgente.push('El Nombre del Agente esta vacia!');
+               if(!this.apellidos)this.errorMostrarMsjAgente.push('El Apellidos del Agente esta vacia!');
+                    
+               if(this.errorMostrarMsjAgente.length)this.errorAgente=1;
 
-               return this.errorCategoria;
+               return this.errorAgente;
            },
 
            cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
+                this.ci='';
                 this.nombre='';
+                this.apellidos='';
+                this.telefono='';
+                this.direccion='';
+                this.errorMostrarMsjAgente=[];
            },
+
            abrirModal(model,accion,data=[]){
                switch (model) {
-                   case 'categoria':
+                   case 'agente':
                        {
                            switch(accion){
                                case 'registrar':
                                    {
                                         this.modal=1;
-                                        this.tituloModal='Registrar Categoria';
+                                        this.tituloModal='Registrar Agente';
+                                        this.ci='';
                                         this.nombre='';
+                                        this.apellidos='';
+                                        this.telefono='';
+                                        this.direccion='';
                                         this.tipoAccion=1;
                                          break;
                                    }
                                 case 'modificar':
                                     {
                                         this.modal=1;
-                                        this.tituloModal='Actualizar Categoria';
+                                        this.tituloModal='Actualizar Agente';
                                         this.tipoAccion=2;
-                                        this.categoriaId=data['id'];
+                                        this.agenteId=data['id'];
+                                        this.ci=data['ci'];
                                         this.nombre=data['nombre'];
+                                        this.apellidos=data['apellidos'];                                     
+                                        this.telefono=data['telefono'];
+                                        this.direccion=data['direccion'];
                                     }   
                            }
                        }
@@ -343,7 +417,7 @@
            },
        },
         mounted() {
-            this.listarCategoria(1,this.buscar);
+            this.listar(1,this.buscar,this.criterio);
         }
     }
 </script>

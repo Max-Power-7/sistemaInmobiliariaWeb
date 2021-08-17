@@ -17,7 +17,11 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
-                                        <option value="nombre">Tipo</option>
+                                        <option value="notaventa.id">Codigo</option>
+                                        <option value="notaventa.fecha">Fecha</option>
+                                        <option value="cliente.nombre">Cliente</option>
+                                        <option value="cliente.razonSocial">Empresa</option>
+
                                     </select>
                                     <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar, criterio)" class="form-control" placeholder="Texto a buscar">
                                     <button type="submit" @click="listar(1,buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -43,8 +47,16 @@
                                     <td v-text="notaventa.fecha"></td>
                                     <td v-text="notaventa.tipoPago"></td>
                                     <td v-text="notaventa.montoTotal"></td>
-                                    <td v-text="notaventa.tipo"></td>
-                                    <td v-text="notaventa.nombreCli"></td>
+                                    <td v-text="notaventa.tipoPropiedad"></td>
+                
+                                    <template v-if="notaventa.tipoCliente=='persona'">
+                                        <td v-text="notaventa.nombreClie"></td>
+                                    </template>
+                
+                                    <template v-if="notaventa.tipoCliente=='empresa'">
+                                        <td v-text="notaventa.razonSocial"></td>
+                                    </template>
+                
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -79,10 +91,9 @@
                 <template v-if="listado==1">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-8 col-xs-12">
-                                <center><h3 v-text="tituloModal"></h3></center>
+                            <div class="col-md-6 col-xs-12">
                                     <div class="form-group row border">
-                                        <div class="col-md-8">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="Cliente">Cliente</label>
                                                 <div class="form-inline">
@@ -93,12 +104,6 @@
                                                     <button type="button" @click="abrirModalCliente()" class="btn btn-info"><i class="fa fa-window-maximize"> Cliente</i>
                                                     </button>                                          
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="">Fecha</label>
-                                                <h4 v-text="fecha"></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -121,7 +126,7 @@
                                     </div>   
                                  </div>
                             </div>
-                            <div class="col-md-4 col-xs-12">
+                            <div class="col-md-6 col-xs-12">
                                 <div class="form-group row border">
                                     <table class="table table-bordered table-sm">
                                         <thead class="table-info">
@@ -169,14 +174,13 @@
                                                     </div>
                                                     <div class="card-deck" style="overflow-y: auto; height: 300px;">
                                                         <div class="col-md-2.5" v-for="propiedad in arrayPropiedad" :key="propiedad.id">
-                                                            <div class="card">
+                                                            <div class="card" v-if="propiedad.estado=='disponible'">
                                                                 <img :src="'img/photo2.png'" @click="sliderImagen(propiedad.id)" data-toggle="modal" data-target="#modalSlider" class="card-img-top" width="100" height="100" align="left" alt="">
                                                             
                                                                 <div class="card-body">
                                                                     <center>  
-                                                                        <div v-if="propiedad.estado==0">
-                                                                            <font size="5" face="Times New Roman"><span class="badge badge-warning">{{propiedad.estado}}</span></font>
-                                                                        </div> 
+                                                                    
+                                                                            <font size="5" face="Times New Roman"><span class="badge badge-warning">Disponible</span></font>
                                                                         <center>
                                                                             <button type="button" class="btn btn-success" @click="verPropiedad(propiedad)"><i size="5" class="fa fa-eye"></i>Ver</button>          
                                                                         </center>
@@ -232,10 +236,12 @@
                                             <label for="">Interes</label>
                                             <input type="number" class="form-control" v-model="interes" placeholder="Interes">
                                             <br>
-                                            <label for="">Monto Total</label>
-                                            <input type="number" disabled class="form-control" v-show="preciov">
+                                            <label for="">Monto Total</label><br>
+                                            <p>{{calcularMontoCredito}}</p>
                             
-                                            <button class="btn btn-primary" type="button" @click="cuota()">Calcular</button>
+                                            <center>
+                                                <button class="btn btn-primary" type="button" @click="cuota()">Calcular</button>
+                                            </center><br>
                         
                                         </div>
                                         <div class="col-md-8">
@@ -642,7 +648,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'id',
+                criterio : 'notaventa.id',
                 buscar : '',
                 criterioPropiedad : 'descripcion',
                 buscarCliente : '',
@@ -654,6 +660,13 @@
             }
         },
         computed : {
+            calcularMontoCredito:function(){
+                var interesCredito=0.0; 
+                    interesCredito=this.interes/100;
+                    interesCredito=this.preciov * interesCredito;
+                var resultado= Number(this.preciov) + interesCredito;        
+                return resultado;
+            },
             isActived: function(){
                 return this.pagination.current_page;
             },
@@ -742,7 +755,6 @@
                     foto : me.foto,
                     descripcionFoto : me.descripcionFoto
                 });
-
                 me.id = 0,
                 me.foto = '',
                 me.descripcionFoto = ''
@@ -799,9 +811,7 @@
                 this.plazo='0';
                 this.interes=0;
                 this.arrayCliente=[];
-                this.arrayPropiedad=[];
                 this.arrayCuota=[];
-                this.arrayNotaVenta=[];
             },
             abrirNotaVenta(){
                 this.tipoAccion=1;
@@ -938,7 +948,11 @@
             },
             seleccionarCliente(data=[]){
                 this.idCliente = data['id'];
-                this.nombreCliente = data['nombre'] + " " + data['apellidos'];
+                if(data['tipo']=='empresa'){
+                    this.nombreCliente=data['razonSocial']
+                }else{
+                    this.nombreCliente = data['nombre'] + " " + data['apellidos'];
+                }
                 this.cerrarModalCliente();
             },
             //cuota

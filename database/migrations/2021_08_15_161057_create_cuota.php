@@ -17,6 +17,7 @@ class CreateCuota extends Migration
             $table->id();
             $table->date('fecha');
             $table->decimal('monto',11,2);
+            $table->string('estado',1);
             $table->foreignId('idPlanCredito');
             $table->foreign('idPlanCredito')->references('id')->on('plancredito');
         }); 

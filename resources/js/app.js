@@ -28,6 +28,9 @@ Vue.component('frm-localidad', require('./components/frmLocalidad.vue').default)
 Vue.component('frm-propietario', require('./components/frmPropietario.vue').default);
 Vue.component('frm-propiedad', require('./components/frmPropiedad.vue').default);
 Vue.component('frm-notaventa', require('./components/frmNotaVenta.vue').default);
+Vue.component('frm-agente', require('./components/frmAgente.vue').default);
+Vue.component('frm-pago', require('./components/frmPago.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

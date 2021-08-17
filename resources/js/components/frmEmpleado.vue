@@ -19,7 +19,6 @@
                                       <option value="nombre">Nombre</option>
                                       <option value="apellidos">Apellidos</option>
                                       <option value="telefono">Telefono</option>
-                                      <option value="tipo">Tipo Empleado</option>
                                     </select>
                                     <input type="text" v-model="buscar" @keyup.enter="listarEmpleado(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
                                     <button type="submit" @click="listarEmpleado(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -35,7 +34,6 @@
                                     <th>Fecha Nacimiento</th>
                                     <th>Telefono</th>
                                     <th>Direccion</th>
-                                    <th>Tipo Empleado</th>
                                     <th>Opciones</th>
                                     <th>Estado</th>
                                 </tr>
@@ -48,7 +46,6 @@
                                     <td v-text="empleado.fecha_nacimiento"></td>
                                     <td v-text="empleado.telefono"></td>
                                     <td v-text="empleado.direccion"></td>
-                                    <td v-text="empleado.tipo"></td>
                                     <td>
                                         <div class="dropdown">
                                                 <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -110,13 +107,6 @@
                         
                         <div class="modal-body">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
- 
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Tipo Empleado</label>
-                                    <div class="col-md-9">
-                                        <input type="text" v-model="tipo" class="form-control" placeholder="Ingrese Tipo Empleado">
-                                    </div>
-                                </div>
 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Cedula Identidad</label>
@@ -195,7 +185,6 @@
                 fecha_nacimiento:'',
                 telefono:'',
                 direccion:'',
-                tipo:'',
                 arrayEmpleado:[],
                 modal:0,
                 tituloModal:'',
@@ -279,8 +268,7 @@
                     'apellidos':this.apellidos,
                     'fecha_nacimiento':this.fecha_nacimiento,
                     'telefono':this.telefono,
-                    'direccion':this.direccion,
-                    'tipo':this.tipo
+                    'direccion':this.direccion
                 }).then(function(response){
                     me.cerrarModal();
                     me.listarEmpleado(1,'','ci');           
@@ -302,8 +290,7 @@
                     'apellidos':this.apellidos,
                     'fecha_nacimiento':this.fecha_nacimiento,
                     'telefono':this.telefono,
-                    'direccion':this.direccion,
-                    'tipo':this.tipo
+                    'direccion':this.direccion
                 }).then(function(response){
                     me.cerrarModal();
                     me.listarEmpleado(1,'','ci');           
@@ -390,7 +377,6 @@
                if(!this.ci)this.errorMostrarMsjEmpleado.push('La Cedula Identidad del Empleado esta vacia!');
                if(!this.nombre)this.errorMostrarMsjEmpleado.push('El Nombre del Empleado esta vacia!');
                if(!this.apellidos)this.errorMostrarMsjEmpleado.push('El Apellidos del Empleado esta vacia!');
-               if(!this.tipo)this.errorMostrarMsjEmpleado.push('El Tipo del Empleado esta vacia!');
                     
                if(this.errorMostrarMsjEmpleado.length)this.errorEmpleado=1;
 
@@ -406,7 +392,6 @@
                 this.fecha_nacimiento='';
                 this.telefono='';
                 this.direccion='';
-                this.tipo='';
                 this.errorMostrarMsjEmpleado=[];
            },
 
@@ -425,7 +410,6 @@
                                         this.fecha_nacimiento='';
                                         this.telefono='';
                                         this.direccion='';
-                                        this.tipo='';
                                         this.tipoAccion=1;
                                          break;
                                    }
@@ -441,7 +425,6 @@
                                         this.fecha_nacimiento=data['fecha_nacimiento'];                                       
                                         this.telefono=data['telefono'];
                                         this.direccion=data['direccion'];
-                                        this.tipo=data['tipo'];
                                     }   
                            }
                        }

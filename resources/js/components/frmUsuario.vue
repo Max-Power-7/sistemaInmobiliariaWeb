@@ -119,7 +119,7 @@
                                     <label class="col-md-3 form-control-label" for="text-input">Tipo</label>
                                     <div class="col-md-9">
                                         <select class="form-control" v-model="tipo">
-                                            <option value="0" disabled>Seleciones</option>
+                                            <option value="0" disabled>Selecione</option>
                                             <option value="Administrador">Administrador</option>
                                             <option value="Vendedor">Vendedor</option>                                            
                                         </select>
@@ -131,16 +131,16 @@
                                     <div class="col-md-9">
                                         <select class="form-control" v-model="idEmpleado">
                                             <option value="0" disabled>Seleccione un Empleado...</option>
-                                            <option v-for="empleado in arrayEmpleado" :key="empleado.id" :value="empleado.id" v-text="empleado.nombre +' '+ empleado.paterno"></option>
+                                            <option v-for="empleado in arrayEmpleado" :key="empleado.id" :value="empleado.id" v-text="empleado.nombre +' '+ empleado.apellidos"></option>
                                         </select>
                                     </div>
                                 </div>
                                 
                                 <div v-show="errorUsuario" class="form-group row div-error">
-                                        <div class="text-center text-error">
-                                            <div v-for="error in errorMostrarMsjUsuario" :key="error" v-text="error">
-                                            </div>    
-                                        </div>
+                                    <div class="text-center text-error">
+                                        <div v-for="error in errorMostrarMsjUsuario" :key="error" v-text="error">
+                                        </div>    
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -241,7 +241,7 @@
                 me.listarUsuario(page,buscar,criterio);
             },
            guardar(){
-               if(this.validarSucursal()){
+               if(this.validarUsuario()){
                    return; 
                 }
             let me = this;
@@ -346,15 +346,17 @@
                 }) 
             },
            validarUsuario(){
-               this.errorEmpleado=0;
-               this.errorMostrarMsjEmpleado=[];
+               this.errorUsuario=0;
+               this.errorMostrarMsjUsuario=[];
 
-               if(!this.nombre)this.errorMostrarMsjEmpleado.push('El nombre de la Empleado esta vacia!');
-               if(!this.ubicacion)this.errorMostrarMsjEmpleado.push('La ubicacion de la Empleado esta vacia!');
+               if(!this.login)this.errorMostrarMsjUsuario.push('El Usario del Usuario esta vacio!');
+               if(!this.password)this.errorMostrarMsjUsuario.push('La Contraseña del Usuario esta vacio!');
+               if(!this.tipo)this.errorMostrarMsjUsuario.push('Seleccione un Tipo!');
+               if(!this.idEmpleado)this.errorMostrarMsjUsuario.push('Seleccione un Empleado!');
                  
-               if(this.errorMostrarMsjEmpleado.length)this.errorEmpleado=1;
+               if(this.errorMostrarMsjUsuario.length)this.errorUsuario=1;
 
-               return this.errorEmpleado;
+               return this.errorUsuario;
            },
            cerrarModal(){
                this.modal=0;
@@ -376,7 +378,7 @@
                                         this.tituloModal='Registrar Usuario';
                                         this.login='';
                                         this.password='';
-                                        this.tipo='';
+                                        this.tipo='0';
                                         this.idEmpleado=0;
                                         this.tipoAccion=1;
                                          break;
@@ -396,7 +398,6 @@
                        }
                }
            },
-           
             listarEmpleado(){
                 let me=this;
                 var url='/empleado/select';

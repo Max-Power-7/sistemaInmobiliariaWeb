@@ -40,6 +40,7 @@ class ctrPropiedad extends Controller
 
             DB::beginTransaction();
             $propiedad = new Propiedad();
+            $propiedad->codigo=$request->codigo;
             $propiedad->descripcion=$request->descripcion;
             $propiedad->metroCuadrado=$request->metroCuadrado;
             $propiedad->nroPiso=$request->nroPiso;
@@ -48,9 +49,10 @@ class ctrPropiedad extends Controller
             $propiedad->finConstruccion=$request->finConstruccion;
             $propiedad->tipo=$request->tipo;
             $propiedad->precio=$request->precio;
-            $propiedad->estado='1';
+            $propiedad->estado='disponible';
             $propiedad->idPropietario = $request->idPropietario;
             $propiedad->idLocalidad = $request->idLocalidad;
+            $propiedad->idAgente = $request->idAgente;
             //$propiedad->idUsuario = \Auth::User()->id; 
             $propiedad->save();
 
@@ -87,32 +89,16 @@ class ctrPropiedad extends Controller
             DB::rollBack();
         }
     }
-    
-    public function modificar(Request $request){
-        $obj=Propiedad::findOrFail($request->id);
-        $obj->descripcion=$request->descipcion;
-        $obj->metroCuadrado=$request->metroCuadrado;
-        $obj->nroPiso=$request->nroPiso;
-        $obj->inicioConstruccion=$request->inicioConstruccion;
-        $obj->finConstruccion=$request->finConstruccion;
-        $obj->finConstruccion=$request->finConstruccion;
-        $obj->tipo=$request->tipo;
-        $obj->estado='1';
-        $obj->idLocalidad=$request->idLocalidad;
-        $obj->idCategoria=$request->idCategoria;
-        $obj->idPropietario=$request->idPropietario;
-        $obj->save();
-    }
 
     public function desactivar(Request $request){
         $obj= Propiedad::findOrFail($request->id);
-        $obj->estado='0';
+        $obj->estado='mantenimiento';
         $obj->save();
     }
 
     public function activar(Request $request){
         $obj= Propiedad::findOrFail($request->id);
-        $obj->estado='1';
+        $obj->estado='disponible';
         $obj->save();
     }
 }

@@ -39,12 +39,6 @@
               <p>Principal</p>
             </a>
           </li>
-          <li @click="menu=1" class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Cliente</p>
-            </a>
-          </li>
         </ul>
       </li>
       <li class="nav-item">
@@ -63,16 +57,10 @@
               <p>Venta</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+          <li @click="menu=1" class="nav-item">
+            <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Top Navigation + Sidebar</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Collapsed Sidebar</p>
+              <p>Cliente</p>
             </a>
           </li>
         </ul>
@@ -86,12 +74,6 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li @click="menu=3" class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Categoria</p>
-            </a>
-          </li>
           <li @click="menu=4" class="nav-item">
             <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
@@ -121,28 +103,10 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li @click="menu=7" class="nav-item">
+          <li @click="menu=8" class="nav-item">
             <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Empleado</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/UI/navbar.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Navbar & Tabs</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/UI/timeline.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Timeline</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/UI/ribbons.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Ribbons</p>
+              <p>Agente</p>
             </a>
           </li>
         </ul>
@@ -156,28 +120,16 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li @click="menu=8" class="nav-item">
+          <li @click="menu=7" class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Empleado</p>
+            </a>
+          </li>
+          <li @click="menu=9" class="nav-item">
             <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Usuarios</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/forms/advanced.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Advanced Elements</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/forms/editors.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Editors</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/forms/validation.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Validation</p>
             </a>
           </li>
         </ul>
@@ -186,27 +138,15 @@
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-table"></i>
           <p>
-            Tables
+            Caja/Credito
             <i class="fas fa-angle-left right"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="pages/tables/simple.html" class="nav-link">
+          <li @click="menu=10" class="nav-item">
+            <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Simple Tables</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/tables/data.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>DataTables</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/tables/jsgrid.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>jsGrid</p>
+              <p>Pago</p>
             </a>
           </li>
         </ul>

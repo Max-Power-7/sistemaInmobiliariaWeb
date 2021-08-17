@@ -28,17 +28,20 @@
                                 <div class="col-md-3" v-for="propiedad in arrayPropiedad" :key="propiedad.id">
                                     <div class="card">  
                                         <center>
-                                            <div v-if="propiedad.estado">
+                                            <template v-if="propiedad.estado=='disponible'">
                                                 <font size="5" face="Times New Roman"><span class="badge badge-success">Disponible</span></font>
-                                            </div>
+                                            </template>
+                                            <template v-if="propiedad.estado=='mantenimiento'">
+                                                <font size="5" face="Times New Roman"><span class="badge badge-primary">Mantenimiento</span></font>
+                                            </template>
+                                              <template v-if="propiedad.estado=='vendido'">
+                                                <font size="5" face="Times New Roman"><span class="badge badge-danger">Vendido</span></font>
+                                            </template>
                                         </center>
                                         <img :src="'img/photo2.png'" @click="sliderImagen(propiedad.id)" data-toggle="modal" data-target="#modalSlider" class="card-img-top" width="100" height="200" align="left" alt="">
                                        
                                         <div class="card-body">
                                             <center>  
-                                                <div v-if="propiedad.estado==0">
-                                                    <font size="5" face="Times New Roman"><span class="badge badge-warning">{{propiedad.estado}}</span></font>
-                                                </div> 
                                                 <center>
                                                     <button type="button" class="btn btn-success" @click="verPropiedad(propiedad)"><i class="fa fa-eye"></i>Ver</button>          
                                                 </center>
@@ -47,12 +50,19 @@
                                             </center>
                                         </div>
                                         <div class="card-footer">                             
-                                            <template v-if="propiedad.estado=='Disponible'">
-                                                <button type="button" @click="ocuparPropiedad(propiedad.id)" class="btn btn-primary btn-sm"><i class="fa fa-unlock"></i> Deshabilitar</button>                                           
-                                            </template>
-                                            <template v-else-if="propiedad.estado=='Mantenimiento'">
-                                                <button type="button" @click="habilitarPropiedad(propiedad.id)" class="btn btn-primary btn-sm"><i class="fa fa-lock"></i> Habilitar</button>
-                                            </template>
+                                            <div class="dropdown">
+                                                <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Accion
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <template v-if="propiedad.estado=='disponible'">
+                                                        <a class="dropdown-item bg-light" href="#" @click="desactivarPropiedad(propiedad.id)"><i class="fa fa-toggle-on text-success"></i>Desactivar</a>    
+                                                    </template>
+                                                    <template v-if="propiedad.estado=='mantenimiento'">
+                                                        <a class="dropdown-item bg-light" href="#" @click="activarPropiedad(propiedad.id)"><i class="fa fa-toggle-off text-danger"></i>Activar</a>
+                                                    </template>
+                                                </div>
+                                            </div>
                                         </div>                                               
                                     </div>
                                 </div>
@@ -68,36 +78,6 @@
                                 <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
 
                                     <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" rows="3" v-model="descripcion" placeholder="Descripcion"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">M2</label>
-                                        <div class="col-md-9">
-                                            <input type="text" v-model="metroCuadrado" class="form-control" placeholder="M2">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">Numero de Piso</label>
-                                        <div class="col-md-9">
-                                            <input type="number" v-model="nroPiso" class="form-control" placeholder="Nro de Piso">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">Inicio de Construccion</label>
-                                        <div class="col-md-9">
-                                            <input type="date" v-model="inicioConstruccion" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">Fin de Construccion</label>
-                                        <div class="col-md-9">
-                                            <input type="date" v-model="finConstruccion" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="email-input">Tipo</label>
                                         <div class="col-md-9">
                                             <select class="form-control" v-model="tipo">
@@ -107,34 +87,158 @@
                                             </select>
                                         </div>
                                     </div>  
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="text-input">Precio de Propiedad</label>
-                                        <div class="col-md-9">
-                                            <input type="number" v-model="precio" class="form-control" placeholder="Precio de Propiedad">
-                                        </div>
-                                    </div> 
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="email-input">Propietario</label>
-                                        <div class="col-md-9">
-                                            <div class="input-group">
-                                                <input type="hidden" v-model="idPropietario" class="form-control">
-                                                <input type="text" v-model="nombrePropietario" class="form-control">
-                                                <button type="button" @click="abrirModalPropietario()" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>    
-                                                <button type="button" @click="abrirModalNuevoPropietario()" class="btn btn-secondary">Nuevo</button>
+                                    <template v-if="tipo=='vivienda'">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Codigo</label>
+                                            <div class="col-md-9">
+                                                <input type="text" v-model="codigo" class="form-control" placeholder="Codigo">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="email-input">Localidad</label>
-                                        <div class="col-md-9">
-                                            <div class="input-group">
-                                                <input type="hidden" v-model="idLocalidad" class="form-control">
-                                                <input type="text" v-model="nombreLocalidad" class="form-control">
-                                                <button type="button" @click="abrirModalLocalidad()" class="btn btn-primary"><i class="fa fa-search"></i>Buscar</button>
-                                                <button type="button" class="btn btn-secondary">Nuevo</button>        
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
+                                            <div class="col-md-9">
+                                                <textarea class="form-control" rows="3" v-model="descripcion" placeholder="Descripcion"></textarea>
                                             </div>
                                         </div>
-                                    </div>
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">M2</label>
+                                            <div class="col-md-9">
+                                                <input type="text" v-model="metroCuadrado" class="form-control" placeholder="M2">
+                                            </div>
+                                        </div>
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Numero de Piso</label>
+                                            <div class="col-md-9">
+                                                <input type="number" v-model="nroPiso" class="form-control" placeholder="Nro de Piso">
+                                            </div>
+                                        </div>
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Inicio de Construccion</label>
+                                            <div class="col-md-9">
+                                                <input type="date" v-model="inicioConstruccion" class="form-control">
+                                            </div>
+                                        </div>
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Fin de Construccion</label>
+                                            <div class="col-md-9">
+                                                <input type="date" v-model="finConstruccion" class="form-control">
+                                            </div>
+                                        </div>
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Precio de Propiedad</label>
+                                            <div class="col-md-9">
+                                                <input type="number" v-model="precio" class="form-control" placeholder="Precio de Propiedad">
+                                            </div>
+                                        </div> 
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">Propietario</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="hidden" v-model="idPropietario" class="form-control">
+                                                    <input type="text" v-model="nombrePropietario" class="form-control">
+                                                    <button type="button" @click="abrirModalPropietario()" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>    
+                                                    <button type="button" @click="abrirModalNuevoPropietario()" class="btn btn-secondary">Nuevo</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">Localidad</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="hidden" v-model="idLocalidad" class="form-control">
+                                                    <input type="text" v-model="nombreLocalidad" class="form-control">
+                                                    <button type="button" @click="abrirModalLocalidad()" class="btn btn-primary"><i class="fa fa-search"></i>Buscar</button>
+                                                    <button type="button" class="btn btn-secondary">Nuevo</button>        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">Agente</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="hidden" v-model="idAgente" class="form-control">
+                                                    <input type="text" v-model="nombreAgente" class="form-control">
+                                                    <button type="button" @click="abrirModalAgente()" class="btn btn-primary"><i class="fa fa-search"></i>Buscar</button>        
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </template>
+                                    
+                                    <template v-if="tipo=='terreno'">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Codigo</label>
+                                            <div class="col-md-9">
+                                                <input type="text" v-model="codigo" class="form-control" placeholder="Codigo">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
+                                            <div class="col-md-9">
+                                                <textarea class="form-control" rows="3" v-model="descripcion" placeholder="Descripcion"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">M2</label>
+                                            <div class="col-md-9">
+                                                <input type="text" v-model="metroCuadrado" class="form-control" placeholder="M2">
+                                            </div>
+                                        </div>
+                                
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="text-input">Precio de Propiedad</label>
+                                            <div class="col-md-9">
+                                                <input type="number" v-model="precio" class="form-control" placeholder="Precio de Propiedad">
+                                            </div>
+                                        </div> 
+                                    
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">Propietario</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="hidden" v-model="idPropietario" class="form-control">
+                                                    <input type="text" v-model="nombrePropietario" class="form-control">
+                                                    <button type="button" @click="abrirModalPropietario()" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>    
+                                                    <button type="button" @click="abrirModalNuevoPropietario()" class="btn btn-secondary">Nuevo</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">Localidad</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="hidden" v-model="idLocalidad" class="form-control">
+                                                    <input type="text" v-model="nombreLocalidad" class="form-control">
+                                                    <button type="button" @click="abrirModalLocalidad()" class="btn btn-primary"><i class="fa fa-search"></i>Buscar</button>
+                                                    <button type="button" class="btn btn-secondary">Nuevo</button>        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="email-input">Agente</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="hidden" v-model="idAgente" class="form-control">
+                                                    <input type="text" v-model="nombreAgente" class="form-control">
+                                                    <button type="button" @click="abrirModalAgente()" class="btn btn-primary"><i class="fa fa-search"></i>Buscar</button>        
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </template>
                                     <div class="form-group row">
                                         <label class="col-md-3 form-control-label" for="imagen">Foto</label>
                                         <div class="col-md-9">
@@ -281,7 +385,8 @@
         <!-- /.modal-dialog -->
     </div>
 <!--Fin del modal-->
-     <!--Modal de Localidad-->
+
+<!--Modal de Localidad-->
 <!--Inicio del modal agregar/actualizar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" :class="{'mostrar':modalPropietario}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -345,6 +450,7 @@
         <!-- /.modal-dialog -->
     </div>
 <!--Fin del modal-->
+
  <!--modal agregar/Nuevo Propietario-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" :class="{'mostrar':modalNuevoPropietario}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -483,6 +589,69 @@
         <!-- /.modal-dialog -->
 </div>
 <!--Fin-->
+
+<!--Modal de Localidad-->
+<!--Inicio del modal agregar/actualizar-->
+    <div class="modal fade" id="modalNuevo" tabindex="-1" :class="{'mostrar':modalAgente}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-primary modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h4 class="modal-title">Agente</h4>
+                        <button type="button" class="close" @click="cerrarModalAgente()" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <select class="form-control col-md-3" v-model="criterioPropietario">
+                                    <option value="ci">cedula</option>
+                                    <option value="Apellidos">Apellidos</option>
+                                </select>
+                                <input type="text" v-model="buscarAgente" @keyup.enter="listarAgente(criterioAgente,buscarAgente)" class="form-control" placeholder="Texto a buscar">
+                                <button type="submit" @click="listarAgente(criterioAgente,buscarAgente)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Opciones</th>
+                                        <th>Cedula Identidad</th>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Telefono</th>
+                                        <th>Direccion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="agente in arrayAgente" :key="agente.id">
+                                        <td>
+                                            <button type="button" @click="seleccionarAgente(agente)" class="btn btn-primary btn-sm">
+                                            <i class="icon-check"></i>
+                                            </button>
+                                        </td>
+                                        <td v-text="agente.ci"></td>
+                                        <td v-text="agente.nombre"></td>
+                                        <td v-text="agente.apellidos"></td>
+                                        <td v-text="agente.telefono"></td>
+                                        <td v-text="agente.direccion"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @click="cerrarModalAgente()">Cerrar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<!--Fin del modal-->
         <div class="modal fade" id="modalSlider" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -516,6 +685,7 @@
         data(){
             return {
                     idPropiedad : 0,
+                    codigo : '',
                     descripcion : '',
                     metroCuadrado : '',
                     nroPiso : '',
@@ -525,6 +695,9 @@
                     precio:'',
                     idLocalidad : '',   
                     idPropietario:'',
+                    idAgente:'',
+                    nombreAgente:'',
+                    modalAgente: 0 ,
                     //nuevo propietario
                     nuevoCi:'',
                     nuevoNombre:'',
@@ -566,6 +739,9 @@
                 buscarPropietario : '',
                 criterioPropietario : 'ci',
                 nombrePropietario : '',
+                buscarAgente:'',
+                criterioAgente:'ci',
+                arrayAgente:[],
                 modalPropietario : 0,
                 modalVerPropiedad:0,
                 message:'',
@@ -650,6 +826,7 @@
             guardar(){
                 let me = this;
                 axios.post('/propiedad/guardar',{
+                    'codigo': this.codigo,
                     'descripcion':this.descripcion,
                     'metroCuadrado':this.metroCuadrado,
                     'nroPiso':this.nroPiso,
@@ -659,6 +836,7 @@
                     'tipo':this.tipo,
                     'idPropietario':this.idPropietario,
                     'idLocalidad':this.idLocalidad,
+                    'idAgente':this.idAgente,
                     'data':this.arrayImagen
                 }).then(function (response) {
                     me.listado2 = 4;
@@ -692,9 +870,9 @@
                     console.log(error);
                 });
             },*/
-            eliminar(id){
-                    swal({
-                title: 'Esta seguro de eliminar esta Medicamento?',
+            desactivarPropiedad(id){
+               swal({
+                title: 'Esta seguro de desactivar esta Propiedad?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -708,27 +886,65 @@
                 }).then((result) => {
                 if (result.value) {
                     let me = this;
-                    axios.delete('/medicamento/eliminar/'+id).then(function (response) {
-                        me.listar('','descripcion');   
+                    axios.put('/propiedad/desactivar',{'id': id}).then(function (response) {
+                        me.listar('','descripcion');
                         swal(
-                        'Eliminado!',
-                        'El registro ha sido eliminado con éxito.',
+                        'Desactivado!',
+                        'El registro ha sido desactivado con éxito.',
                         'success'
                         )
                     }).catch(function (error) {
                         console.log(error);
-                    });  
+                    });                   
                 } else if (
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
                 ) {
+                    
+                }
+                }) 
+            },
+            activarPropiedad(id){
+               swal({
+                title: 'Esta seguro de activar esta Propiedad?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me = this;
+                    axios.put('/propiedad/activar',{'id': id}).then(function (response) {
+                        me.listar('','descripcion');
+                        swal(
+                        'Desactivado!',
+                        'El registro ha sido activado con éxito.',
+                        'success'
+                        )
+                    }).catch(function (error) {
+                        console.log(error);
+                    });                   
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    
                 }
                 }) 
             },   
             limpiar(){
+                this.codigo='';
                 this.descripcion='';
                 this.metroCuadrado='';
                 this.nroPiso=0;
+                this.idAgente=0;
+                this.nombreAgente='';
                 this.inicioConstruccion=0;
                 this.finConstruccion='';
                 this.tipo='';
@@ -838,6 +1054,8 @@
                 me.tipoAccion=1;
                 me.id = 0;
                 me.idPropiedad=0;
+                me.idAgente=0;
+                me.nombreAgente='';
                 me.foto = '';
                 me.descripcion = '';
                 me.metroCuadrado = '';
@@ -915,6 +1133,28 @@
                 this.idLocalidad = data['id'];
                 this.nombreLocalidad = data['provincia'];
                 this.cerrarModalLocalidad();
+            },
+            //Agente
+            abrirModalAgente(){
+                this.modalAgente = 1; 
+            },
+            cerrarModalAgente(){
+                this.modalAgente=0;
+            },
+            listarAgente(){
+                let me=this;
+                var url='/agente/listado?criterio='+this.criterioAgente+'&buscar='+this.buscarAgente;
+                axios.get(url).then(function(response){
+                    me.arrayAgente=response.data;
+                })
+                .catch(function(error){
+                    console.log(error)
+                });
+            },
+            seleccionarAgente(data=[]){
+                this.idAgente = data['id'];
+                this.nombreAgente = data['nombre'] + data['apellidos'];
+                this.cerrarModalAgente();
             },
         },
         mounted() {
