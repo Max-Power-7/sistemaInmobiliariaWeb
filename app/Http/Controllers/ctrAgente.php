@@ -70,4 +70,9 @@ class ctrAgente extends Controller
         }
         return $obj;
     }
+
+	public function cantidadAgente(){
+        $prop=Agente::count('agente.id');
+        return $prop;
+    }
 }

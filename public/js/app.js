@@ -4266,6 +4266,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(error);
       });
     },
+    pdfNotaVenta: function pdfNotaVenta(id) {
+      window.open('http://localhost:8000/notaventa/pdf/' + id + ',' + '_blank');
+    },
     obtenerImagen: function obtenerImagen(e) {
       var me = this;
       var fileReader = new FileReader();
@@ -4827,7 +4830,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      totalVenta: 0
+      totalVenta: 0,
+      cantidadPropiedad: 0,
+      cantidadAgente: 0
     };
   },
   methods: {
@@ -4839,10 +4844,30 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    getCantidadPropiedades: function getCantidadPropiedades() {
+      var me = this;
+      var url = '/propiedad/cantidad';
+      axios.get(url).then(function (response) {
+        me.cantidadPropiedad = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getCantidadAgente: function getCantidadAgente() {
+      var me = this;
+      var url = '/agente/cantidad';
+      axios.get(url).then(function (response) {
+        me.cantidadAgente = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   mounted: function mounted() {
     this.getVentaMontoTotal();
+    this.getCantidadPropiedades();
+    this.getCantidadAgente();
   }
 });
 
@@ -68770,29 +68795,7 @@ var render = function() {
                                       }
                                     },
                                     [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "dropdown-item bg-light",
-                                          attrs: { href: "#" },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.abrirModal(
-                                                "cliente",
-                                                "modificar",
-                                                notaventa
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass:
-                                              "icon-pencil text-warning"
-                                          }),
-                                          _vm._v("Editar")
-                                        ]
-                                      ),
+                                      _vm._m(1, true),
                                       _vm._v(" "),
                                       _c(
                                         "a",
@@ -68801,7 +68804,9 @@ var render = function() {
                                           attrs: { href: "#" },
                                           on: {
                                             click: function($event) {
-                                              return _vm.eliminar(notaventa.id)
+                                              return _vm.pdfNotaVenta(
+                                                notaventa.id
+                                              )
                                             }
                                           }
                                         },
@@ -68810,7 +68815,7 @@ var render = function() {
                                             staticClass:
                                               "icon-trash text-danger"
                                           }),
-                                          _vm._v("Eliminar")
+                                          _vm._v("Cuota")
                                         ]
                                       )
                                     ]
@@ -69049,7 +69054,7 @@ var render = function() {
                                           _vm._v(_vm._s(imagen.descripcionFoto))
                                         ]),
                                         _vm._v(" "),
-                                        _vm._m(1, true)
+                                        _vm._m(2, true)
                                       ])
                                     ])
                                   ])
@@ -69067,7 +69072,7 @@ var render = function() {
                             "table",
                             { staticClass: "table table-bordered table-sm" },
                             [
-                              _vm._m(2),
+                              _vm._m(3),
                               _vm._v(" "),
                               _c("tbody", [
                                 _c("tr", [
@@ -69130,7 +69135,7 @@ var render = function() {
                                 _vm._v("Propiedad")
                               ]),
                               _vm._v(" "),
-                              _vm._m(3),
+                              _vm._m(4),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -69823,7 +69828,7 @@ var render = function() {
                                               "table table-bordered table-sm"
                                           },
                                           [
-                                            _vm._m(4),
+                                            _vm._m(5),
                                             _vm._v(" "),
                                             _c(
                                               "tbody",
@@ -70263,7 +70268,7 @@ var render = function() {
                     "table",
                     { staticClass: "table table-bordered table-sm" },
                     [
-                      _vm._m(5),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -70999,9 +71004,9 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(6),
+                  _vm._m(7),
                   _vm._v(" "),
-                  _vm._m(7)
+                  _vm._m(8)
                 ]
               )
             ])
@@ -71033,6 +71038,16 @@ var staticRenderFns = [
         _c("th", [_vm._v("Opciones")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "dropdown-item bg-light", attrs: { href: "#" } },
+      [_c("i", { staticClass: "icon-pencil text-warning" }), _vm._v("Contrato")]
+    )
   },
   function() {
     var _vm = this
@@ -71501,9 +71516,33 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(3),
+        _c("div", { staticClass: "col-lg-3 col-6" }, [
+          _c("div", { staticClass: "small-box bg-warning" }, [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.cantidadAgente))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Cantidad Agentes")])
+            ]),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _vm._m(4)
+          ])
+        ]),
         _vm._v(" "),
-        _vm._m(4)
+        _c("div", { staticClass: "col-lg-3 col-6" }, [
+          _c("div", { staticClass: "small-box bg-danger" }, [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.cantidadPropiedad))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Cantidad Inmobiliaria Vendidas")])
+            ]),
+            _vm._v(" "),
+            _vm._m(5),
+            _vm._v(" "),
+            _vm._m(6)
+          ])
+        ])
       ])
     ])
   ])
@@ -71556,46 +71595,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-3 col-6" }, [
-      _c("div", { staticClass: "small-box bg-warning" }, [
-        _c("div", { staticClass: "inner" }, [
-          _c("h3", [_vm._v("44")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("User Registrations")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "icon" }, [
-          _c("i", { staticClass: "ion ion-person-add" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-          _vm._v("More info "),
-          _c("i", { staticClass: "fas fa-arrow-circle-right" })
-        ])
-      ])
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-person-add" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-3 col-6" }, [
-      _c("div", { staticClass: "small-box bg-danger" }, [
-        _c("div", { staticClass: "inner" }, [
-          _c("h3", [_vm._v("65")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Unique Visitors")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "icon" }, [
-          _c("i", { staticClass: "ion ion-pie-graph" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-          _vm._v("More info "),
-          _c("i", { staticClass: "fas fa-arrow-circle-right" })
-        ])
-      ])
+    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
+      _vm._v("Mas Informacción "),
+      _c("i", { staticClass: "fas fa-arrow-circle-right" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-pie-graph" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
+      _vm._v("Mas Informacción "),
+      _c("i", { staticClass: "fas fa-arrow-circle-right" })
     ])
   }
 ]

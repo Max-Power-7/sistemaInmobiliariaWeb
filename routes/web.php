@@ -99,12 +99,13 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/propiedad/desactivar',[ctrPropiedad::class,'desactivar']);
     Route::put('/propiedad/activar',[ctrPropiedad::class,'activar']);
     //Route::delete('/empleado/eliminar/{id}', 'ctrlEmpleado@eliminar');
-
+    Route::get('/propiedad/cantidad',[ctrPropiedad::class,'cantidadPropiedad']);
+    
     //NOTA VENTA
     Route::get('/notaventa',[ctrNotaVenta::class,'listar']);
     Route::post('/notaventa/guardar',[ctrNotaVenta::class,'guardar']); 
     Route::get('/notaventa/montoT',[ctrNotaVenta::class,'montoTotalVenta']);
-    
+  
     //AGENTE
     Route::get('/agente',[ctrAgente::class,'listar']);
     Route::post('/agente/guardar',[ctrAgente::class,'guardar']);
@@ -112,7 +113,8 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/agente/desactivar',[ctrAgente::class,'desactivar']);
     Route::put('/agente/activar',[ctrAgente::class,'activar']);
     Route::get('/agente/listado',[ctrAgente::class,'listarAgente']);
-
+    Route::get('/agente/cantidad',[ctrAgente::class,'cantidadAgente']);
+   
     //PAGO
     //Route::get('/pago',[ctrPago::class,'listar']);
     Route::post('/pago/guardar',[ctrPago::class,'guardar']);

@@ -38,14 +38,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{cantidadAgente}}</h3>
 
-                <p>User Registrations</p>
+                <p>Cantidad Agentes</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Mas Informacción <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -53,14 +53,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{cantidadPropiedad}}</h3>
 
-                <p>Unique Visitors</p>
+                <p>Cantidad Inmobiliaria Vendidas</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Mas Informacción <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -74,6 +74,8 @@
         data(){
             return {
                 totalVenta: 0,
+                cantidadPropiedad:0,
+                cantidadAgente:0,
             }
         },
        methods: {           
@@ -87,9 +89,31 @@
                     console.log(error);
                 });
           },
+          getCantidadPropiedades(){
+              let me=this;
+              var url='/propiedad/cantidad';
+              axios.get(url).then(function (response){
+                    me.cantidadPropiedad = response.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+          },
+          getCantidadAgente(){
+              let me=this;
+              var url='/agente/cantidad';
+              axios.get(url).then(function (response){
+                    me.cantidadAgente = response.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+          },
        },
         mounted() {
             this.getVentaMontoTotal();
+            this.getCantidadPropiedades();
+            this.getCantidadAgente();
         }
     }
 </script>

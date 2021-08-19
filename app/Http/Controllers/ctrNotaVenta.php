@@ -98,4 +98,17 @@ class ctrNotaVenta extends Controller
         $venta=NotaVenta::sum('notaventa.montoTotal');
         return $venta;
     }
+
+    /*public function listarCuota(Request $request,$id){
+        $nv=NotaVenta::Join('cliente','notaventa.idCliente','=','cliente.id')
+        ->join('notaventa','plancredito.idNotaVenta','=','notaventa.id')
+        ->join('plancredito','cuota.idPlanCredito','=','planCredito.id')
+        ->select('cliente.nombre','cliente.apellidos','cuota.fecha','cuota.monto')
+        ->where('notaventa.id','=',$id)
+        ->orderBy('cuota.id','asc')->get();
+        $contador=NotaVenta::count();
+
+        $pdf=\PDF::loadView('pdf.cuotaPdf',['cuota'=>$nv,'contador'=>$contador]);
+        return $pdf->download('cuota.pdf');
+    }*/
 }

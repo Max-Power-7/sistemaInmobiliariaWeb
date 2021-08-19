@@ -63,8 +63,8 @@
                                                 Accion
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item bg-light" href="#" @click="abrirModal('cliente','modificar',notaventa)"><i class="icon-pencil text-warning"></i>Editar</a>
-                                                <a class="dropdown-item bg-light" href="#" @click="eliminar(notaventa.id)"><i class="icon-trash text-danger"></i>Eliminar</a>
+                                                <a class="dropdown-item bg-light" href="#"><i class="icon-pencil text-warning"></i>Contrato</a>
+                                                <a class="dropdown-item bg-light" href="#" @click="pdfNotaVenta(notaventa.id)"><i class="icon-trash text-danger"></i>Cuota</a>
                                             </div>
                                         </div>
                                     </td>
@@ -740,6 +740,9 @@
                     console.log(error);
                 });
             },
+            pdfNotaVenta(id){
+               window.open('http://localhost:8000/notaventa/pdf/'+ id + ',' + '_blank'); 
+           },
             obtenerImagen(e){
                 let me=this;
                 var fileReader = new FileReader();

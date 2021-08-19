@@ -102,4 +102,9 @@ class ctrPropiedad extends Controller
         $obj->estado='disponible';
         $obj->save();
     }
+
+    public function cantidadPropiedad(){
+        $prop=Propiedad::where('propiedad.estado','=','vendido')->count('propiedad.id');
+        return $prop;
+    }
 }
