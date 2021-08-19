@@ -46,7 +46,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <template v-if="localidad.estado==1">
-                                                        <a class="dropdown-item bg-light" href="#" @click="abrirModal('localidad','modificar',localidad)"><i class="icon-pencil text-warning"></i>Modificar</a>
+                                                        <a class="dropdown-item bg-light" href="#" @click="abrirModal('localidad','modificar',localidad)"><i class="fa fa-pencil text-warning"></i>Modificar</a>
                                                         <a class="dropdown-item bg-light" href="#" @click="desactivarLocalidad(localidad.id)"><i class="fa fa-toggle-on text-success"></i>Desactivar</a>    
                                                     </template>
                                                     <template v-else>

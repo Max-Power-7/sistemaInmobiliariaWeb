@@ -93,4 +93,9 @@ class ctrNotaVenta extends Controller
                 DB::rollBack();
             }
     }
+
+    public function montoTotalVenta(){
+        $venta=NotaVenta::sum('notaventa.montoTotal');
+        return $venta;
+    }
 }

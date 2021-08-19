@@ -165,14 +165,14 @@
                                                         <div class="col-md-6">
                                                             <div class="input-group">
                                                                 <select class="form-control col-md-3" v-model="criterioPropiedad">
-                                                                    <option value="nombre">Tipo</option>
+                                                                    <option value="propiedad.codigo">Codigo</option>
                                                                 </select>
-                                                                <input type="text" v-model="buscar" @keyup.enter="listarPropiedad(buscarPropiedad, criterioPropiedad)" class="form-control" placeholder="Texto a buscar">
+                                                                <input type="text" v-model="buscarPropiedad" @keyup.enter="listarPropiedad(buscarPropiedad, criterioPropiedad)" class="form-control" placeholder="Texto a buscar">
                                                                 <button type="submit" @click="listarPropiedad(buscarPropiedad, criterioPropiedad)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-deck" style="overflow-y: auto; height: 300px;">
+                                                    <div class="card-deck" style="overflow-y: auto; height: 320px;">
                                                         <div class="col-md-2.5" v-for="propiedad in arrayPropiedad" :key="propiedad.id">
                                                             <div class="card" v-if="propiedad.estado=='disponible'">
                                                                 <img :src="'img/photo2.png'" @click="sliderImagen(propiedad.id)" data-toggle="modal" data-target="#modalSlider" class="card-img-top" width="100" height="100" align="left" alt="">
@@ -650,7 +650,7 @@
                 offset : 3,
                 criterio : 'notaventa.id',
                 buscar : '',
-                criterioPropiedad : 'descripcion',
+                criterioPropiedad : 'propiedad.codigo',
                 buscarCliente : '',
                 criterioCliente : 'nombre',
                 buscarPropiedad : '',
@@ -1005,7 +1005,7 @@
         },
         mounted() {
             this.listar(1, this.buscar, this.criterio);
-            this.listarPropiedad(this.buscarPropiedad, this.criterioPropiedad);
+            //this.listarPropiedad(this.buscarPropiedad, this.criterioPropiedad);
             
         }
     }

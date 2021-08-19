@@ -13,24 +13,25 @@ class ctrPropiedad extends Controller
         $criterio=$request->criterio;
         $buscar=$request->buscar;
         
-        if($buscar=''){
-            $obj=Propiedad::join('localidad','propiedad.idLocalidad','=','localidad.id')
-            ->join('propietario','propiedad.idPropietario','=','propietario.id')
+        if($buscar==''){
+            $obj=Propiedad::join('propietario as p','propiedad.idPropietario','=','p.id')
+            ->join('localidad as l','propiedad.idLocalidad','=','l.id')
             ->select('propiedad.id','propiedad.descripcion','propiedad.metroCuadrado','propiedad.nroPiso',
-            'propiedad.inicioConstruccion','propiedad.finConstruccion','propiedad.tipo','propiedad.precio','propiedad.estado','localidad.provincia'
-            ,'localidad.municipio','localidad.ciudad')
+            'propiedad.inicioConstruccion','propiedad.finConstruccion','propiedad.tipo','propiedad.precio',
+            'propiedad.estado','propiedad.codigo','l.provincia','l.municipio','l.ciudad')
             ->orderBy('propiedad.id','desc')
             ->get();
         }else{
-            $obj=Propiedad::join('localidad','propiedad.idLocalidad','=','localidad.id')
-            ->join('propietario','propiedad.idPropietario','=','propietario.id')
+            $obj=Propiedad::join('propietario as p','propiedad.idPropietario','=','p.id')
+            ->join('localidad as l','propiedad.idLocalidad','=','l.id')
             ->select('propiedad.id','propiedad.descripcion','propiedad.metroCuadrado','propiedad.nroPiso',
-            'propiedad.inicioConstruccion','propiedad.finConstruccion','propiedad.tipo','propiedad.precio','propiedad.estado','localidad.provincia'
-            ,'localidad.municipio','localidad.ciudad')
-            //->where($criterio, 'like', '%'.$buscar.'%')
+            'propiedad.inicioConstruccion','propiedad.finConstruccion','propiedad.tipo','propiedad.precio',
+            'propiedad.estado','propiedad.codigo','l.provincia','l.municipio','l.ciudad')
+            ->where($criterio, 'like', '%'.$buscar.'%')
             ->orderBy('propiedad.id','desc')
             ->get();
         }
+        
         return $obj;
     }
 

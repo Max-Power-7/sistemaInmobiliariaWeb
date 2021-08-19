@@ -103,7 +103,8 @@ Route::group(['middleware'=>['auth']],function(){
     //NOTA VENTA
     Route::get('/notaventa',[ctrNotaVenta::class,'listar']);
     Route::post('/notaventa/guardar',[ctrNotaVenta::class,'guardar']); 
-
+    Route::get('/notaventa/montoT',[ctrNotaVenta::class,'montoTotalVenta']);
+    
     //AGENTE
     Route::get('/agente',[ctrAgente::class,'listar']);
     Route::post('/agente/guardar',[ctrAgente::class,'guardar']);

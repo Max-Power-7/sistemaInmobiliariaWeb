@@ -17,7 +17,7 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
-                                        <option value="nombre">Tipo</option>
+                                        <option value="propiedad.codigo">Codigo</option>
                                     </select>
                                     <input type="text" v-model="buscar" @keyup.enter="listar(buscar, criterio)" class="form-control" placeholder="Texto a buscar">
                                     <button type="submit" @click="listar(buscar, criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -46,6 +46,7 @@
                                                     <button type="button" class="btn btn-success" @click="verPropiedad(propiedad)"><i class="fa fa-eye"></i>Ver</button>          
                                                 </center>
                                                 <font size="4" face="Times New Roman"><b>Tipo: </b>{{propiedad.tipo}}</font><br>
+                                                <font size="4" face="Times New Roman"><b>Codigo: </b>{{propiedad.codigo}}</font><br>
                                                 <font size="4" face="Times New Roman"><b>Precio: </b>{{propiedad.precio}} Bs</font><br>                                                                              
                                             </center>
                                         </div>
@@ -171,7 +172,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="imagen">Foto</label>
+                                            <div class="col-md-9">
+                                                <button type="button" class="btn btn-success" @click="abrirModalImagen()"><i class="fa fa-file-image"></i> Añadir Imagen</button>
+                                            </div>                                
+                                        </div>
                                     </template>
                                     
                                     <template v-if="tipo=='terreno'">
@@ -237,14 +243,15 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="imagen">Foto</label>
+                                            <div class="col-md-9">
+                                                <button type="button" class="btn btn-success" @click="abrirModalImagen()"><i class="fa fa-file-image"></i> Añadir Imagen</button>
+                                            </div>                                
+                                        </div>
                                     </template>
-                                    <div class="form-group row">
-                                        <label class="col-md-3 form-control-label" for="imagen">Foto</label>
-                                        <div class="col-md-9">
-                                            <button type="button" class="btn btn-success" @click="abrirModalImagen()"><i class="fa fa-file-image"></i> Añadir Imagen</button>
-                                        </div>                                
-                                    </div>
+
                                     <div v-show="errorMostrarMsjPropiedad" class="form-group row div-error">
                                         <div class="text-center text-error">
                                             <div v-for="error in errorMostrarMsjPropiedad" :key="error" v-text="error">
@@ -730,7 +737,7 @@
                 datosCiudad:'',
                 errorMostrarMsjPropiedad : [],
                 offset : 3,
-                criterio : 'descripcion',
+                criterio : 'propiedad.codigo',
                 buscar : '',
                 buscarLocalidad : '',
                 criterioLocalidad : 'provincia',
@@ -786,16 +793,6 @@
                 var url='/propiedad?buscar='+ buscar + '&criterio=' + criterio;
                 axios.get(url).then(function(response){
                     me.arrayPropiedad=response.data;
-                })
-                .catch(function(error){
-                    console.log(error)
-                });
-            },
-            select(){
-                let me=this;
-                var url='/categoria/selectCategoria';
-                axios.get(url).then(function(response){
-                    //me.arrayCategoria=response.data;
                 })
                 .catch(function(error){
                     console.log(error)
@@ -887,7 +884,7 @@
                 if (result.value) {
                     let me = this;
                     axios.put('/propiedad/desactivar',{'id': id}).then(function (response) {
-                        me.listar('','descripcion');
+                        me.listar('','codigo');
                         swal(
                         'Desactivado!',
                         'El registro ha sido desactivado con éxito.',
@@ -921,7 +918,7 @@
                 if (result.value) {
                     let me = this;
                     axios.put('/propiedad/activar',{'id': id}).then(function (response) {
-                        me.listar('','descripcion');
+                        me.listar('','codigo');
                         swal(
                         'Desactivado!',
                         'El registro ha sido activado con éxito.',

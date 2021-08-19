@@ -11,10 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-// mix.js('resources/js/app.js', 'public/js')
-//     .vue()
-//     .sass('resources/sass/app.scss', 'public/css');
-
 mix.styles([
     'resources/plantilla/css/adminlte.min.css',
     'resources/plantilla/css/daterangepicker.css',
@@ -26,13 +22,11 @@ mix.styles([
 ], 'public/css/plantilla.css')
 .scripts([
     'resources/plantilla/js/adminlte.js',
-    // 'resources/plantilla/js/bootstrap.bundle.min.js',
     'resources/plantilla/js/Chart.min.js',
     'resources/plantilla/js/dashboard.js',
     'resources/plantilla/js/daterangepicker.js',
     'resources/plantilla/js/jquery-ui.min.js',
     'resources/plantilla/js/jquery.knob.min.js',
-    // 'resources/plantilla/js/jquery.min.js',
     'resources/plantilla/js/jquery.overlayScrollbars.min.js',
     'resources/plantilla/js/jquery.vmap.min.js',
     'resources/plantilla/js/jquery.vmap.usa.js',
