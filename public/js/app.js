@@ -2477,6 +2477,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -66454,10 +66455,6 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("td", {
-                    domProps: { textContent: _vm._s(cliente.razonSocial) }
-                  }),
-                  _vm._v(" "),
-                  _c("td", {
                     domProps: { textContent: _vm._s(cliente.direccion) }
                   }),
                   _vm._v(" "),
@@ -66517,7 +66514,9 @@ var render = function() {
                               _c("i", {
                                 staticClass: "icon-pencil text-warning"
                               }),
-                              _vm._v("Editar")
+                              _vm._v(
+                                "Editar\n                                                "
+                              )
                             ]
                           ),
                           _vm._v(" "),
@@ -68561,7 +68560,7 @@ var render = function() {
         { staticClass: "card" },
         [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("\n                    Nota Venta\n                    "),
+            _vm._v("\n                    Nota de Venta\n                    "),
             _c(
               "button",
               {

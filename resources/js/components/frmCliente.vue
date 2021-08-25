@@ -4,13 +4,15 @@
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
+                    <!-- Agregar nuevo cliente -->
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Cliente
                         <button type="button" @click="abrirModal('cliente','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
-                        </button>    
+                        </button>
                     </div>
                     <div class="card-body">
+                        <!-- Búsqueda de registros -->
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
@@ -24,6 +26,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <table class="table table-bordered table-sm">
                             <thead>
                                 <tr>
@@ -38,7 +41,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="cliente in arrayCliente" :key="cliente.id">
-                                    
+
                                     <td v-text="cliente.nombre"></td>
                                     <td v-text="cliente.apellidos"></td>
                                     <td v-text="cliente.razonSocial"></td>
@@ -51,13 +54,14 @@
                                                     Accion
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item bg-light" href="#" @click="abrirModal('cliente','modificar',cliente)"><i class="icon-pencil text-warning"></i>Editar</a>
+                                                    <a class="dropdown-item bg-light" href="#" @click="abrirModal('cliente','modificar',cliente)"><i class="icon-pencil text-warning"></i>Editar
+                                                    </a>
                                                     <a class="dropdown-item bg-light" href="#" @click="eliminarCliente(cliente.id)"><i class="icon-trash text-danger"></i>Eliminar</a>
                                                 </div>
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                         <nav>
@@ -89,11 +93,11 @@
                               <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        
+
                         <div class="modal-body">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Seleccione Un Tipo</label>  
+                                    <label class="col-md-3 form-control-label" for="text-input">Seleccione Un Tipo</label>
                                     <div class="col-md-9">
                                     <select  class="form-control" v-model="tipo">
                                         <option value="0" disableb="">Seleccione...</option>
@@ -101,17 +105,17 @@
                                         <option value="empresa">Empresa</option>
                                     </select>
                                     </div>
-                                </div> 
+                                </div>
 
                                     <template v-if="tipo=='persona'">
                                        <div class="form-group row">
-                                          <label class="col-md-3 form-control-label" for="text-input">Nombre</label>  
+                                          <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" v-model="nombre" placeholder="Nombre">
                                             </div>
-                                        </div>        
+                                        </div>
                                         <div class="form-group row">
-                                          <label class="col-md-3 form-control-label" for="text-input">Apellidos</label>  
+                                          <label class="col-md-3 form-control-label" for="text-input">Apellidos</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" v-model="apellidos" placeholder="Apellidos">
                                             </div>
@@ -120,7 +124,7 @@
 
                                     <template v-if="tipo=='empresa'">
                                         <div class="form-group row">
-                                          <label class="col-md-3 form-control-label" for="text-input">Razon Social</label>  
+                                          <label class="col-md-3 form-control-label" for="text-input">Razon Social</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" v-model="razonSocial" placeholder="Razon social">
                                             </div>
@@ -128,35 +132,35 @@
                                     </template>
 
                                 <div class="form-group row">
-                                          <label class="col-md-3 form-control-label" for="text-input">Direccion</label>  
+                                          <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" v-model="direccion" placeholder="Direccion">
                                             </div>
                                 </div>
 
                                 <div class="form-group row">
-                                          <label class="col-md-3 form-control-label" for="text-input">Correo Electronico</label>  
+                                          <label class="col-md-3 form-control-label" for="text-input">Correo Electronico</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" v-model="correo" placeholder="email@example.com">
                                             </div>
                                 </div>
                                 <div class="form-group row">
-                                          <label class="col-md-3 form-control-label" for="text-input">Telefono</label>  
+                                          <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control" v-model="telefono" placeholder="Telefono">
                                             </div>
                                 </div>
-                                                                                                
+
                                 <div v-show="errorCliente" class="form-group row div-error">
                                         <div class="text-center text-error">
                                             <div v-for="error in errorMostrarMsjCliente" :key="error" v-text="error">
-                                                
-                                            </div>    
+
+                                            </div>
                                         </div>
-                                </div>        
+                                </div>
                             </form>
                         </div>
-                        
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="guardarCliente()">Guardar</button>
@@ -184,6 +188,7 @@
                 direccion:'',
                 correo:'',
                 telefono:'',
+
                 arrayCliente:[],
                 modal:0,
                 tituloModal:'',
@@ -211,7 +216,7 @@
                 if(!this.pagination.to){
                     return [];
                 }
-            
+
                 var from = this.pagination.current_page - this.offset;
                 if(from < 1){
                     from = 1;
@@ -236,13 +241,13 @@
                     var url='/cliente?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                     axios.get(url).then(function (response) {
                     me.arrayCliente=response.data.data;
-                    me.pagination={total:response.data.total, 
+                    me.pagination={total:response.data.total,
                         current_page:response.data.current_page,
                         per_page: response.data.per_page,
                         last_page: response.data.last_page,
                         from: response.data.from,
                         to: response.data.to
-                    }   
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -255,7 +260,7 @@
             },
             guardarCliente(){
                if(this.validarCliente()){
-                   return;     
+                   return;
                 }
             let me = this;
                 axios.post('/cliente/guardar',{
@@ -268,15 +273,15 @@
                     'razonSocial':this.razonSocial
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listarCliente(1,'','nombre');         
+                    me.listarCliente(1,'','nombre');
                 })
                 .catch(function(error){
                     console.log(error);
-                });   
+                });
            },
            modificarCliente(){
                 if(this.validarCliente()){
-                  return; 
+                  return;
                 }
             let me = this;
                 axios.put('/cliente/modificar',{
@@ -290,7 +295,7 @@
                      'razonSocial':this.razonSocial
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listarCliente(1,'','');           
+                    me.listarCliente(1,'','');
                 })
                 .catch(function(error){
                     console.log(error);
@@ -313,7 +318,7 @@
                 if (result.value) {
                     let me = this;
                     axios.delete('/cliente/eliminar/'+id).then(function (response) {
-                        me.listarCliente(1,'','nombre');   
+                        me.listarCliente(1,'','nombre');
                         swal(
                         'Eliminado!',
                         'El registro ha sido eliminado con éxito.',
@@ -321,7 +326,7 @@
                         )
                     }).catch(function (error) {
                         console.log(error);
-                    });  
+                    });
                 } else if (
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
@@ -335,7 +340,7 @@
                this.errorMostrarMsjCliente=[];
 
                if(this.tipo==0)this.errorMostrarMsjCliente.push('Seleccione un Tipo!');
-               if(!this.direccion)this.errorMostrarMsjCliente.push('La Direccion esta vacia!');  
+               if(!this.direccion)this.errorMostrarMsjCliente.push('La Direccion esta vacia!');
                if(this.errorMostrarMsjCliente.length)this.errorCliente=1;
 
                return this.errorCliente;
@@ -377,14 +382,14 @@
                                         this.tituloModal='Modificar Cliente';
                                         this.tipoAccion=2;
                                         this.clienteId=data['id'];
-                                        this.nombre=data['nombre'];    
+                                        this.nombre=data['nombre'];
                                         this.apellidos=data['apellidos'];
                                         this.razonSocial=data['razonSocial'];
                                         this.direccion=data['direccion'];
                                         this.telefono=data['telefono'];
                                         this.correo=data['correo'];
-                                        this.tipo=data['tipo'];      
-                                    }   
+                                        this.tipo=data['tipo'];
+                                    }
                            }
                        }
                }
