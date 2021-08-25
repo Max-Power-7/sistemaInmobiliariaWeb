@@ -4,7 +4,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    Nota Venta
+                    Nota de Venta
                     <button type="button" @click="abrirNotaVenta()" class="btn btn-secondary">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
@@ -42,21 +42,21 @@
                             </thead>
                             <tbody>
                                 <tr v-for="notaventa in arrayNotaVenta" :key="notaventa.id">
-                                    
+
                                     <td v-text="notaventa.id"></td>
                                     <td v-text="notaventa.fecha"></td>
                                     <td v-text="notaventa.tipoPago"></td>
                                     <td v-text="notaventa.montoTotal"></td>
                                     <td v-text="notaventa.tipoPropiedad"></td>
-                
+
                                     <template v-if="notaventa.tipoCliente=='persona'">
                                         <td v-text="notaventa.nombreClie"></td>
                                     </template>
-                
+
                                     <template v-if="notaventa.tipoCliente=='empresa'">
                                         <td v-text="notaventa.razonSocial"></td>
                                     </template>
-                
+
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,7 +69,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                         <nav>
@@ -87,7 +87,7 @@
                         </nav>
                     </div>
                 </template>
-                
+
                 <template v-if="listado==1">
                     <div class="card-body">
                         <div class="row">
@@ -97,12 +97,12 @@
                                             <div class="form-group">
                                                 <label for="Cliente">Cliente</label>
                                                 <div class="form-inline">
-                                                    <input type="hidden" v-model="idCliente"> 
+                                                    <input type="hidden" v-model="idCliente">
                                                     <input type="text" class="form-control" v-model="nombreCliente" disabled>
                                                     <button type="button" class="btn btn-success" @click="abrirModalNuevoCliente()">
                                                     <i class="fa fa-user-plus"></i></button>
                                                     <button type="button" @click="abrirModalCliente()" class="btn btn-info"><i class="fa fa-window-maximize"> Cliente</i>
-                                                    </button>                                          
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>   
+                                    </div>
                                  </div>
                             </div>
                             <div class="col-md-6 col-xs-12">
@@ -176,26 +176,26 @@
                                                         <div class="col-md-2.5" v-for="propiedad in arrayPropiedad" :key="propiedad.id">
                                                             <div class="card" v-if="propiedad.estado=='disponible'">
                                                                 <img :src="'img/photo2.png'" @click="sliderImagen(propiedad.id)" data-toggle="modal" data-target="#modalSlider" class="card-img-top" width="100" height="100" align="left" alt="">
-                                                            
+
                                                                 <div class="card-body">
-                                                                    <center>  
-                                                                    
+                                                                    <center>
+
                                                                             <font size="5" face="Times New Roman"><span class="badge badge-warning">Disponible</span></font>
                                                                         <center>
-                                                                            <button type="button" class="btn btn-success" @click="verPropiedad(propiedad)"><i size="5" class="fa fa-eye"></i>Ver</button>          
+                                                                            <button type="button" class="btn btn-success" @click="verPropiedad(propiedad)"><i size="5" class="fa fa-eye"></i>Ver</button>
                                                                         </center>
                                                                         <font size="3" face="Times New Roman"><b>Tipo: </b>{{propiedad.tipo}}</font><br>
-                                                                        <font size="3" face="Times New Roman"><b>Precio: </b>{{propiedad.precio}} Bs</font><br>                                                                              
+                                                                        <font size="3" face="Times New Roman"><b>Precio: </b>{{propiedad.precio}} Bs</font><br>
                                                                     </center>
                                                                 </div>
-                                                                <div class="card-footer">                             
+                                                                <div class="card-footer">
                                                                     <button type="button" @click="agregarPropiedad(propiedad)" class="btn btn-primary btn-sm">
                                                                         Agregar <i class="fa fa-check"></i>
                                                                     </button>
                                                                     <template v-if="propiedad.estado=='Mantenimiento'">
                                                                         <button type="button" @click="habilitarPropiedad(propiedad.id)" class="btn btn-primary btn-sm"><i class="fa fa-lock"></i> Habilitar</button>
                                                                     </template>
-                                                                </div>                                               
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -238,11 +238,11 @@
                                             <br>
                                             <label for="">Monto Total</label><br>
                                             <p>{{calcularMontoCredito}}</p>
-                            
+
                                             <center>
                                                 <button class="btn btn-primary" type="button" @click="cuota()">Calcular</button>
                                             </center><br>
-                        
+
                                         </div>
                                         <div class="col-md-8">
                                             <label for="">Cuota</label>
@@ -263,7 +263,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </template>
@@ -291,7 +291,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                
+
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <center>
@@ -301,7 +301,7 @@
                             <label class="col-md-3 form-control-label" for="imagen">Foto</label>
                             <div class="col-md-9">
                                 <input type="file" @change="obtenerImagen" class="form-control-file">
-                            </div>                                
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="email-input">Descripcion</label>
@@ -319,7 +319,7 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>  
+    </div>
    <!--Fin del modal-->
 <!--Modal de Cliente-->
 <!--Inicio del modal agregar/actualizar-->
@@ -378,7 +378,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>    
+                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="cerrarModalCliente()">Cerrar</button>
                 </div>
@@ -399,11 +399,11 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                
+
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Seleccione Un Tipo</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Seleccione Un Tipo</label>
                             <div class="col-md-9">
                                 <select  class="form-control" v-model="datosTipo">
                                     <option value="0" disableb="">Seleccione...</option>
@@ -411,17 +411,17 @@
                                     <option value="empresa">Empresa</option>
                                 </select>
                             </div>
-                        </div> 
+                        </div>
 
                         <template v-if="datosTipo=='persona'">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>  
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" v-model="datosNombre" placeholder="Nombre">
                                 </div>
-                            </div>        
+                            </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Apellidos</label>  
+                                <label class="col-md-3 form-control-label" for="text-input">Apellidos</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" v-model="datosApellidos" placeholder="Apellidos">
                                 </div>
@@ -430,7 +430,7 @@
 
                         <template v-if="datosTipo=='empresa'">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Razon Social</label>  
+                                <label class="col-md-3 form-control-label" for="text-input">Razon Social</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" v-model="datosRazonSocial" placeholder="Razon social">
                                 </div>
@@ -438,36 +438,36 @@
                         </template>
 
                         <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Direccion</label>  
+                                    <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" v-model="datosDireccion" placeholder="Direccion">
                                     </div>
                         </div>
 
                         <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Correo Electronico</label>  
+                                    <label class="col-md-3 form-control-label" for="text-input">Correo Electronico</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" v-model="datosCorreo" placeholder="email@example.com">
                                     </div>
                         </div>
                         <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Telefono</label>  
+                                    <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" v-model="datosTelefono" placeholder="Telefono">
                                     </div>
                         </div>
-                                                                                        
+
                         <!--<div v-show="errorCliente" class="form-group row div-error">
                             <div class="text-center text-error">
                                 <div v-for="error in errorMostrarMsjCliente" :key="error" v-text="error">
-                                    
-                                </div>    
+
+                                </div>
                             </div>
                         </div>
-                        -->        
+                        -->
                     </form>
                 </div>
-                
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="cerrarModalNuevoCliente()">Cerrar</button>
                     <button type="button" class="btn btn-primary"  @click="guardarNuevoCliente()">Guardar</button>
@@ -487,60 +487,60 @@
                             <h4 class="modal-title" v-text="datosTipo"></h4>
                         </center>
                 </div>
-                
+
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Descripcion:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Descripcion:</label>
                             <div class="col-md-9">
                                 <p v-text="datosDescripcion"></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Metre Cuadrado:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Metre Cuadrado:</label>
                             <div class="col-md-9">
                                 <p v-text="datosMetro"></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Nro de Piso:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Nro de Piso:</label>
                             <div class="col-md-9">
                                 <p v-text="datosNroPiso"></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Fecha Inicio de Construccion:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Fecha Inicio de Construccion:</label>
                             <div class="col-md-9">
                                 <p v-text="datosInicioConstruccion"></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">fecha Fin de Construccion:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">fecha Fin de Construccion:</label>
                             <div class="col-md-9">
                                 <p v-text="datosFinConstruccion"></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Provincia:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Provincia:</label>
                             <div class="col-md-9">
                                 <p v-text="datosProvincia"></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Municipio:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Municipio:</label>
                             <div class="col-md-9">
                                 <p v-text="datosMunicipio"></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Ciudad:</label>  
+                            <label class="col-md-3 form-control-label" for="text-input">Ciudad:</label>
                             <div class="col-md-9">
                                 <p v-text="datosCiudad"></p>
                             </div>
                         </div>
                     </form>
                 </div>
-                
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="cerrarModalVerPropiedad()">Cerrar</button>
                 </div>
@@ -577,7 +577,7 @@
     </main>
 </template>
 
-<script>  
+<script>
    //import vSelect from 'vue-select';
     import moment from 'moment';
     export default {
@@ -588,14 +588,14 @@
                     metroCuadrado : '',
                     tipoPago : '0',
                     montoTotal:0,
-                    idPropiedad : 0, 
+                    idPropiedad : 0,
                 arrayNotaVenta: [],
                 arrayPropiedad : [],
                 //imagen
                 slideImagen : [],
                 arrayImagen:[],
                 id:0,
-                descripcionFoto:'', 
+                descripcionFoto:'',
                 foto : '',
                 imagenMiniatura : '',
                 modalImagen : 0,
@@ -615,7 +615,7 @@
                 datosRazonSocial:'',
                 datosCorreo : '',
                 //detalle
-                idP:'',                    
+                idP:'',
                 nombreP:'',
                 descripcionP:'',
                 preciov:0,
@@ -661,10 +661,10 @@
         },
         computed : {
             calcularMontoCredito:function(){
-                var interesCredito=0.0; 
+                var interesCredito=0.0;
                     interesCredito=this.interes/100;
                     interesCredito=this.preciov * interesCredito;
-                var resultado= Number(this.preciov) + interesCredito;        
+                var resultado= Number(this.preciov) + interesCredito;
                 return resultado;
             },
             isActived: function(){
@@ -674,7 +674,7 @@
                 if(!this.pagination.to){
                     return [];
                 }
-                
+
                 var from = this.pagination.current_page - this.offset;
                 if(from < 1){
                     from = 1;
@@ -707,13 +707,13 @@
                 var url='/notaventa?page=' + page+'&buscar='+buscar+'&criterio='+criterio;
                     axios.get(url).then(function (response){
                     me.arrayNotaVenta=response.data.data;
-                    me.pagination={total:response.data.total, 
+                    me.pagination={total:response.data.total,
                         current_page:response.data.current_page,
                         per_page: response.data.per_page,
                         last_page: response.data.last_page,
                         from: response.data.from,
                         to: response.data.to
-                    }   
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -741,7 +741,7 @@
                 });
             },
             pdfNotaVenta(id){
-               window.open('http://localhost:8000/notaventa/pdf/'+ id + ',' + '_blank'); 
+               window.open('http://localhost:8000/notaventa/pdf/'+ id + ',' + '_blank');
            },
             obtenerImagen(e){
                 let me=this;
@@ -761,7 +761,7 @@
                 me.id = 0,
                 me.foto = '',
                 me.descripcionFoto = ''
-                
+
                 me.imagenMiniatura = '';
             },
             eliminar(id){
@@ -781,7 +781,7 @@
                 if (result.value) {
                     let me = this;
                     axios.put('/notaventa/desactivar/'+id).then(function (response) {
-                        me.listar(1,'','fecha');   
+                        me.listar(1,'','fecha');
                         swal(
                         'Desactivado!',
                         'El registro ha sido eliminado con éxito.',
@@ -789,19 +789,19 @@
                         )
                     }).catch(function (error) {
                         console.log(error);
-                    });  
+                    });
                 } else if (
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
                 ) {
                 }
-                }) 
-            },   
+                })
+            },
             limpiar(){
-                
+
                 this.idCliente='';
                 this.nombreCliente='';
-                
+
                 this.tipoPago='0';
                 this.montoTotal=0;
                 this.preciov=0;
@@ -845,7 +845,7 @@
                 this.datosFinConstruccion=data['finConstruccion'];
                 this.datosProvincia=data['provincia'];
                 this.datosMunicipio=data['municipio'];
-                this.datosCiudad=data['ciudad'];                
+                this.datosCiudad=data['ciudad'];
             },
             cerrarModalVerPropiedad(){
                 this.modalVerPropiedad=0;
@@ -920,7 +920,7 @@
             },
             cerrarModalImagen(){
                 this.modalImagen = 0;
-            },   
+            },
             sliderImagen(id){
                 let me=this;
                 me.slideImagen=[];
@@ -930,14 +930,14 @@
                 axios.get(url).then(function(response){
                     me.slideImagen=response.data;
                     for(var i=0;i<data.length;i++){
-                        slider.push('/img/propiedad/'+data[i]);   
+                        slider.push('/img/propiedad/'+data[i]);
                     }
                 })
                 .catch(function(error){
                     console.log(error)
-                }); 
+                });
                 this.slideImagen=slider;
-            },         
+            },
             //Cliente
             listarCliente(){
                 let me=this;
@@ -967,17 +967,17 @@
                 var porcentaje;
                     porcentaje= me.interes/100;
                 var interes=me.preciov * porcentaje;
-                
+
                 //para convertir un string a datos numericos
                     monto = Number(me.preciov);
                     monto = monto + interes;
-                
+
                 var fechaMes = moment().format('YYYY-MM-DD');
                 if(me.tipoCredito=='mensual'){
                     me.arrayCuota=[];
                     plazoCredito=plazoCredito * 12;
                     monto = (monto / plazoCredito).toFixed(2);
-                    
+
                     for (let i = 0; i < plazoCredito; i++) {
                         fechaMes = moment().add(i, 'M').format('YYYY-MM-DD');
                         me.arrayCuota.push({
@@ -1009,7 +1009,7 @@
         mounted() {
             this.listar(1, this.buscar, this.criterio);
             //this.listarPropiedad(this.buscarPropiedad, this.criterioPropiedad);
-            
+
         }
     }
 </script>

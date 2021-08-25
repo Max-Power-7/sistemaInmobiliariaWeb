@@ -13,7 +13,7 @@ class LoginController extends Controller
     }
 
     public function usuario(Request $request){
-        $this->validateLogin($request);        
+        $this->validateLogin($request);
 
         if (Auth::attempt(['login' => $request->login,'password' => $request->password,'estado'=>1])){
             return redirect()->route('main');
