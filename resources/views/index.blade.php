@@ -78,7 +78,7 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">Todas las notificaciones</a>
         </div>
-      </li>      
+      </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -98,7 +98,7 @@
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf
 
-          </form>          
+          </form>
         </div>
       </li>
     </ul>
@@ -122,7 +122,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2021-2025 <a href="https://adminlte.io">Valdivia</a>.</strong>
+    <strong>Copyright &copy; 2021-2025 <a href="https://adminlte.io">Multilider</a>.</strong>
     Todo los derechos reservados.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 2.0
@@ -148,7 +148,7 @@
 <script src="{{ asset('plugins2/js/jquery.overlayScrollbars.min.js') }}"></script>
 <script src="{{ asset('plugins2/js/dashboard.js') }}"></script> --}}
 {{-- <script src="{{ asset('plugins2/js/adminlte.js') }}"></script> --}}
-{{-- <script src="{{ asset('plugins2/js/demo.js') }}"></script> --}} 
+{{-- <script src="{{ asset('plugins2/js/demo.js') }}"></script> --}}
 <script src="js/app.js"></script>
 <script src="js/plantilla.js"></script>
 <script src="js/sweetalert2.all.js"></script>

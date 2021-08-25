@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "eslint": "^7.32.0",
         "moment": "^2.29.1",
         "vue-router": "^3.5.2"
     }

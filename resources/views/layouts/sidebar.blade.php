@@ -151,7 +151,7 @@
           </li>
         </ul>
       </li>
-      <li class="nav-header">EXAMPLES</li>
+      {{-- <li class="nav-header">EXAMPLES</li>
       <li class="nav-item">
         <a href="pages/calendar.html" class="nav-link">
           <i class="nav-icon far fa-calendar-alt"></i>
@@ -181,6 +181,6 @@
           <i class="nav-icon fas fa-file"></i>
           <p>Documentation</p>
         </a>
-      </li>
+      </li> --}}
     </ul>
   </nav>
