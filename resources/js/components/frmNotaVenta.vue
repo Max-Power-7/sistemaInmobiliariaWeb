@@ -64,7 +64,6 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item bg-light" href="#"><i class="icon-pencil text-warning"></i>Contrato</a>
-                                                <a class="dropdown-item bg-light" href="#" @click="pdfNotaVenta(notaventa.id)"><i class="icon-trash text-danger"></i>Cuota</a>
                                             </div>
                                         </div>
                                     </td>
@@ -352,6 +351,7 @@
                                     <tr>
                                         <th>Opciones</th>
                                         <th>Tipo</th>
+                                        <th>Cedula Identidad</th>
                                         <th>Nombre</th>
                                         <th>Apellidos</th>
                                         <th>Razon Social</th>
@@ -368,6 +368,7 @@
                                             </button>
                                         </td>
                                         <td v-text="cliente.tipo"></td>
+                                        <td v-text="cliente.ci"></td>
                                         <td v-text="cliente.nombre"></td>
                                         <td v-text="cliente.apellidos"></td>
                                         <td v-text="cliente.razonSocial"></td>
@@ -414,6 +415,12 @@
                         </div> 
 
                         <template v-if="datosTipo=='persona'">
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Cedula Identidad</label>  
+                                <div class="col-md-9">
+                                    <input type="number" class="form-control" v-model="datosCi" placeholder="Cedula Identidad">
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>  
                                 <div class="col-md-9">
@@ -610,6 +617,7 @@
                 datosTipo:'',
                 datosDireccion:'',
                 datosTelefono:'',
+                datosCi:'',
                 datosNombre:'',
                 datosApellidos:'',
                 datosRazonSocial:'',
@@ -733,16 +741,13 @@
                     'data':this.arrayCuota
                 }).then(function (response) {
                     me.listado = 1;
-                    me.listar('', '', 'fecha');
+                    me.listar(1, '', 'fecha');
                     me.arrayNotaVenta = [];
                     me.limpiar();
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
-            pdfNotaVenta(id){
-               window.open('http://localhost:8000/notaventa/pdf/'+ id + ',' + '_blank'); 
-           },
             obtenerImagen(e){
                 let me=this;
                 var fileReader = new FileReader();
@@ -889,6 +894,7 @@
                     'correo':this.datosCorreo,
                     'telefono':this.datosTelefono,
                     'tipo':this.datosTipo,
+                    'ci':this.datosCi,
                     'nombre':this.datosNombre,
                     'apellidos':this.datosApellidos,
                     'razonSocial':this.datosRazonSocial
@@ -906,6 +912,7 @@
                 this.datosNombre='';
                 this.datosApellidos='';
                 this.datosRazonSocial='';
+                this.datosCi='';
                 this.modalNuevoCliente=0;
             },
             abrirModalCliente(){

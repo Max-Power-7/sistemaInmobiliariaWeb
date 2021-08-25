@@ -29,4 +29,22 @@ class ctrCuota extends Controller
         }
         return $obj;
     }
+
+    public function listarCuota(Request $request){
+
+        $buscar=$request->buscar;
+        $ci=$request->ci;
+        $obj= Cuota::join('plancredito','cuota.idPlanCredito','=','plancredito.id')
+            ->join('notaventa','plancredito.idNotaVenta','=','notaventa.id')
+            ->join('cliente','notaventa.idCliente','=','cliente.id')
+            ->join('propiedad','notaventa.idPropiedad','=','propiedad.id')
+            ->select('propiedad.codigo as codigoPropiedad','cuota.fecha as fechaCuota','propiedad.tipo as tipoPropiedad','cuota.monto as montoCuota',
+                    'planCredito.montoTotal as totalPagar','cuota.id as idCuota','cuota.estado')
+            ->orderBy('cuota.id','asc')
+            ->where('propiedad.codigo','=',$buscar) 
+            ->where('cliente.ci','=',$ci)
+            ->get();
+        
+        return $obj;
+    }
 }

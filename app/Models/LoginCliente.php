@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cliente extends Model
+class LoginCliente extends Model
 {
     use HasFactory;
-    protected $table='cliente';
+    protected $table='logincliente';
     protected $fillable=[
-        'direccion',
-        'correo',
-        'telefono',
-        'tipo',
-        'ci',
-        'nombre',
-        'apellidos',
-        'razonSocial'
+        'usuarioCliente',
+        'password',
+        'idCliente'
     ];
     public $timestamps=false;
 }

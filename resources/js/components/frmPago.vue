@@ -40,7 +40,7 @@
                                     
                                     <td v-if="cuota.estado==0">
                                         <button type="button" @click="guardarPago(cuota)" class="btn btn-primary btn-sm">
-                                            <i class="icon-check"></i>
+                                            <i class="fa fa-check"></i>
                                         </button>
                                     </td>
 

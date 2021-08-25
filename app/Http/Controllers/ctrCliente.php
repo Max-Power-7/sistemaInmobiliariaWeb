@@ -28,6 +28,7 @@ class ctrCliente extends Controller
         $cliente->correo=$request->correo;
         $cliente->telefono=$request->telefono;
         $cliente->tipo=$request->tipo;
+        $cliente->ci=$request->ci;
         $cliente->nombre=$request->nombre;
         $cliente->apellidos=$request->apellidos;
         $cliente->razonSocial=$request->razonSocial;
@@ -39,6 +40,7 @@ class ctrCliente extends Controller
         $cliente->correo=$request->correo;
         $cliente->telefono=$request->telefono;
         $cliente->tipo=$request->tipo;
+        $cliente->ci=$request->ci;
         $cliente->nombre=$request->nombre;
         $cliente->apellidos=$request->apellidos;
         $cliente->razonSocial=$request->razonSocial;

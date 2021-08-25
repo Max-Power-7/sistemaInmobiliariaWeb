@@ -7,8 +7,10 @@ use App\Models\NotaVenta;
 use App\Models\PlanCredito;
 use App\Models\Cuota;
 use App\Models\Propiedad;
-
+use App\Models\Cliente;
+use App\Models\LoginCliente;
 use DB;
+
 class ctrNotaVenta extends Controller
 {
     public function listar(Request $request){     
@@ -73,7 +75,18 @@ class ctrNotaVenta extends Controller
                 $planCredito->interes=$request->interes;
                 $planCredito->idNotaVenta = $venta->id;
                 $planCredito->save();
-                
+
+                //login cliente
+                $loginCliente= new LoginCliente();
+                $idCliente=$request->idCliente;
+                $datosNombre=$this->mostrarNombre($idCliente);
+                $datosCi=$this->mostrarCi($idCliente);
+                    //datos para crear Login para el cliente
+                $loginCliente->usuarioCliente=$datosNombre;
+                $loginCliente->password=$datosCi;
+                $loginCliente->idCliente=$idCliente;
+                $loginCliente->save();
+
                 //cuota
                 $detalle = $request->data;
                 foreach($detalle as $ep=>$det){
@@ -84,20 +97,44 @@ class ctrNotaVenta extends Controller
                     $cuota->idPlanCredito = $planCredito->id;
                     $cuota->save();
                 }
-            }
-            DB::commit();
-            return[
+
+                DB::commit();
+                return[
                 'id'=>$planCredito->id
-            ];
+                ];
+            }else{
+                DB::commit();
+                return[
+                'id'=>$venta->id
+                ];
+            }
+
         }    catch (Exception $e){
                 DB::rollBack();
             }
     }
 
+
     public function montoTotalVenta(){
         $venta=NotaVenta::sum('notaventa.montoTotal');
         return $venta;
     }
+
+    public function mostrarNombre($id){
+        $obj=Cliente::select('nombre')
+        ->where('cliente.id','=',$id)
+        ->first();
+        return $obj->nombre;
+    }
+
+    public function mostrarCi($id){
+        $obj=Cliente::select('ci')
+        ->where('cliente.id','=',$id)
+        ->first();
+        return $obj->ci;
+    }
+    
+    
 
     /*public function listarCuota(Request $request,$id){
         $nv=NotaVenta::Join('cliente','notaventa.idCliente','=','cliente.id')

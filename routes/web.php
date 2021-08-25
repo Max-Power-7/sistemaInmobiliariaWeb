@@ -14,6 +14,8 @@ use App\Http\Controllers\ctrNotaVenta;
 use App\Http\Controllers\ctrAgente;
 use App\Http\Controllers\ctrPago;
 use App\Http\Controllers\ctrCuota;
+use App\Http\Controllers\ctrLoginCliente;
+use App\Http\Controllers\ctrPaginaPrincipal;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,10 @@ use App\Http\Controllers\ctrCuota;
 // Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/',[ctrPaginaPrincipal::class,'index']);
+
 Route::group(['middleware'=>['guest']],function(){
-    Route::get('/',[LoginController::class, 'showLoginForm']);
+    Route::get('/sistema',[LoginController::class, 'showLoginForm']);
     Route::post('/usuario',[LoginController::class, 'usuario'])->name('usuario');
 });
 Auth::routes();
@@ -105,6 +109,8 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/notaventa',[ctrNotaVenta::class,'listar']);
     Route::post('/notaventa/guardar',[ctrNotaVenta::class,'guardar']); 
     Route::get('/notaventa/montoT',[ctrNotaVenta::class,'montoTotalVenta']);
+
+    //Route::get('/notaventa/mostrarNombre',[ctrNotaVenta::class,'mostrarNombre']);
   
     //AGENTE
     Route::get('/agente',[ctrAgente::class,'listar']);
@@ -122,3 +128,6 @@ Route::group(['middleware'=>['auth']],function(){
     //CUOTA
     Route::get('/cuota',[ctrCuota::class,'listar']);
 });
+    //LOGIN CLIENTE
+    Route::get('/logincliente',[ctrLoginCliente::class,'iniciar']);  
+    Route::get('/cuota/listar',[ctrCuota::class,'listarCuota']);
