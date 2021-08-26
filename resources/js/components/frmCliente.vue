@@ -17,6 +17,7 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
+                                      <option value="ci">Cedula Identidad</option>
                                       <option value="nombre">Nombre</option>
                                       <option value="apellidos">Apellidos</option>
                                       <option value="razonSocial">RazonSocial</option>
@@ -30,6 +31,7 @@
                         <table class="table table-bordered table-sm">
                             <thead>
                                 <tr>
+                                    <th>Cedula Identidad</th>
                                     <th>Nombre</th>
                                     <th>Apellidos</th>
                                     <th>Razon Social</th>
@@ -41,7 +43,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="cliente in arrayCliente" :key="cliente.id">
-
+                                    <td v-text="cliente.ci"></td>
                                     <td v-text="cliente.nombre"></td>
                                     <td v-text="cliente.apellidos"></td>
                                     <td v-text="cliente.razonSocial"></td>
@@ -108,7 +110,15 @@
                                 </div>
 
                                     <template v-if="tipo=='persona'">
-                                       <div class="form-group row">
+
+                                        <div class="form-group row">
+                                          <label class="col-md-3 form-control-label" for="text-input">Cedula Identidad</label>
+                                            <div class="col-md-9">
+                                                <input type="numer" class="form-control" v-model="ci" placeholder="Cedula Identidad">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                           <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" v-model="nombre" placeholder="Nombre">
@@ -182,6 +192,7 @@
             return {
                 clienteId:0,
                 tipo:'',
+                ci:'',
                 nombre:'',
                 apellidos:'',
                 razonSocial:'',
@@ -268,6 +279,7 @@
                     'correo':this.correo,
                     'telefono':this.telefono,
                     'tipo':this.tipo,
+                    'ci':this.ci,
                     'nombre':this.nombre,
                     'apellidos':this.apellidos,
                     'razonSocial':this.razonSocial
@@ -290,6 +302,7 @@
                     'correo':this.correo,
                     'telefono':this.telefono,
                     'tipo':this.tipo,
+                    'ci':this.ci,
                     'nombre':this.nombre,
                     'apellidos':this.apellidos,
                      'razonSocial':this.razonSocial
@@ -355,6 +368,7 @@
                this.direccion='';
                this.telefono='';
                this.tipo='';
+               this.ci='';
                this.correo='';
            },
            abrirModal(model,accion,data=[]){
@@ -373,6 +387,7 @@
                                         this.direccion='';
                                         this.correo='';
                                         this.tipo='0';
+                                        this.ci='';
                                         this.tipoAccion=1;
                                         break;
                                    }
@@ -382,6 +397,7 @@
                                         this.tituloModal='Modificar Cliente';
                                         this.tipoAccion=2;
                                         this.clienteId=data['id'];
+                                        this.ci=data['ci'];
                                         this.nombre=data['nombre'];
                                         this.apellidos=data['apellidos'];
                                         this.razonSocial=data['razonSocial'];

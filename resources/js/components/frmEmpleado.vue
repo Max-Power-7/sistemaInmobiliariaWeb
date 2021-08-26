@@ -65,8 +65,8 @@
                                     <td>
                                         <div v-if="empleado.estado=='1'">
                                                 <span class="badge badge-success">Activo</span>
-                                            </div>
-                                            <div v-else>
+                                        </div>
+                                         <div v-else>
                                                 <span class="badge badge-danger">Desactivo</span>
                                         </div>
                                     </td>

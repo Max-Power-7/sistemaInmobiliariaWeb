@@ -19,6 +19,7 @@ class CreateClienteTable extends Migration
             $table->string('correo',50)->nullable();
             $table->integer('telefono');
             $table->string('tipo',15);
+            $table->integer('ci');
             $table->string('nombre',50)->nullable();
             $table->string('apellidos',50)->nullable();
             $table->string('razonSocial')->nullable();
