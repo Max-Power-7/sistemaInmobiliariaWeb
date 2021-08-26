@@ -4141,7 +4141,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 //import vSelect from 'vue-select';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4651,6 +4650,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4660,6 +4661,7 @@ __webpack_require__.r(__webpack_exports__);
       idCuota: 0,
       arrayCuota: [],
       modalNuevoPropietario: 0,
+      resNombre: "",
       errorMostrarMsjCuota: [],
       criterio: 'codigo',
       buscar: '',
@@ -4706,6 +4708,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getName: function getName() {},
     listar: function listar(page, buscar, criterio) {
       var me = this;
       var url = '/cuota?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
@@ -71337,6 +71340,10 @@ var render = function() {
                   [
                     _c("option", { attrs: { value: "propiedad.codigo" } }, [
                       _vm._v("Codigo de Propiedad")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "propiedad.codigo" } }, [
+                      _vm._v("Codigo Empleado")
                     ])
                   ]
                 ),
@@ -71384,7 +71391,28 @@ var render = function() {
                     }
                   },
                   [_c("i", { staticClass: "fa fa-search" }), _vm._v(" Buscar")]
-                )
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.resultName,
+                      expression: "resultName"
+                    }
+                  ],
+                  attrs: { type: "text", name: "resNombre" },
+                  domProps: { value: _vm.resultName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.resultName = $event.target.value
+                    }
+                  }
+                })
               ])
             ])
           ]),

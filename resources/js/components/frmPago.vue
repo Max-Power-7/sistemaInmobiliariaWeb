@@ -13,10 +13,12 @@
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
                                       <option value="propiedad.codigo">Codigo de Propiedad</option>
+                                      <option value="propiedad.codigo">Codigo Empleado</option>
                                     </select>
 
                                     <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
                                     <button type="submit" @click="listar(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" name="resNombre" v-model="resultName"/>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +39,7 @@
                                     <td v-text="cuota.fechaCuota"></td>
                                     <td v-text="cuota.montoCuota"></td>
                                     <td v-text="cuota.totalPagar"></td>
-                                    
+
                                     <td v-if="cuota.estado==0">
                                         <button type="button" @click="guardarPago(cuota)" class="btn btn-primary btn-sm">
                                             <i class="fa fa-check"></i>
@@ -57,7 +59,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                         <nav>
@@ -90,6 +92,8 @@
                     idCuota:0,
                     arrayCuota:[],
                     modalNuevoPropietario:0,
+                    resNombre: "",
+
                 errorMostrarMsjCuota: [],
                 criterio : 'codigo',
                 buscar : '',
@@ -112,7 +116,7 @@
                 if(!this.pagination.to){
                     return [];
                 }
-            
+
                 var from = this.pagination.current_page - this.offset;
                 if(from < 1){
                     from = 1;
@@ -131,23 +135,28 @@
                 return pagesArray;
             }
         },
-       methods: {           
+       methods: {
+           getName(){
+               
+           },
+           
            listar(page,buscar,criterio){
                 let me=this;
                     var url='/cuota?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                     axios.get(url).then(function (response) {
                     me.arrayCuota=response.data.data;
-                    me.pagination={total:response.data.total, 
+                    me.pagination={total:response.data.total,
                         current_page:response.data.current_page,
                         per_page: response.data.per_page,
                         last_page: response.data.last_page,
                         from: response.data.from,
                         to: response.data.to
-                    }   
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
+
            },
 
            cambiarPagina(page,buscar,criterio){
@@ -181,7 +190,7 @@
                         'Activado!',
                         'El registro ha sido Guardado con éxito.',
                         'success'
-                        )         
+                        )
                     })
                     .catch(function(error){
                         console.log(error);
@@ -190,9 +199,9 @@
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
                 ) {
-                    
+
                 }
-                }) 
+                })
             },
        },
         mounted() {
