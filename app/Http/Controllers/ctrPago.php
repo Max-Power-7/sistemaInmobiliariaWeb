@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pago;
 use App\Models\Cuota;
-use App\Models\Nombre;
 
 class ctrPago extends Controller
 {
@@ -67,12 +66,50 @@ class ctrPago extends Controller
         $cuota->estado = '1';
         $cuota->save();
     }
-    public function getNombre(Request $request)
+
+    public function getDetallePago(Request $request)
     {
-        $obj = new Nombre();
-        $obj -> nombre = $request->nombre;
-        $obj -> apellido = $request->apellido;
-        $obj -> razonSocial = $request->razonSocial;
-        $obj -> save();
+        $buscar = $request->buscar;
+        $nombre = $request->nombre;
+        $apellido = $request->apellido;
+        if ($buscar == '') {
+            $obj = Pago::join('cuota', 'pago.idCuota', '=', 'cuota.id')
+                ->join('plancredito', 'cuota.idPlanCredito', '=', 'plancredito.id')
+                ->join('notaventa', 'plancredito.idNotaVenta', '=', 'notaventa.id')
+                ->join('cliente', 'notaventa.idCliente', '=', 'cliente.id')
+                ->join('propiedad', 'notaventa.idPropiedad', '=', 'propieadad.id')
+                ->select(
+                    'pago.id',
+                    'pago.fecha as fechaPago',
+                    'pago.monto as montoPago',
+                    'cliente.nombre',
+                    'cliente.apellidos',
+                    'cliente.razonSocial',
+                    'propiedad.codigo',
+                    'propiedad.tipo as tipoPropieadad',
+                    'planCredito.montoTotal as totalPagar'
+                )
+                ->orderBy('pago.id', 'desc')->paginate(15);
+        } /* else {
+            $obj = Pago::join('cuota', 'pago.idCuota', '=', 'cuota.id')
+                ->join('plancredito', 'cuota.idPlanCredito', '=', 'plancredito.id')
+                ->join('notaventa', 'plancredito.idNotaVenta', '=', 'notaventa.id')
+                ->join('cliente', 'notaventa.idCliente', '=', 'cliente.id')
+                ->join('propiedad', 'notaventa.idPropiedad', '=', 'propieadad.id')
+                ->select(
+                    'pago.id',
+                    'pago.fecha as fechaPago',
+                    'pago.monto as montoPago',
+                    'cliente.nombre',
+                    'cliente.apellidos',
+                    'cliente.razonSocial',
+                    'propiedad.codigo',
+                    'propiedad.tipo as tipoPropieadad',
+                    'planCredito.montoTotal as totalPagar'
+                )
+                ->where($criterio, 'like', '%' . $buscar . '%')
+                ->orderBy('pago.id', 'desc')->paginate(5);
+        } */
+        return $obj;
     }
 }
