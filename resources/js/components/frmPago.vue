@@ -31,7 +31,15 @@
 
                 <!-- <h5>Comprador:</h5> -->
                 <!-- <input class="form-control" type="text" name="resNombre" v-model="resNombre" placeholder="Comprador" /> -->
-                <input class="form-control" readonly type="text" name="resNombre" v-model="resNombre" placeholder="Comprador" width="80" />
+                <input
+                  class="form-control"
+                  readonly
+                  type="text"
+                  name="resNombre"
+                  v-model="resNombre"
+                  placeholder="Comprador"
+                  width="80"
+                />
               </div>
             </div>
           </div>
@@ -52,9 +60,9 @@
             <tbody>
               <tr v-for="cuota in arrayCuota" :key="cuota.id">
                 <td v-text="cuota.codigoPropiedad"></td>
-                <td>{{ cuota.nombre }} {{cuota.apellidos}}</td>
+                <td>{{ cuota.nombre }} {{ cuota.apellidos }}</td>
                 <!-- <td v-text="cuota.nombre"></td> -->
-                    <!-- <td v-text="cuota.apellidos"></td> -->
+                <!-- <td v-text="cuota.apellidos"></td> -->
                 <td v-text="cuota.descripcion"></td>
                 <td v-text="cuota.fechaCuota"></td>
                 <td v-text="cuota.montoCuota"></td>
@@ -122,6 +130,11 @@
                   >Sig</a
                 >
               </li>
+              <div>
+                <button type="submit" @click="calcularIVA">
+                  Calcular IVA
+                </button>
+              </div>
             </ul>
           </nav>
         </div>
@@ -143,6 +156,7 @@ export default {
       modalNuevoPropietario: 0,
 
       resNombre: "",
+      montoIVA: 0,
 
       errorMostrarMsjCuota: [],
       criterio: "codigo",
@@ -202,6 +216,7 @@ export default {
             from: response.data.from,
             to: response.data.to,
           };
+
           if (buscar === "") {
               me.resNombre = "";
           } else {
@@ -217,6 +232,24 @@ export default {
 
         .catch(function (error) {
           console.log(error);
+        });
+    },
+
+    calcularIVA(){
+        let me = this;
+        me.arrayCuota.forEach(element => {
+            // updateCuota()
+            var aux = element.montoCuota;
+            element.montoCuota = aux - (aux * 0.20);
+
+        });
+        axios.get("/cuota/modificar").then((response) => {
+            if(response.status === 200){
+                alert(response.data);
+            }
+            console.log(response);
+        }).catch(function(error){
+            console.log(error);
         });
     },
 

@@ -4705,6 +4705,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4715,6 +4728,7 @@ __webpack_require__.r(__webpack_exports__);
       arrayCuota: [],
       modalNuevoPropietario: 0,
       resNombre: "",
+      montoIVA: 0,
       errorMostrarMsjCuota: [],
       criterio: "codigo",
       buscar: "",
@@ -4782,6 +4796,23 @@ __webpack_require__.r(__webpack_exports__);
           // console.log(response.data.data[0].apellidos);
         } //   console.log(response);
 
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    calcularIVA: function calcularIVA() {
+      var me = this;
+      me.arrayCuota.forEach(function (element) {
+        // updateCuota()
+        var aux = element.montoCuota;
+        element.montoCuota = aux - aux * 0.20;
+      });
+      axios.get("/cuota/modificar").then(function (response) {
+        if (response.status === 200) {
+          alert(response.data);
+        }
+
+        console.log(response);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -71636,7 +71667,18 @@ var render = function() {
                         [_vm._v("Sig")]
                       )
                     ])
-                  : _vm._e()
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      attrs: { type: "submit" },
+                      on: { click: _vm.calcularIVA }
+                    },
+                    [_vm._v("\n                Calcular IVA\n              ")]
+                  )
+                ])
               ],
               2
             )

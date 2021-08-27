@@ -9,11 +9,13 @@ use App\Models\Cuota;
 use App\Models\Propiedad;
 use App\Models\Cliente;
 use App\Models\LoginCliente;
-use DB;
+// use DB;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ctrNotaVenta extends Controller
 {
-    public function listar(Request $request){     
+    public function listar(Request $request){
         $buscar=$request->buscar;
         $criterio=$request->criterio;
         if($buscar==''){
@@ -32,14 +34,14 @@ class ctrNotaVenta extends Controller
             ->select('notaventa.idCliente','notaventa.id','notaventa.fecha',
                     'notaventa.montoTotal','notaventa.estado','notaventa.tipoPago','cliente.nombre as nombreClie','cliente.apellidos'
                     ,'cliente.razonSocial','cliente.tipo as tipoCliente','propiedad.tipo as tipoPropiedad')
-            ->where($criterio, 'like', '%'.$buscar.'%')        
+            ->where($criterio, 'like', '%'.$buscar.'%')
             ->orderBy('notaventa.id','desc')
             ->paginate(5);
-        }   
+        }
         return $obj;
     }
 
-	public function guardar(Request $request){      
+	public function guardar(Request $request){
         if(!$request->ajax()) return redirect('/');
         try{
 
@@ -48,26 +50,27 @@ class ctrNotaVenta extends Controller
 			$venta->fecha=$request->fecha;
 			$venta->tipoPago=$request->tipoPago;
 			$venta->montoTotal=$request->montoTotal;
-			$venta->estado='1';	
+			// $venta->montoTotal=$this->updateCuota($request->montoTotal);
+			$venta->estado='1';
 			$venta->idPropiedad=$request->idPropiedad;
 			$venta->idCliente=$request->idCliente;
 			$venta->save();
 
             //modificar el estado a vendido a una propiedad
-            
+
             $prop= Propiedad::findOrFail($request->idPropiedad);
             $prop->estado='vendido';
             $prop->save();
 
 			//variable para capturar tipoPago
-			
+
             $tipoDato=$request->tipoPago;
 
             if($tipoDato=='credito'){
                 $planCredito=new PlanCredito();
                 $fecha=$request->fecha;
                 $montoCredito=$request->montoTotal;
-                
+
                 $planCredito->fecha=$fecha;
                 $planCredito->montoTotal=$montoCredito;
                 $planCredito->tipoCredito=$request->tipoCredito;
@@ -90,7 +93,7 @@ class ctrNotaVenta extends Controller
                 //cuota
                 $detalle = $request->data;
                 foreach($detalle as $ep=>$det){
-                    $cuota = new Cuota(); 
+                    $cuota = new Cuota();
                     $cuota->fecha= $det['fecha'];
                     $cuota->monto= $det['monto'];
                     $cuota->estado='0';
@@ -114,6 +117,13 @@ class ctrNotaVenta extends Controller
             }
     }
 
+    //Para calcular IVA
+    public function updateMontoTotal($montoTotal)
+    {
+        $aux = $montoTotal;
+        $montoTotal = $montoTotal - ($aux * 0.20);
+        return $montoTotal;
+    }
 
     public function montoTotalVenta(){
         $venta=NotaVenta::sum('notaventa.montoTotal');
@@ -133,8 +143,8 @@ class ctrNotaVenta extends Controller
         ->first();
         return $obj->ci;
     }
-    
-    
+
+
 
     /*public function listarCuota(Request $request,$id){
         $nv=NotaVenta::Join('cliente','notaventa.idCliente','=','cliente.id')

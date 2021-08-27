@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //CUOTA
     Route::get('/cuota',[ctrCuota::class,'listar']);
+    Route::get('/cuota/modificar',[ctrCuota::class,'updateCuota']);
 });
     //LOGIN CLIENTE
     Route::get('/logincliente',[ctrLoginCliente::class,'iniciar']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cuota;
+use Illuminate\Support\Facades\DB;
 
 class ctrCuota extends Controller
 {
@@ -52,7 +53,12 @@ class ctrCuota extends Controller
                 ->orderBy('cuota.id', 'desc')->paginate(5);
         }
         return $obj;
-        // return ["hola" => $obj];
+    }
+
+    public function updateCuota()
+    {
+        $obj = DB::update('update cuota set monto = monto - (monto * 0.20)');
+        return "Actualizado exitosamente";
     }
 
     public function listarCuota(Request $request)
