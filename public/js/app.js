@@ -4704,6 +4704,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4777,10 +4778,9 @@ __webpack_require__.r(__webpack_exports__);
         if (buscar === "") {
           me.resNombre = "";
         } else {
-          me.resNombre = response.data.data[0].nombre + " " + response.data.data[0].apellidos;
-          console.log(response.data.data[0].nombre);
-          console.log(response.data.data[0].apellidos);
-        } // console.log(response);
+          me.resNombre = response.data.data[0].nombre + " " + response.data.data[0].apellidos; // console.log(response.data.data[0].nombre);
+          // console.log(response.data.data[0].apellidos);
+        } //   console.log(response);
 
       })["catch"](function (error) {
         console.log(error);
@@ -71456,8 +71456,6 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("h5", [_vm._v("Comprador:")]),
-                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
@@ -71467,7 +71465,14 @@ var render = function() {
                       expression: "resNombre"
                     }
                   ],
-                  attrs: { type: "text", name: "resNombre" },
+                  staticClass: "form-control",
+                  attrs: {
+                    readonly: "",
+                    type: "text",
+                    name: "resNombre",
+                    placeholder: "Comprador",
+                    width: "80"
+                  },
                   domProps: { value: _vm.resNombre },
                   on: {
                     input: function($event) {
@@ -71493,11 +71498,9 @@ var render = function() {
                     domProps: { textContent: _vm._s(cuota.codigoPropiedad) }
                   }),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(cuota.nombre))]),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(cuota.apellidos) }
-                  }),
+                  _c("td", [
+                    _vm._v(_vm._s(cuota.nombre) + " " + _vm._s(cuota.apellidos))
+                  ]),
                   _vm._v(" "),
                   _c("td", {
                     domProps: { textContent: _vm._s(cuota.descripcion) }
@@ -71653,8 +71656,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Codigo Propiedad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nombres")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Apellidos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Descripción")]),
         _vm._v(" "),

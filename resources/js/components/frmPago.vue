@@ -29,8 +29,9 @@
                   <i class="fa fa-search"></i> Buscar
                 </button>
 
-                <h5>Comprador:</h5>
-                <input type="text" name="resNombre" v-model="resNombre" />
+                <!-- <h5>Comprador:</h5> -->
+                <!-- <input class="form-control" type="text" name="resNombre" v-model="resNombre" placeholder="Comprador" /> -->
+                <input class="form-control" readonly type="text" name="resNombre" v-model="resNombre" placeholder="Comprador" width="80" />
               </div>
             </div>
           </div>
@@ -39,7 +40,7 @@
               <tr>
                 <th>Codigo Propiedad</th>
                 <th>Nombres</th>
-                <th>Apellidos</th>
+                <!-- <th>Apellidos</th> -->
                 <th>Descripción</th>
                 <th>Fecha</th>
                 <th>Monto</th>
@@ -51,9 +52,9 @@
             <tbody>
               <tr v-for="cuota in arrayCuota" :key="cuota.id">
                 <td v-text="cuota.codigoPropiedad"></td>
-                <td>{{ cuota.nombre }}</td>
+                <td>{{ cuota.nombre }} {{cuota.apellidos}}</td>
                 <!-- <td v-text="cuota.nombre"></td> -->
-                <td v-text="cuota.apellidos"></td>
+                    <!-- <td v-text="cuota.apellidos"></td> -->
                 <td v-text="cuota.descripcion"></td>
                 <td v-text="cuota.fechaCuota"></td>
                 <td v-text="cuota.montoCuota"></td>
@@ -140,6 +141,7 @@ export default {
       idCuota: 0,
       arrayCuota: [],
       modalNuevoPropietario: 0,
+
       resNombre: "",
 
       errorMostrarMsjCuota: [],
@@ -207,10 +209,10 @@ export default {
               response.data.data[0].nombre +
               " " +
               response.data.data[0].apellidos;
-            console.log(response.data.data[0].nombre);
-            console.log(response.data.data[0].apellidos);
+            // console.log(response.data.data[0].nombre);
+            // console.log(response.data.data[0].apellidos);
           }
-          // console.log(response);
+        //   console.log(response);
         })
 
         .catch(function (error) {
