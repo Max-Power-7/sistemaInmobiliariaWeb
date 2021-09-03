@@ -4145,6 +4145,447 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //import vSelect from 'vue-select';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4153,9 +4594,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return _ref = {
       idNotaVenta: 0,
-      fecha: moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD'),
-      metroCuadrado: '',
-      tipoPago: '0',
+      fecha: moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD"),
+      metroCuadrado: "",
+      tipoPago: "0",
       montoTotal: 0,
       idPropiedad: 0,
       arrayNotaVenta: [],
@@ -4164,49 +4605,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       slideImagen: [],
       arrayImagen: [],
       id: 0,
-      descripcionFoto: '',
-      foto: '',
-      imagenMiniatura: '',
+      descripcionFoto: "",
+      foto: "",
+      imagenMiniatura: "",
       modalImagen: 0,
-      tituloModal: '',
+      tituloModal: "",
       tipoAccion: 0,
       //cliente
       arrayCliente: [],
       modalCliente: 0,
       idCliente: 0,
-      nombreCliente: '',
+      nombreCliente: "",
       modalNuevoCliente: 0,
-      datosTipo: '',
-      datosDireccion: '',
-      datosTelefono: '',
-      datosCi: '',
-      datosNombre: '',
-      datosApellidos: '',
-      datosRazonSocial: '',
-      datosCorreo: '',
+      datosTipo: "",
+      datosDireccion: "",
+      datosTelefono: "",
+      datosCi: "",
+      datosNombre: "",
+      datosApellidos: "",
+      datosRazonSocial: "",
+      datosCorreo: "",
       //detalle
-      idP: '',
-      nombreP: '',
-      descripcionP: '',
+      idP: "",
+      nombreP: "",
+      descripcionP: "",
       preciov: 0,
       //plan credito
-      tipoCredito: '0',
+      tipoCredito: "0",
       interes: 0.0,
-      plazo: '0',
+      plazo: "0",
       //cuota
       arrayCuota: [],
-      montoCuota: '0',
-      fechaCuota: '',
+      montoCuota: "0",
+      fechaCuota: "",
       errorMostrarMsjNotaVenta: [],
       errorMostrarMsjCliente: []
-    }, _defineProperty(_ref, "datosTipo", ''), _defineProperty(_ref, "datosDescripcion", ''), _defineProperty(_ref, "datosMetro", ''), _defineProperty(_ref, "datosNroPiso", ''), _defineProperty(_ref, "datosInicioConstruccion", ''), _defineProperty(_ref, "datosFinConstruccion", ''), _defineProperty(_ref, "datosProvincia", ''), _defineProperty(_ref, "datosMunicipio", ''), _defineProperty(_ref, "datosCiudad", ''), _defineProperty(_ref, "pagination", {
-      'total': 0,
-      'current_page': 0,
-      'per_page': 0,
-      'last_page': 0,
-      'from': 0,
-      'to': 0
-    }), _defineProperty(_ref, "offset", 3), _defineProperty(_ref, "criterio", 'notaventa.id'), _defineProperty(_ref, "buscar", ''), _defineProperty(_ref, "criterioPropiedad", 'propiedad.codigo'), _defineProperty(_ref, "buscarCliente", ''), _defineProperty(_ref, "criterioCliente", 'nombre'), _defineProperty(_ref, "buscarPropiedad", ''), _defineProperty(_ref, "listado", 0), _defineProperty(_ref, "modalVerPropiedad", 0), _defineProperty(_ref, "message", ''), _ref;
+    }, _defineProperty(_ref, "datosTipo", ""), _defineProperty(_ref, "datosDescripcion", ""), _defineProperty(_ref, "datosMetro", ""), _defineProperty(_ref, "datosNroPiso", ""), _defineProperty(_ref, "datosInicioConstruccion", ""), _defineProperty(_ref, "datosFinConstruccion", ""), _defineProperty(_ref, "datosProvincia", ""), _defineProperty(_ref, "datosMunicipio", ""), _defineProperty(_ref, "datosCiudad", ""), _defineProperty(_ref, "pagination", {
+      total: 0,
+      current_page: 0,
+      per_page: 0,
+      last_page: 0,
+      from: 0,
+      to: 0
+    }), _defineProperty(_ref, "offset", 3), _defineProperty(_ref, "criterio", "notaventa.id"), _defineProperty(_ref, "buscar", ""), _defineProperty(_ref, "criterioPropiedad", "propiedad.codigo"), _defineProperty(_ref, "buscarCliente", ""), _defineProperty(_ref, "criterioCliente", "nombre"), _defineProperty(_ref, "buscarPropiedad", ""), _defineProperty(_ref, "listado", 0), _defineProperty(_ref, "modalVerPropiedad", 0), _defineProperty(_ref, "message", ""), _ref;
   },
   computed: {
     calcularMontoCredito: function calcularMontoCredito() {
@@ -4257,7 +4698,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     listar: function listar(page, buscar, criterio) {
       var me = this;
-      var url = '/notaventa?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = "/notaventa?page=" + page + "&buscar=" + buscar + "&criterio=" + criterio;
       axios.get(url).then(function (response) {
         me.arrayNotaVenta = response.data.data;
         me.pagination = {
@@ -4274,19 +4715,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     guardar: function guardar() {
       var me = this;
-      axios.post('/notaventa/guardar', {
-        'fecha': this.fecha,
-        'tipoPago': this.tipoPago,
-        'montoTotal': this.preciov,
-        'idPropiedad': this.idPropiedad,
-        'idCliente': this.idCliente,
-        'interes': this.interes,
-        'plazo': this.plazo,
-        'tipoCredito': this.tipoCredito,
-        'data': this.arrayCuota
+      axios.post("/notaventa/guardar", {
+        fecha: this.fecha,
+        tipoPago: this.tipoPago,
+        montoTotal: this.preciov,
+        idPropiedad: this.idPropiedad,
+        idCliente: this.idCliente,
+        interes: this.interes,
+        plazo: this.plazo,
+        tipoCredito: this.tipoCredito,
+        data: this.arrayCuota
       }).then(function (response) {
         me.listado = 1;
-        me.listar(1, '', 'fecha');
+        me.listar(1, "", "fecha");
         me.arrayNotaVenta = [];
         me.limpiar();
       })["catch"](function (error) {
@@ -4309,30 +4750,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         foto: me.foto,
         descripcionFoto: me.descripcionFoto
       });
-      me.id = 0, me.foto = '', me.descripcionFoto = '';
-      me.imagenMiniatura = '';
+      me.id = 0, me.foto = "", me.descripcionFoto = "";
+      me.imagenMiniatura = "";
     },
     eliminar: function eliminar(id) {
       var _this = this;
 
       swal({
-        title: 'Esta seguro de Desactivar esta Nota Venta?',
-        type: 'warning',
+        title: "Esta seguro de Desactivar esta Nota Venta?",
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar!',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
         buttonsStyling: false,
         reverseButtons: true
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('/notaventa/desactivar/' + id).then(function (response) {
-            me.listar(1, '', 'fecha');
-            swal('Desactivado!', 'El registro ha sido eliminado con éxito.', 'success');
+          axios.put("/notaventa/desactivar/" + id).then(function (response) {
+            me.listar(1, "", "fecha");
+            swal("Desactivado!", "El registro ha sido eliminado con éxito.", "success");
           })["catch"](function (error) {
             console.log(error);
           });
@@ -4341,18 +4782,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     limpiar: function limpiar() {
-      this.idCliente = '';
-      this.nombreCliente = '';
-      this.tipoPago = '0';
+      this.idCliente = "";
+      this.nombreCliente = "";
+      this.tipoPago = "0";
       this.montoTotal = 0;
       this.preciov = 0;
       this.idPropiedad = 0;
-      this.nombreP = '';
-      this.tipo = '0';
+      this.nombreP = "";
+      this.tipo = "0";
       this.idPropiedad = 0;
       this.idCliente = 0;
-      this.tipoCredito = '0';
-      this.plazo = '0';
+      this.tipoCredito = "0";
+      this.plazo = "0";
       this.interes = 0;
       this.arrayCliente = [];
       this.arrayCuota = [];
@@ -4368,7 +4809,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //Propiedad
     listarPropiedad: function listarPropiedad(buscar, criterio) {
       var me = this;
-      var url = '/propiedad?buscar=' + buscar + '&criterio=' + criterio;
+      var url = "/propiedad?buscar=" + buscar + "&criterio=" + criterio;
       axios.get(url).then(function (response) {
         me.arrayPropiedad = response.data;
       })["catch"](function (error) {
@@ -4378,43 +4819,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     verPropiedad: function verPropiedad() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalVerPropiedad = 1;
-      this.datosTipo = data['tipo'];
-      this.datosDescripcion = data['descripcion'];
-      this.datosMetro = data['metroCuadrado'];
-      this.datosNroPiso = data['nroPiso'];
-      this.datosInicioConstruccion = data['inicioConstruccion'];
-      this.datosFinConstruccion = data['finConstruccion'];
-      this.datosProvincia = data['provincia'];
-      this.datosMunicipio = data['municipio'];
-      this.datosCiudad = data['ciudad'];
+      this.datosTipo = data["tipo"];
+      this.datosDescripcion = data["descripcion"];
+      this.datosMetro = data["metroCuadrado"];
+      this.datosNroPiso = data["nroPiso"];
+      this.datosInicioConstruccion = data["inicioConstruccion"];
+      this.datosFinConstruccion = data["finConstruccion"];
+      this.datosProvincia = data["provincia"];
+      this.datosMunicipio = data["municipio"];
+      this.datosCiudad = data["ciudad"];
     },
     cerrarModalVerPropiedad: function cerrarModalVerPropiedad() {
       this.modalVerPropiedad = 0;
       this.limpiarDatos();
     },
     limpiarDatos: function limpiarDatos() {
-      this.datosTipo = '';
-      this.datosDescripcion = '';
-      this.datosMetro = '';
-      this.datosNroPiso = '';
-      this.datosInicioConstruccion = '';
-      this.datosFinConstruccion = '';
-      this.datosProvincia = '';
-      this.datosMunicipio = '';
-      this.datosCiudad = '';
+      this.datosTipo = "";
+      this.datosDescripcion = "";
+      this.datosMetro = "";
+      this.datosNroPiso = "";
+      this.datosInicioConstruccion = "";
+      this.datosFinConstruccion = "";
+      this.datosProvincia = "";
+      this.datosMunicipio = "";
+      this.datosCiudad = "";
     },
     agregarPropiedad: function agregarPropiedad() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var me = this;
-      me.idPropiedad = data['id'];
-      me.nombreP = data['tipo'];
-      me.preciov = data['precio'];
+      me.idPropiedad = data["id"];
+      me.nombreP = data["tipo"];
+      me.preciov = data["precio"];
     },
     eliminarPropiedad: function eliminarPropiedad() {
       var me = this;
-      me.idPropiedad = '';
-      me.nombreP = '';
-      me.descripcionP = '';
+      me.idPropiedad = "";
+      me.nombreP = "";
+      me.descripcionP = "";
       me.preciov = 0;
     },
     //nuevo Cliente
@@ -4426,15 +4867,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     guardarNuevoCliente: function guardarNuevoCliente() {
       var me = this;
-      axios.post('/cliente/guardar', {
-        'direccion': this.datosDireccion,
-        'correo': this.datosCorreo,
-        'telefono': this.datosTelefono,
-        'tipo': this.datosTipo,
-        'ci': this.datosCi,
-        'nombre': this.datosNombre,
-        'apellidos': this.datosApellidos,
-        'razonSocial': this.datosRazonSocial
+      axios.post("/cliente/guardar", {
+        direccion: this.datosDireccion,
+        correo: this.datosCorreo,
+        telefono: this.datosTelefono,
+        tipo: this.datosTipo,
+        ci: this.datosCi,
+        nombre: this.datosNombre,
+        apellidos: this.datosApellidos,
+        razonSocial: this.datosRazonSocial
       }).then(function (response) {
         me.limpiarCliente();
       })["catch"](function (error) {
@@ -4442,14 +4883,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     limpiarCliente: function limpiarCliente() {
-      this.datosDireccion = '';
-      this.datosCorreo = '';
-      this.datosTelefono = '';
-      this.datosTipo = '';
-      this.datosNombre = '';
-      this.datosApellidos = '';
-      this.datosRazonSocial = '';
-      this.datosCi = '';
+      this.datosDireccion = "";
+      this.datosCorreo = "";
+      this.datosTelefono = "";
+      this.datosTipo = "";
+      this.datosNombre = "";
+      this.datosApellidos = "";
+      this.datosRazonSocial = "";
+      this.datosCi = "";
       this.modalNuevoCliente = 0;
     },
     abrirModalCliente: function abrirModalCliente() {
@@ -4469,14 +4910,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sliderImagen: function sliderImagen(id) {
       var me = this;
       me.slideImagen = [];
-      var url = '/imagen/slider?id=' + id;
+      var url = "/imagen/slider?id=" + id;
       var data = [];
       var slider = [];
       axios.get(url).then(function (response) {
         me.slideImagen = response.data;
 
         for (var i = 0; i < data.length; i++) {
-          slider.push('/img/propiedad/' + data[i]);
+          slider.push("/img/propiedad/" + data[i]);
         }
       })["catch"](function (error) {
         console.log(error);
@@ -4486,7 +4927,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //Cliente
     listarCliente: function listarCliente() {
       var me = this;
-      var url = '/cliente/listado?criterio=' + this.criterioCliente + '&buscar=' + this.buscarCliente;
+      var url = "/cliente/listado?criterio=" + this.criterioCliente + "&buscar=" + this.buscarCliente;
       axios.get(url).then(function (response) {
         me.arrayCliente = response.data;
       })["catch"](function (error) {
@@ -4495,12 +4936,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     seleccionarCliente: function seleccionarCliente() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-      this.idCliente = data['id'];
+      this.idCliente = data["id"];
 
-      if (data['tipo'] == 'empresa') {
-        this.nombreCliente = data['razonSocial'];
+      if (data["tipo"] == "empresa") {
+        this.nombreCliente = data["razonSocial"];
       } else {
-        this.nombreCliente = data['nombre'] + " " + data['apellidos'];
+        this.nombreCliente = data["nombre"] + " " + data["apellidos"];
       }
 
       this.cerrarModalCliente();
@@ -4517,15 +4958,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       monto = Number(me.preciov);
       monto = monto + interes;
-      var fechaMes = moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD');
+      var fechaMes = moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD");
 
-      if (me.tipoCredito == 'mensual') {
+      if (me.tipoCredito == "mensual") {
         me.arrayCuota = [];
         plazoCredito = plazoCredito * 12;
         monto = (monto / plazoCredito).toFixed(2);
 
         for (var i = 0; i < plazoCredito; i++) {
-          fechaMes = moment__WEBPACK_IMPORTED_MODULE_0___default()().add(i, 'M').format('YYYY-MM-DD');
+          fechaMes = moment__WEBPACK_IMPORTED_MODULE_0___default()().add(i, "M").format("YYYY-MM-DD");
           me.arrayCuota.push({
             nro: i + 1,
             fecha: fechaMes,
@@ -4533,14 +4974,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
         }
       } else {
-        if (me.tipoCredito = 'semestral') {
+        if (me.tipoCredito = "semestral") {
           me.arrayCuota = [];
           plazoCredito = plazoCredito * 2;
           monto = (monto / plazoCredito).toFixed(2);
           var contadorSemestral = 0;
 
           for (var _i = 0; _i < plazoCredito; _i++) {
-            fechaMes = moment__WEBPACK_IMPORTED_MODULE_0___default()().add(contadorSemestral, 'M').format('YYYY-MM-DD');
+            fechaMes = moment__WEBPACK_IMPORTED_MODULE_0___default()().add(contadorSemestral, "M").format("YYYY-MM-DD");
             contadorSemestral = contadorSemestral + 6;
             me.arrayCuota.push({
               nro: _i + 1,
@@ -4728,7 +5169,7 @@ __webpack_require__.r(__webpack_exports__);
       arrayCuota: [],
       modalNuevoPropietario: 0,
       resNombre: "",
-      montoIVA: 0,
+      //   montoIVA: 0,
       errorMostrarMsjCuota: [],
       criterio: "codigo",
       buscar: "",
@@ -11616,7 +12057,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-content{\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: red !important;\n    font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-content {\n  width: 100% !important;\n  position: absolute !important;\n}\n.mostrar {\n  display: list-item !important;\n  opacity: 1 !important;\n  position: absolute !important;\n  background-color: #3c29297a !important;\n}\n.div-error {\n  display: flex;\n  justify-content: center;\n}\n.text-error {\n  color: red !important;\n  font-weight: bold;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -68726,7 +69167,7 @@ var render = function() {
         { staticClass: "card" },
         [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("\n                    Nota de Venta\n                    "),
+            _vm._v("\n        Nota de Venta\n        "),
             _c(
               "button",
               {
@@ -68740,7 +69181,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "icon-plus" }),
-                _vm._v(" Nuevo\n                    ")
+                _vm._v(" Nuevo\n        ")
               ]
             )
           ]),
@@ -68857,7 +69298,7 @@ var render = function() {
                           },
                           [
                             _c("i", { staticClass: "fa fa-search" }),
-                            _vm._v(" Buscar")
+                            _vm._v(" Buscar\n                ")
                           ]
                         )
                       ])
@@ -68907,13 +69348,15 @@ var render = function() {
                               _vm._v(" "),
                               notaventa.tipoCliente == "persona"
                                 ? [
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(
-                                          notaventa.nombreClie
-                                        )
-                                      }
-                                    })
+                                    _c("td", [
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(notaventa.nombreClie) +
+                                          " " +
+                                          _vm._s(notaventa.apellidos) +
+                                          " "
+                                      )
+                                    ])
                                   ]
                                 : _vm._e(),
                               _vm._v(" "),
@@ -69159,7 +69602,11 @@ var render = function() {
                                         ),
                                         _vm._v(" "),
                                         _c("p", { staticClass: "card-text" }, [
-                                          _vm._v(_vm._s(imagen.descripcionFoto))
+                                          _vm._v(
+                                            "\n                            " +
+                                              _vm._s(imagen.descripcionFoto) +
+                                              "\n                          "
+                                          )
                                         ]),
                                         _vm._v(" "),
                                         _vm._m(2, true)
@@ -69309,7 +69756,11 @@ var render = function() {
                                                           "propiedad.codigo"
                                                       }
                                                     },
-                                                    [_vm._v("Codigo")]
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                  Codigo\n                                "
+                                                      )
+                                                    ]
                                                   )
                                                 ]
                                               ),
@@ -69384,7 +69835,9 @@ var render = function() {
                                                   _c("i", {
                                                     staticClass: "fa fa-search"
                                                   }),
-                                                  _vm._v(" Buscar")
+                                                  _vm._v(
+                                                    " Buscar\n                              "
+                                                  )
                                                 ]
                                               )
                                             ]
@@ -69503,7 +69956,9 @@ var render = function() {
                                                                       size: "5"
                                                                     }
                                                                   }),
-                                                                  _vm._v("Ver")
+                                                                  _vm._v(
+                                                                    "Ver\n                                    "
+                                                                  )
                                                                 ]
                                                               )
                                                             ]),
@@ -69589,7 +70044,7 @@ var render = function() {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\n                                                                        Agregar "
+                                                              "\n                                  Agregar "
                                                             ),
                                                             _c("i", {
                                                               staticClass:
@@ -69626,7 +70081,7 @@ var render = function() {
                                                                       "fa fa-lock"
                                                                   }),
                                                                   _vm._v(
-                                                                    " Habilitar"
+                                                                    " Habilitar\n                                  "
                                                                   )
                                                                 ]
                                                               )
@@ -69907,9 +70362,14 @@ var render = function() {
                                               }
                                             }
                                           },
-                                          [_vm._v("Calcular")]
+                                          [
+                                            _vm._v(
+                                              "\n                        Calcular\n                      "
+                                            )
+                                          ]
                                         )
                                       ]),
+                                      _vm._v(" "),
                                       _c("br")
                                     ],
                                     1
@@ -70002,7 +70462,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Cerrar")]
+                        [_vm._v("\n                Cerrar\n              ")]
                       ),
                       _vm._v(" "),
                       _vm.tipoAccion == 1
@@ -70017,7 +70477,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Guardar")]
+                            [
+                              _vm._v(
+                                "\n                Guardar\n              "
+                              )
+                            ]
                           )
                         : _vm._e(),
                       _vm._v(" "),
@@ -70033,7 +70497,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Modificar")]
+                            [
+                              _vm._v(
+                                "\n                Modificar\n              "
+                              )
+                            ]
                           )
                         : _vm._e()
                     ])
@@ -70193,7 +70661,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -70207,7 +70675,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Agregar")]
+                  [_vm._v("\n            Agregar\n          ")]
                 )
               ])
             ])
@@ -70364,7 +70832,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "fa fa-search" }),
-                          _vm._v(" Buscar")
+                          _vm._v(" Buscar\n                ")
                         ]
                       )
                     ])
@@ -70458,7 +70926,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 )
               ])
             ])
@@ -70865,7 +71333,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -70879,7 +71347,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Guardar")]
+                  [_vm._v("\n            Guardar\n          ")]
                 )
               ])
             ])
@@ -70944,7 +71412,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Descripcion:")]
+                        [_vm._v("Descripción:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -70963,7 +71431,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Metre Cuadrado:")]
+                        [_vm._v("Metros Cuadrados:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -70980,7 +71448,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nro de Piso:")]
+                        [_vm._v("Nro. de Pisos:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -71094,7 +71562,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 )
               ])
             ])
@@ -71199,7 +71667,7 @@ var staticRenderFns = [
           "button",
           {
             staticClass:
-              "btn btn-outline-dark dropdown-toggle dropdown-toggle-split",
+              "\n                        btn btn-outline-dark\n                        dropdown-toggle dropdown-toggle-split\n                      ",
             attrs: {
               type: "button",
               id: "dropdownMenuButton",
@@ -71208,11 +71676,7 @@ var staticRenderFns = [
               "aria-expanded": "false"
             }
           },
-          [
-            _vm._v(
-              "\n                                                Accion\n                                            "
-            )
-          ]
+          [_vm._v("\n                      Accion\n                    ")]
         ),
         _vm._v(" "),
         _c(
@@ -71274,11 +71738,7 @@ var staticRenderFns = [
             "aria-controls": "collapseExample"
           }
         },
-        [
-          _vm._v(
-            "\n                                                    Propiedad\n                                                "
-          )
-        ]
+        [_vm._v("\n                        Propiedad\n                      ")]
       )
     ])
   },

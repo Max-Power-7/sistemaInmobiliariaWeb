@@ -156,7 +156,7 @@ export default {
       modalNuevoPropietario: 0,
 
       resNombre: "",
-      montoIVA: 0,
+    //   montoIVA: 0,
 
       errorMostrarMsjCuota: [],
       criterio: "codigo",
