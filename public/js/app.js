@@ -2047,6 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -66850,7 +66851,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Opciones")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estado")])
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Cant Ventas")])
       ])
     ])
   }

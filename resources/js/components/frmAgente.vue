@@ -35,6 +35,7 @@
                                     <th>Direccion</th>
                                     <th>Opciones</th>
                                     <th>Estado</th>
+                                    <!-- <td>Cant Ventas</td> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +53,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <template v-if="agente.estado=='1'">
                                                         <a class="dropdown-item bg-light" href="#" @click="abrirModal('agente','modificar',agente)"><i class="icon-pencil text-warning"></i>Modificar</a>
-                                                        <a class="dropdown-item bg-light" href="#" @click="desactivarAgente(agente.id)"><i class="fa fa-toggle-on text-success"></i>Desactivar</a>    
+                                                        <a class="dropdown-item bg-light" href="#" @click="desactivarAgente(agente.id)"><i class="fa fa-toggle-on text-success"></i>Desactivar</a>
                                                     </template>
                                                     <template v-else>
                                                         <a class="dropdown-item bg-light" href="#" @click="activarAgente(agente.id)"><i class="fa fa-toggle-off text-danger"></i>Activar</a>
@@ -69,7 +70,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                         <nav>
@@ -102,7 +103,7 @@
                               <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        
+
                         <div class="modal-body">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
 
@@ -133,24 +134,24 @@
                                         <input type="number" v-model="telefono" class="form-control" placeholder="Ingrese Telefono">
                                     </div>
                                 </div>
-                        
+
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
                                     <div class="col-md-9">
                                         <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese Direccion">
                                     </div>
                                 </div>
-                                           
+
                                 <div v-show="errorAgente" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjAgente" :key="error" v-text="error">
-                                        </div>    
+                                        </div>
                                     </div>
                                 </div>
 
                             </form>
                         </div>
-                        
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                             <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="guardar()">Guardar</button>
@@ -203,7 +204,7 @@
                 if(!this.pagination.to){
                     return [];
                 }
-            
+
                 var from = this.pagination.current_page - this.offset;
                 if(from < 1){
                     from = 1;
@@ -222,19 +223,19 @@
                 return pagesArray;
             }
         },
-       methods: {           
+       methods: {
            listar(page,buscar,criterio){
                 let me=this;
                     var url='/agente?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                     axios.get(url).then(function (response) {
                     me.arrayAgente=response.data.data;
-                    me.pagination={total:response.data.total, 
+                    me.pagination={total:response.data.total,
                         current_page:response.data.current_page,
                         per_page: response.data.per_page,
                         last_page: response.data.last_page,
                         from: response.data.from,
                         to: response.data.to
-                    }   
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -249,7 +250,7 @@
 
            guardar(){
                if(this.validar()){
-                   return; 
+                   return;
                 }
             let me = this;
                 axios.post('/agente/guardar',{
@@ -260,16 +261,16 @@
                     'direccion':this.direccion
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listar(1,'','ci');           
+                    me.listar(1,'','ci');
                 })
                 .catch(function(error){
                     console.log(error);
-                });   
+                });
            },
 
            actualizar(){
                 if(this.validar()){
-                   return; 
+                   return;
                 }
                 let me = this;
                 axios.put('/agente/modificar',{
@@ -281,7 +282,7 @@
                     'direccion':this.direccion
                 }).then(function(response){
                     me.cerrarModal();
-                    me.listar(1,'','ci');           
+                    me.listar(1,'','ci');
                 })
                 .catch(function(error){
                     console.log(error);
@@ -313,14 +314,14 @@
                         )
                     }).catch(function (error) {
                         console.log(error);
-                    });                   
+                    });
                 } else if (
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
                 ) {
-                    
+
                 }
-                }) 
+                })
             },
 
             activarAgente(id){
@@ -353,9 +354,9 @@
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
                 ) {
-                    
+
                 }
-                }) 
+                })
             },
 
            validar(){
@@ -365,7 +366,7 @@
                if(!this.ci)this.errorMostrarMsjAgente.push('La Cedula Identidad del Agente esta vacia!');
                if(!this.nombre)this.errorMostrarMsjAgente.push('El Nombre del Agente esta vacia!');
                if(!this.apellidos)this.errorMostrarMsjAgente.push('El Apellidos del Agente esta vacia!');
-                    
+
                if(this.errorMostrarMsjAgente.length)this.errorAgente=1;
 
                return this.errorAgente;
@@ -407,10 +408,10 @@
                                         this.agenteId=data['id'];
                                         this.ci=data['ci'];
                                         this.nombre=data['nombre'];
-                                        this.apellidos=data['apellidos'];                                     
+                                        this.apellidos=data['apellidos'];
                                         this.telefono=data['telefono'];
                                         this.direccion=data['direccion'];
-                                    }   
+                                    }
                            }
                        }
                }
