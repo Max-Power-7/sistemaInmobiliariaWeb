@@ -16,11 +16,13 @@ class CreateNotaventaTable extends Migration
         Schema::create('notaventa', function (Blueprint $table) {
             $table->id();
             $table->date('fecha');
-            $table->string('tipoPago',15);
-            $table->decimal('montoTotal',11,2);
-            $table->string('estado',1);
+            $table->string('tipoPago', 15);
+            $table->decimal('montoTotal', 11, 2);
+            $table->string('estado', 1);
+            // $table->foreignId('id_agente');
             $table->foreignId('idPropiedad');
             $table->foreignId('idCliente');
+            // $table->foreign('id_agente')->references('id')->on('agente');
             $table->foreign('idPropiedad')->references('id')->on('propiedad');
             $table->foreign('idCliente')->references('id')->on('cliente');
         });

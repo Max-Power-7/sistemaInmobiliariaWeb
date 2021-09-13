@@ -70,6 +70,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/empleado/modificar', [ctrEmpleado::class, 'modificar']);
     Route::put('/empleado/desactivar', [ctrEmpleado::class, 'desactivar']);
     Route::put('/empleado/activar', [ctrEmpleado::class, 'activar']);
+
+    // Para un combobox o select en formularios
     Route::get('/empleado/select', [ctrEmpleado::class, 'selectEmpleado']);
 
     //USUARIO

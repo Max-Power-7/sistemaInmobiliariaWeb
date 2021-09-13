@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagenTable extends Migration
+class CreatePagoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateImagenTable extends Migration
      */
     public function up()
     {
-        Schema::create('imagen', function (Blueprint $table) {
+        Schema::create('pago', function (Blueprint $table) {
             $table->id();
-            $table->string('foto')->nullable();
-            $table->string('descripcionFoto',100)->nullable();
-            $table->foreignId('idPropiedad');            
-            $table->foreign('idPropiedad')->references('id')->on('propiedad');
+            $table->date('fecha');
+            $table->decimal('monto', 11, 2);
+            $table->string('estado', 1);
+            $table->foreignId('idCuota');
+            $table->foreign('idCuota')->references('id')->on('cuota');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateImagenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imagen');
+        Schema::dropIfExists('pago');
     }
 }

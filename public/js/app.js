@@ -2048,6 +2048,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7208,34 +7209,172 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       usuarioId: 0,
-      idEmpleado: 0,
-      login: '',
-      password: '',
-      tipo: '0',
+      //   idEmpleado: 0,
+      login: "",
+      password: "",
+      tipo: "0",
       arrayUsuario: [],
-      arrayEmpleado: [],
+      // arrayEmpleado:[],
       modal: 0,
-      tituloModal: '',
+      tituloModal: "",
       tipoAccion: 0,
       errorUsuario: 0,
       listadoTabla: 0,
-      message: '',
+      message: "",
       errorMostrarMsjUsuario: [],
       pagination: {
-        'total': 0,
-        'current_page': 0,
-        'per_page': 0,
-        'last_page': 0,
-        'from': 0,
-        'to': 0
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0
       },
       offset: 3,
-      criterio: 'login',
-      buscar: ''
+      criterio: "login",
+      buscar: ""
     };
   },
   computed: {
@@ -7272,7 +7411,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listarUsuario: function listarUsuario(page, buscar, criterio) {
       var me = this;
-      var url = '/usuario?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = "/usuario?page=" + page + "&buscar=" + buscar + "&criterio=" + criterio;
       axios.get(url).then(function (response) {
         me.arrayUsuario = response.data.data;
         me.pagination = {
@@ -7298,14 +7437,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.post('/usuario/guardar', {
-        'login': this.login,
-        'password': this.password,
-        'tipo': this.tipo,
-        'idEmpleado': this.idEmpleado
+      axios.post("/usuario/guardar", {
+        login: this.login,
+        password: this.password,
+        tipo: this.tipo //   idEmpleado: this.idEmpleado,
+
       }).then(function (response) {
         me.cerrarModal();
-        me.listarUsuario(1, '', 'login');
+        me.listarUsuario(1, "", "login");
       })["catch"](function (error) {
         console.log(error);
       });
@@ -7316,15 +7455,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.put('/usuario/modificar', {
-        'id': this.usuarioId,
-        'login': this.login,
-        'password': this.password,
-        'tipo': this.tipo,
-        'idEmpleado': this.idEmpleado
+      axios.put("/usuario/modificar", {
+        id: this.usuarioId,
+        login: this.login,
+        password: this.password,
+        tipo: this.tipo //   idEmpleado: this.idEmpleado,
+
       }).then(function (response) {
         me.cerrarModal();
-        me.listarUsuario(1, '', 'login');
+        me.listarUsuario(1, "", "login");
       })["catch"](function (error) {
         console.log(error);
       });
@@ -7333,25 +7472,25 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       swal({
-        title: 'Esta seguro de desactivar este usuario?',
-        type: 'warning',
+        title: "Esta seguro de desactivar este usuario?",
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar!',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
         buttonsStyling: false,
         reverseButtons: true
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('/usuario/desactivar', {
-            'id': id
+          axios.put("/usuario/desactivar", {
+            id: id
           }).then(function (response) {
-            me.listarUsuario(1, '', 'login');
-            swal('Desactivado!', 'El registro ha sido desactivado con éxito.', 'success');
+            me.listarUsuario(1, "", "login");
+            swal("Desactivado!", "El registro ha sido desactivado con éxito.", "success");
           })["catch"](function (error) {
             console.log(error);
           });
@@ -7363,25 +7502,25 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       swal({
-        title: 'Esta seguro de activar este usuario?',
-        type: 'warning',
+        title: "Esta seguro de activar este usuario?",
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar!',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
         buttonsStyling: false,
         reverseButtons: true
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.put('/usuario/activar', {
-            'id': id
+          axios.put("/usuario/activar", {
+            id: id
           }).then(function (response) {
-            me.listarUsuario(1, '', 'login');
-            swal('Activado!', 'El registro ha sido activado con éxito.', 'success');
+            me.listarUsuario(1, "", "login");
+            swal("Activado!", "El registro ha sido activado con éxito.", "success");
           })["catch"](function (error) {
             console.log(error);
           });
@@ -7392,69 +7531,74 @@ __webpack_require__.r(__webpack_exports__);
     validarUsuario: function validarUsuario() {
       this.errorUsuario = 0;
       this.errorMostrarMsjUsuario = [];
-      if (!this.login) this.errorMostrarMsjUsuario.push('El Usario del Usuario esta vacio!');
-      if (!this.password) this.errorMostrarMsjUsuario.push('La Contraseña del Usuario esta vacio!');
-      if (!this.tipo) this.errorMostrarMsjUsuario.push('Seleccione un Tipo!');
-      if (!this.idEmpleado) this.errorMostrarMsjUsuario.push('Seleccione un Empleado!');
+      if (!this.login) this.errorMostrarMsjUsuario.push("El Usario del Usuario esta vacio!");
+      if (!this.password) this.errorMostrarMsjUsuario.push("La Contraseña del Usuario esta vacio!");
+      if (!this.tipo) this.errorMostrarMsjUsuario.push("Seleccione un Tipo!");
+      /* if (!this.idEmpleado)
+        this.errorMostrarMsjUsuario.push("Seleccione un Empleado!"); */
+
       if (this.errorMostrarMsjUsuario.length) this.errorUsuario = 1;
       return this.errorUsuario;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
-      this.tituloModal = '';
-      this.login = '';
-      this.password = '';
-      this.tipo = '';
-      this.idEmpleado = 0;
+      this.tituloModal = "";
+      this.login = "";
+      this.password = "";
+      this.tipo = ""; //   this.idEmpleado = 0;
     },
+    //Abre el modal del empleado en la sección de insertar nuevo usuario
     abrirModal: function abrirModal(model, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-      this.listarEmpleado();
 
+      //   this.listarEmpleado();
       switch (model) {
-        case 'usuario':
+        case "usuario":
           {
             switch (accion) {
-              case 'registrar':
+              case "registrar":
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Registrar Usuario';
-                  this.login = '';
-                  this.password = '';
-                  this.tipo = '0';
-                  this.idEmpleado = 0;
+                  this.tituloModal = "Registrar Usuario";
+                  this.login = "";
+                  this.password = "";
+                  this.tipo = "0"; //   this.idEmpleado = 0;
+
                   this.tipoAccion = 1;
                   break;
                 }
 
-              case 'modificar':
+              case "modificar":
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Usuario';
+                  this.tituloModal = "Actualizar Usuario";
                   this.tipoAccion = 2;
-                  this.usuarioId = data['id'];
-                  this.login = data['login'];
-                  this.password = data['password'];
-                  this.tipo = data['tipo'];
-                  this.idEmpleado = data['idEmpleado'];
+                  this.usuarioId = data["id"];
+                  this.login = data["login"];
+                  this.password = data["password"];
+                  this.tipo = data["tipo"]; //   this.idEmpleado = data["idEmpleado"];
                 }
             }
           }
       }
-    },
-    listarEmpleado: function listarEmpleado() {
-      var me = this;
-      var url = '/empleado/select';
-      axios.get(url).then(function (response) {
-        me.arrayEmpleado = response.data;
-        me.listadoTabla = 1;
-      })["catch"](function (error) {
-        console.log(error);
-      });
     }
+    /* listarEmpleado() {
+      let me = this;
+      var url = "/empleado/select";
+      axios
+        .get(url)
+        .then(function (response) {
+          me.arrayEmpleado = response.data;
+          me.listadoTabla = 1;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, */
+
   },
   mounted: function mounted() {
-    this.listarUsuario(1, '', 'login');
+    this.listarUsuario(1, "", "login");
   }
 });
 
@@ -12154,7 +12298,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-content{\n    width: 100% !important;\n    position: absolute !important;\n}\n.modal-content{\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n     display: flex;\n     justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-content {\n  width: 100% !important;\n  position: absolute !important;\n}\n.modal-content {\n  width: 100% !important;\n  position: absolute !important;\n}\n.mostrar {\n  display: list-item !important;\n  opacity: 1 !important;\n  position: absolute !important;\n  background-color: #3c29297a !important;\n}\n.mostrar {\n  display: list-item !important;\n  opacity: 1 !important;\n  position: absolute !important;\n  background-color: #3c29297a !important;\n}\n.div-error {\n  display: flex;\n  justify-content: center;\n}\n.text-error {\n  color: red !important;\n  font-weight: bold;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -66397,7 +66541,7 @@ var render = function() {
                         ])
                       : _c("div", [
                           _c("span", { staticClass: "badge badge-danger" }, [
-                            _vm._v("Desactivo")
+                            _vm._v("Desactivado")
                           ])
                         ])
                   ])
@@ -66853,7 +66997,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Cant Ventas")])
+        _c("td", [_vm._v("Nº de Ventas")])
       ])
     ])
   }
@@ -76492,7 +76636,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fa fa-align-justify" }),
-          _vm._v(" Usuario\n                    "),
+          _vm._v(" Usuario\n        "),
           _c(
             "button",
             {
@@ -76504,10 +76648,7 @@ var render = function() {
                 }
               }
             },
-            [
-              _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\n                    ")
-            ]
+            [_c("i", { staticClass: "icon-plus" }), _vm._v(" Nuevo\n        ")]
           )
         ]),
         _vm._v(" "),
@@ -76594,7 +76735,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_c("i", { staticClass: "fa fa-search" }), _vm._v(" Buscar")]
+                  [
+                    _c("i", { staticClass: "fa fa-search" }),
+                    _vm._v(" Buscar\n              ")
+                  ]
                 )
               ])
             ])
@@ -76617,14 +76761,6 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", { domProps: { textContent: _vm._s(usuario.tipo) } }),
                   _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(usuario.nombre) }
-                  }),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(usuario.apellidos) }
-                  }),
-                  _vm._v(" "),
                   _c("td", [
                     usuario.estado == "1"
                       ? _c("div", [
@@ -76645,7 +76781,7 @@ var render = function() {
                         "button",
                         {
                           staticClass:
-                            "btn btn-outline-dark dropdown-toggle dropdown-toggle-split",
+                            "\n                      btn btn-outline-dark\n                      dropdown-toggle dropdown-toggle-split\n                    ",
                           attrs: {
                             type: "button",
                             id: "dropdownMenuButton",
@@ -76656,7 +76792,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                                Accion\n                                            "
+                            "\n                    Accion\n                  "
                           )
                         ]
                       ),
@@ -76668,7 +76804,7 @@ var render = function() {
                           attrs: { "aria-labelledby": "dropdownMenuButton" }
                         },
                         [
-                          usuario.estado
+                          usuario.estado == "1"
                             ? [
                                 _c(
                                   "a",
@@ -77028,69 +77164,6 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Empleados")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.idEmpleado,
-                                expression: "idEmpleado"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.idEmpleado = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "0", disabled: "" } },
-                              [_vm._v("Seleccione un Empleado...")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayEmpleado, function(empleado) {
-                              return _c("option", {
-                                key: empleado.id,
-                                domProps: {
-                                  value: empleado.id,
-                                  textContent: _vm._s(
-                                    empleado.nombre + " " + empleado.apellidos
-                                  )
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
                     _c(
                       "div",
                       {
@@ -77134,7 +77207,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 ),
                 _vm._v(" "),
                 _vm.tipoAccion == 1
@@ -77149,7 +77222,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Guardar")]
+                      [_vm._v("\n            Guardar\n          ")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -77165,7 +77238,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Actualizar")]
+                      [_vm._v("\n            Actualizar\n          ")]
                     )
                   : _vm._e()
               ])
@@ -77188,10 +77261,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Password")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tipo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Apellidos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Estado")]),
         _vm._v(" "),

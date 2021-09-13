@@ -19,8 +19,7 @@ class CreateUsuarioTable extends Migration
             $table->string('password',64);
             $table->string('tipo',40);
             $table->string('estado',1);
-            $table->foreignId('idEmpleado');
-            $table->foreign('idEmpleado')->references('id')->on('empleado');
+            $table->timestamps();
         });
     }
 

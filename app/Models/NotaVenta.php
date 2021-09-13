@@ -17,5 +17,10 @@ class NotaVenta extends Model
         'idPropiedad',
         'idCliente'
     ];
+
+    // public function cliente(){
+    //     return $this->hasOne(Cliente::class);
+    // }
+
     public $timestamps=false;
 }

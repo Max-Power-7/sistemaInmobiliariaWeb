@@ -35,7 +35,7 @@
                                     <th>Direccion</th>
                                     <th>Opciones</th>
                                     <th>Estado</th>
-                                    <!-- <td>Cant Ventas</td> -->
+                                    <td>Nº de Ventas</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +45,7 @@
                                     <td v-text="agente.apellidos"></td>
                                     <td v-text="agente.telefono"></td>
                                     <td v-text="agente.direccion"></td>
+
                                     <td>
                                         <div class="dropdown">
                                                 <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,7 +67,7 @@
                                                 <span class="badge badge-success">Activo</span>
                                             </div>
                                             <div v-else>
-                                                <span class="badge badge-danger">Desactivo</span>
+                                                <span class="badge badge-danger">Desactivado</span>
                                         </div>
                                     </td>
                                 </tr>

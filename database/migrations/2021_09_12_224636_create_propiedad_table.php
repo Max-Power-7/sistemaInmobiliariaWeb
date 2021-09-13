@@ -23,10 +23,10 @@ class CreatePropiedadTable extends Migration
             $table->date('finConstruccion')->nullable();
             $table->decimal('precio',11,2);
             $table->string('tipo',50);
-            $table->string('estado',50); 
+            $table->string('estado',50);
             $table->foreignId('idPropietario');
-            $table->foreignId('idLocalidad');       
-            $table->foreignId('idAgente');     
+            $table->foreignId('idLocalidad');
+            $table->foreignId('idAgente');
             $table->foreign('idPropietario')->references('id')->on('propietario');
             $table->foreign('idLocalidad')->references('id')->on('localidad');
             $table->foreign('idAgente')->references('id')->on('agente');
