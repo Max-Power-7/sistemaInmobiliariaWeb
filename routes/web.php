@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -18,11 +19,11 @@ use App\Http\Controllers\ctrLoginCliente;
 use App\Http\Controllers\ctrPaginaPrincipal;
 
 
-Route::get('/',[ctrPaginaPrincipal::class,'index']);
+Route::get('/', [ctrPaginaPrincipal::class, 'index']);
 
-Route::group(['middleware'=>['guest']],function(){
-    Route::get('/sistema',[LoginController::class, 'showLoginForm']);
-    Route::post('/usuario',[LoginController::class, 'usuario'])->name('usuario');
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('/sistema', [LoginController::class, 'showLoginForm']);
+    Route::post('/usuario', [LoginController::class, 'usuario'])->name('usuario');
 });
 
 Auth::routes();
@@ -94,9 +95,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/propiedad/cantidad', [ctrPropiedad::class, 'cantidadPropiedad']);
 
     //NOTA VENTA
-    Route::get('/notaventa',[ctrNotaVenta::class,'listar']);
-    Route::post('/notaventa/guardar',[ctrNotaVenta::class,'guardar']);
-    Route::get('/notaventa/montoT',[ctrNotaVenta::class,'montoTotalVenta']);
+    Route::get('/notaventa', [ctrNotaVenta::class, 'listar']);
+    Route::post('/notaventa/guardar', [ctrNotaVenta::class, 'guardar']);
+    Route::get('/notaventa/montoT', [ctrNotaVenta::class, 'montoTotalVenta']);
 
     //Route::get('/notaventa/mostrarNombre',[ctrNotaVenta::class,'mostrarNombre']);
 
@@ -114,9 +115,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/pago/guardar', [ctrPago::class, 'guardar']);
 
     //CUOTA
-    Route::get('/cuota',[ctrCuota::class,'listar']);
-    Route::get('/cuota/modificar',[ctrCuota::class,'updateCuota']);
+    Route::get('/cuota', [ctrCuota::class, 'listar']);
+    Route::get('/cuota/modificar', [ctrCuota::class, 'updateCuota']);
 });
-    //LOGIN CLIENTE
-    Route::get('/logincliente',[ctrLoginCliente::class,'iniciar']);
-    Route::get('/cuota/listar',[ctrCuota::class,'listarCuota']);
+//LOGIN CLIENTE
+Route::get('/logincliente', [ctrLoginCliente::class, 'iniciar']);
+Route::get('/cuota/listar', [ctrCuota::class, 'listarCuota']);

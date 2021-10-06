@@ -99,18 +99,19 @@ class ctrNotaVenta extends Controller
                 $planCredito->idNotaVenta = $venta->id;
                 $planCredito->save();
 
-                //login cliente
+                //Login cliente
                 $loginCliente = new LoginCliente();
                 $idCliente = $request->idCliente;
                 $datosNombre = $this->mostrarNombre($idCliente);
                 $datosCi = $this->mostrarCi($idCliente);
-                //datos para crear Login para el cliente
+
+                //Datos para crear Login para el cliente
                 $loginCliente->usuarioCliente = $datosNombre;
                 $loginCliente->password = $datosCi;
                 $loginCliente->idCliente = $idCliente;
                 $loginCliente->save();
 
-                //cuota
+                //Cuota
                 $detalle = $request->data;
                 foreach ($detalle as $ep => $det) {
                     $cuota = new Cuota();

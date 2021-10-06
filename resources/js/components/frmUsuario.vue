@@ -54,7 +54,7 @@
             <tbody>
               <tr v-for="usuario in arrayUsuario" :key="usuario.id">
                 <td v-text="usuario.login"></td>
-                <td v-text="usuario.password"></td>
+                <!-- <td v-text="usuario.password"></td> -->
                 <td v-text="usuario.tipo"></td>
                 <!-- <td v-text="usuario.nombre"></td>
                 <td v-text="usuario.apellidos"></td> -->

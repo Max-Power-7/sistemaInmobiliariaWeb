@@ -1,455 +1,649 @@
 <template>
-    <main class="main">
-            <!-- Breadcrumb -->
-            <div class="container-fluid">
-                <!-- Ejemplo de tabla Listado -->
-                <div class="card">
-                    <div class="card-header">
-                        Agente
-                        <button type="button" @click="abrirModal('agente','registrar')" class="btn btn-secondary">
-                            <i class="icon-plus"></i>&nbsp;Nuevo
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <select class="form-control col-md-3" v-model="criterio">
-                                      <option value="ci">Cedula Identidad</option>
-                                      <option value="nombre">Nombre</option>
-                                      <option value="apellidos">Apellidos</option>
-                                      <option value="telefono">Telefono</option>
-                                    </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listar(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listar(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <table class="table table-bordered table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Cedula Identidad</th>
-                                    <th>Nombre</th>
-                                    <th>Apellidos</th>
-                                    <th>Telefono</th>
-                                    <th>Direccion</th>
-                                    <th>Opciones</th>
-                                    <th>Estado</th>
-                                    <td>Nº de Ventas</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="agente in arrayAgente" :key="agente.id">
-                                    <td v-text="agente.ci"></td>
-                                    <td v-text="agente.nombre"></td>
-                                    <td v-text="agente.apellidos"></td>
-                                    <td v-text="agente.telefono"></td>
-                                    <td v-text="agente.direccion"></td>
-
-                                    <td>
-                                        <div class="dropdown">
-                                                <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Accion
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <template v-if="agente.estado=='1'">
-                                                        <a class="dropdown-item bg-light" href="#" @click="abrirModal('agente','modificar',agente)"><i class="icon-pencil text-warning"></i>Modificar</a>
-                                                        <a class="dropdown-item bg-light" href="#" @click="desactivarAgente(agente.id)"><i class="fa fa-toggle-on text-success"></i>Desactivar</a>
-                                                    </template>
-                                                    <template v-else>
-                                                        <a class="dropdown-item bg-light" href="#" @click="activarAgente(agente.id)"><i class="fa fa-toggle-off text-danger"></i>Activar</a>
-                                                    </template>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div v-if="agente.estado=='1'">
-                                                <span class="badge badge-success">Activo</span>
-                                            </div>
-                                            <div v-else>
-                                                <span class="badge badge-danger">Desactivado</span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item" v-if="pagination.current_page > 1">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
-                                </li>
-                                <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page==isActived ? 'active' :'']">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar,criterio)" v-text="page">1</a>
-                                </li>
-                                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <!-- Fin ejemplo de tabla Listado -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <div class="container-fluid">
+      <!-- Ejemplo de tabla Listado -->
+      <div class="card">
+        <div class="card-header">
+          Agente
+          <button
+            type="button"
+            @click="abrirModal('agente', 'registrar')"
+            class="btn btn-secondary"
+          >
+            <i class="icon-plus"></i>&nbsp;Nuevo
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <div class="col-md-6">
+              <div class="input-group">
+                <select class="form-control col-md-3" v-model="criterio">
+                  <option value="ci">Cedula Identidad</option>
+                  <option value="nombre">Nombre</option>
+                  <option value="apellidos">Apellidos</option>
+                  <option value="telefono">Telefono</option>
+                </select>
+                <input
+                  type="text"
+                  v-model="buscar"
+                  @keyup.enter="listar(1, buscar, criterio)"
+                  class="form-control"
+                  placeholder="Texto a buscar"
+                />
+                <button
+                  type="submit"
+                  @click="listar(1, buscar, criterio)"
+                  class="btn btn-primary"
+                >
+                  <i class="fa fa-search"></i> Buscar
+                </button>
+              </div>
             </div>
-
-            <!--Inicio del modal agregar/actualizar-->
-            <div class="modal fade" id="modalNuevo" tabindex="-1" :class="{'mostrar':modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-
-                            <h4 class="modal-title" v-text="tituloModal"></h4>
-                            <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Cedula Identidad</label>
-                                    <div class="col-md-9">
-                                        <input type="number" v-model="ci" class="form-control" placeholder="Ingrese Cedula Identidad">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                    <div class="col-md-9">
-                                        <input type="text" v-model="nombre" class="form-control" placeholder="Ingrese Nombre">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Apellidos</label>
-                                    <div class="col-md-9">
-                                        <input type="text" v-model="apellidos" class="form-control" placeholder="Ingrese Apellidos">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Telefono</label>
-                                    <div class="col-md-9">
-                                        <input type="number" v-model="telefono" class="form-control" placeholder="Ingrese Telefono">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
-                                    <div class="col-md-9">
-                                        <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese Direccion">
-                                    </div>
-                                </div>
-
-                                <div v-show="errorAgente" class="form-group row div-error">
-                                    <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMsjAgente" :key="error" v-text="error">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                            <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="guardar()">Guardar</button>
-                            <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizar()">Modificar</button>
-                        </div>
+          </div>
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th>Cedula Identidad</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+                <th>Fecha de Nac</th>
+                <th>Estado</th>
+                <td>Nº de Ventas</td>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="agente in arrayAgente" :key="agente.id">
+                <td v-text="agente.ci"></td>
+                <td v-text="agente.nombre"></td>
+                <td v-text="agente.apellidos"></td>
+                <td v-text="agente.telefono"></td>
+                <td v-text="agente.direccion"></td>
+                <td v-text="agente.fecha_nac"></td>
+                <td>
+                  <div v-if="agente.estado == '1'">
+                    <span class="badge badge-success">Activo</span>
+                  </div>
+                  <div v-else>
+                    <span class="badge badge-danger">Desactivado</span>
+                  </div>
+                </td>
+                <td></td>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      class="
+                        btn btn-outline-dark
+                        dropdown-toggle dropdown-toggle-split
+                      "
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Accion
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <template v-if="agente.estado == '1'">
+                        <a
+                          class="dropdown-item bg-light"
+                          href="#"
+                          @click="abrirModal('agente', 'modificar', agente)"
+                          ><i class="icon-pencil text-warning"></i>Modificar</a
+                        >
+                        <a
+                          class="dropdown-item bg-light"
+                          href="#"
+                          @click="desactivarAgente(agente.id)"
+                          ><i class="fa fa-toggle-on text-success"></i
+                          >Desactivar</a
+                        >
+                      </template>
+                      <template v-else>
+                        <a
+                          class="dropdown-item bg-light"
+                          href="#"
+                          @click="activarAgente(agente.id)"
+                          ><i class="fa fa-toggle-off text-danger"></i
+                          >Activar</a
+                        >
+                      </template>
                     </div>
-                    <!-- /.modal-content -->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav>
+            <ul class="pagination">
+              <li class="page-item" v-if="pagination.current_page > 1">
+                <a
+                  class="page-link"
+                  href="#"
+                  @click.prevent="
+                    cambiarPagina(pagination.current_page - 1, buscar, criterio)
+                  "
+                  >Ant</a
+                >
+              </li>
+              <li
+                class="page-item"
+                v-for="page in pagesNumber"
+                :key="page"
+                :class="[page == isActived ? 'active' : '']"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  @click.prevent="cambiarPagina(page, buscar, criterio)"
+                  v-text="page"
+                  >1</a
+                >
+              </li>
+              <li
+                class="page-item"
+                v-if="pagination.current_page < pagination.last_page"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  @click.prevent="
+                    cambiarPagina(pagination.current_page + 1, buscar, criterio)
+                  "
+                  >Sig</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- Fin ejemplo de tabla Listado -->
+    </div>
+
+    <!--Inicio del modal agregar/actualizar-->
+    <div
+      class="modal fade"
+      id="modalNuevo"
+      tabindex="-1"
+      :class="{ mostrar: modal }"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" v-text="tituloModal"></h4>
+            <button
+              type="button"
+              class="close"
+              @click="cerrarModal()"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form
+              action=""
+              method="post"
+              enctype="multipart/form-data"
+              class="form-horizontal"
+            >
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input"
+                  >Cedula Identidad</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="number"
+                    v-model="ci"
+                    class="form-control"
+                    placeholder="Ingrese Cedula Identidad"
+                  />
                 </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!--Fin del modal-->
-        </main>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input"
+                  >Nombre</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="nombre"
+                    class="form-control"
+                    placeholder="Ingrese Nombre"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input"
+                  >Apellidos</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="apellidos"
+                    class="form-control"
+                    placeholder="Ingrese Apellidos"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input"
+                  >Telefono</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="number"
+                    v-model="telefono"
+                    class="form-control"
+                    placeholder="Ingrese Telefono"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input"
+                  >Direccion</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="direccion"
+                    class="form-control"
+                    placeholder="Ingrese Direccion"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input"
+                  >Fecha de Nacimiento</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="date"
+                    v-model="fecha_nac"
+                    class="form-control"
+                    placeholder="Ingrese la fecha de nacimiento"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input"
+                  >Usuario</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="id_user"
+                    class="form-control"
+                    placeholder="Ingrese el Usuario"
+                  />
+                </div>
+              </div>
+
+              <div v-show="errorAgente" class="form-group row div-error">
+                <div class="text-center text-error">
+                  <div
+                    v-for="error in errorMostrarMsjAgente"
+                    :key="error"
+                    v-text="error"
+                  ></div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="cerrarModal()"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-if="tipoAccion == 1"
+              @click="guardar()"
+            >
+              Guardar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-if="tipoAccion == 2"
+              @click="actualizar()"
+            >
+              Modificar
+            </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!--Fin del modal-->
+  </main>
 </template>
 
 <script>
-    export default {
-        data(){
-            return {
-                agenteId:0,
-                ci:'',
-                nombre:'',
-                apellidos:'',
-                telefono:'',
-                direccion:'',
-                arrayAgente:[],
-                modal:0,
-                tituloModal:'',
-                errorAgente:0,
-                tipoAccion:0,
-                message : '',
-                errorMostrarMsjAgente:[],
-                pagination : {
-                    'total' : 0,
-                    'current_page' : 0,
-                    'per_page' : 0,
-                    'last_page' : 0,
-                    'from' : 0,
-                    'to' : 0,
-                },
-                offset : 3,
-                criterio : 'ci',
-                buscar : '',
-            }
-        },
-        computed : {
-            isActived: function(){
-                return this.pagination.current_page;
-            },
-            pagesNumber: function(){
-                if(!this.pagination.to){
-                    return [];
-                }
+export default {
+  data() {
+    return {
+      agenteId: 0,
+      ci: "",
+      nombre: "",
+      apellidos: "",
+      telefono: "",
+      direccion: "",
+      fecha_nac: Date,
+      id_user: 0,
+      arrayAgente: [],
+      modal: 0,
+      tituloModal: "",
+      errorAgente: 0,
+      tipoAccion: 0,
+      message: "",
+      errorMostrarMsjAgente: [],
+      pagination: {
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0,
+      },
+      offset: 3,
+      criterio: "ci",
+      buscar: "",
+    };
+  },
+  computed: {
+    isActived: function () {
+      return this.pagination.current_page;
+    },
+    pagesNumber: function () {
+      if (!this.pagination.to) {
+        return [];
+      }
 
-                var from = this.pagination.current_page - this.offset;
-                if(from < 1){
-                    from = 1;
-                }
+      var from = this.pagination.current_page - this.offset;
+      if (from < 1) {
+        from = 1;
+      }
 
-                var to = from + (this.offset * 2);
-                if(to >= this.pagination.last_page){
-                    to = this.pagination.last_page;
-                }
+      var to = from + this.offset * 2;
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
 
-                var pagesArray = [];
-                while(from <= to){
-                    pagesArray.push(from);
-                    from++;
-                }
-                return pagesArray;
-            }
-        },
-       methods: {
-           listar(page,buscar,criterio){
-                let me=this;
-                    var url='/agente?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
-                    axios.get(url).then(function (response) {
-                    me.arrayAgente=response.data.data;
-                    me.pagination={total:response.data.total,
-                        current_page:response.data.current_page,
-                        per_page: response.data.per_page,
-                        last_page: response.data.last_page,
-                        from: response.data.from,
-                        to: response.data.to
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-           },
+      var pagesArray = [];
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+      return pagesArray;
+    },
+  },
+  methods: {
+    listar(page, buscar, criterio) {
+      let me = this;
+      var url =
+        "/agente?page=" + page + "&buscar=" + buscar + "&criterio=" + criterio;
+      axios
+        .get(url)
+        .then(function (response) {
+          me.arrayAgente = response.data.data;
+          me.pagination = {
+            total: response.data.total,
+            current_page: response.data.current_page,
+            per_page: response.data.per_page,
+            last_page: response.data.last_page,
+            from: response.data.from,
+            to: response.data.to,
+          };
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
 
-           cambiarPagina(page,buscar,criterio){
-                let me=this;
-                me.pagination.current_page=page;
-                me.listar(page,buscar,criterio);
-            },
+    cambiarPagina(page, buscar, criterio) {
+      let me = this;
+      me.pagination.current_page = page;
+      me.listar(page, buscar, criterio);
+    },
 
-           guardar(){
-               if(this.validar()){
-                   return;
-                }
-            let me = this;
-                axios.post('/agente/guardar',{
-                    'ci':this.ci,
-                    'nombre':this.nombre,
-                    'apellidos':this.apellidos,
-                    'telefono':this.telefono,
-                    'direccion':this.direccion
-                }).then(function(response){
-                    me.cerrarModal();
-                    me.listar(1,'','ci');
-                })
-                .catch(function(error){
-                    console.log(error);
-                });
-           },
+    guardar() {
+      if (this.validar()) {
+        return;
+      }
+      let me = this;
+      axios
+        .post("/agente/guardar", {
+          ci: this.ci,
+          nombre: this.nombre,
+          apellidos: this.apellidos,
+          telefono: this.telefono,
+          direccion: this.direccion,
+          fecha_nac: this.fecha_nac,
+          id_user: this.id_user,
+        })
+        .then(function (response) {
+          me.cerrarModal();
+          me.listar(1, "", "ci");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
 
-           actualizar(){
-                if(this.validar()){
-                   return;
-                }
-                let me = this;
-                axios.put('/agente/modificar',{
-                    'id':this.agenteId,
-                    'ci':this.ci,
-                    'nombre':this.nombre,
-                    'apellidos':this.apellidos,
-                    'telefono':this.telefono,
-                    'direccion':this.direccion
-                }).then(function(response){
-                    me.cerrarModal();
-                    me.listar(1,'','ci');
-                })
-                .catch(function(error){
-                    console.log(error);
-                });
-           },
+    actualizar() {
+      if (this.validar()) {
+        return;
+      }
+      let me = this;
+      axios
+        .put("/agente/modificar", {
+          id: this.agenteId,
+          ci: this.ci,
+          nombre: this.nombre,
+          apellidos: this.apellidos,
+          telefono: this.telefono,
+          direccion: this.direccion,
+        })
+        .then(function (response) {
+          me.cerrarModal();
+          me.listar(1, "", "ci");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
 
-           desactivarAgente(id){
-               swal({
-                title: 'Esta seguro de desactivar este Agente?',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar!',
-                cancelButtonText: 'Cancelar',
-                confirmButtonClass: 'btn btn-success',
-                cancelButtonClass: 'btn btn-danger',
-                buttonsStyling: false,
-                reverseButtons: true
-                }).then((result) => {
-                if (result.value) {
-                    let me = this;
-                    axios.put('/agente/desactivar',{'id': id}).then(function (response) {
-                        me.listar(1,'','ci');
-                        swal(
-                        'Desactivado!',
-                        'El registro ha sido desactivado con éxito.',
-                        'success'
-                        )
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                } else if (
-                    // Read more about handling dismissals
-                    result.dismiss === swal.DismissReason.cancel
-                ) {
-
-                }
-                })
-            },
-
-            activarAgente(id){
-               swal({
-                title: 'Esta seguro de activar este Agente?',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar!',
-                cancelButtonText: 'Cancelar',
-                confirmButtonClass: 'btn btn-success',
-                cancelButtonClass: 'btn btn-danger',
-                buttonsStyling: false,
-                reverseButtons: true
-                }).then((result) => {
-                if (result.value) {
-                    let me = this;
-                    axios.put('/agente/activar',{'id': id}).then(function (response) {
-                        me.listar(1,'','ci');
-                        swal(
-                        'Activado!',
-                        'El registro ha sido activado con éxito.',
-                        'success'
-                        )
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                } else if (
-                    // Read more about handling dismissals
-                    result.dismiss === swal.DismissReason.cancel
-                ) {
-
-                }
-                })
-            },
-
-           validar(){
-               this.errorAgente=0;
-               this.errorMostrarMsjAgente=[];
-
-               if(!this.ci)this.errorMostrarMsjAgente.push('La Cedula Identidad del Agente esta vacia!');
-               if(!this.nombre)this.errorMostrarMsjAgente.push('El Nombre del Agente esta vacia!');
-               if(!this.apellidos)this.errorMostrarMsjAgente.push('El Apellidos del Agente esta vacia!');
-
-               if(this.errorMostrarMsjAgente.length)this.errorAgente=1;
-
-               return this.errorAgente;
-           },
-
-           cerrarModal(){
-                this.modal=0;
-                this.tituloModal='';
-                this.ci='';
-                this.nombre='';
-                this.apellidos='';
-                this.telefono='';
-                this.direccion='';
-                this.errorMostrarMsjAgente=[];
-           },
-
-           abrirModal(model,accion,data=[]){
-               switch (model) {
-                   case 'agente':
-                       {
-                           switch(accion){
-                               case 'registrar':
-                                   {
-                                        this.modal=1;
-                                        this.tituloModal='Registrar Agente';
-                                        this.ci='';
-                                        this.nombre='';
-                                        this.apellidos='';
-                                        this.telefono='';
-                                        this.direccion='';
-                                        this.tipoAccion=1;
-                                         break;
-                                   }
-                                case 'modificar':
-                                    {
-                                        this.modal=1;
-                                        this.tituloModal='Actualizar Agente';
-                                        this.tipoAccion=2;
-                                        this.agenteId=data['id'];
-                                        this.ci=data['ci'];
-                                        this.nombre=data['nombre'];
-                                        this.apellidos=data['apellidos'];
-                                        this.telefono=data['telefono'];
-                                        this.direccion=data['direccion'];
-                                    }
-                           }
-                       }
-               }
-           },
-       },
-        mounted() {
-            this.listar(1,this.buscar,this.criterio);
+    desactivarAgente(id) {
+      swal({
+        title: "Esta seguro de desactivar este Agente?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
+        buttonsStyling: false,
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.value) {
+          let me = this;
+          axios
+            .put("/agente/desactivar", { id: id })
+            .then(function (response) {
+              me.listar(1, "", "ci");
+              swal(
+                "Desactivado!",
+                "El registro ha sido desactivado con éxito.",
+                "success"
+              );
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else if (
+          // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+        ) {
         }
-    }
+      });
+    },
+
+    activarAgente(id) {
+      swal({
+        title: "Esta seguro de activar este Agente?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
+        buttonsStyling: false,
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.value) {
+          let me = this;
+          axios
+            .put("/agente/activar", { id: id })
+            .then(function (response) {
+              me.listar(1, "", "ci");
+              swal(
+                "Activado!",
+                "El registro ha sido activado con éxito.",
+                "success"
+              );
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else if (
+          // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+        ) {
+        }
+      });
+    },
+
+    validar() {
+      this.errorAgente = 0;
+      this.errorMostrarMsjAgente = [];
+
+      if (!this.ci)
+        this.errorMostrarMsjAgente.push(
+          "La Cedula Identidad del Agente esta vacia!"
+        );
+      if (!this.nombre)
+        this.errorMostrarMsjAgente.push("El Nombre del Agente esta vacia!");
+      if (!this.apellidos)
+        this.errorMostrarMsjAgente.push("El Apellidos del Agente esta vacia!");
+
+      if (this.errorMostrarMsjAgente.length) this.errorAgente = 1;
+
+      return this.errorAgente;
+    },
+
+    cerrarModal() {
+      this.modal = 0;
+      this.tituloModal = "";
+      this.ci = "";
+      this.nombre = "";
+      this.apellidos = "";
+      this.telefono = "";
+      this.direccion = "";
+      this.errorMostrarMsjAgente = [];
+    },
+
+    abrirModal(model, accion, data = []) {
+      switch (model) {
+        case "agente": {
+          switch (accion) {
+            case "registrar": {
+              this.modal = 1;
+              this.tituloModal = "Registrar Agente";
+              this.ci = "";
+              this.nombre = "";
+              this.apellidos = "";
+              this.telefono = "";
+              this.direccion = "";
+              this.tipoAccion = 1;
+              break;
+            }
+            case "modificar": {
+              this.modal = 1;
+              this.tituloModal = "Actualizar Agente";
+              this.tipoAccion = 2;
+              this.agenteId = data["id"];
+              this.ci = data["ci"];
+              this.nombre = data["nombre"];
+              this.apellidos = data["apellidos"];
+              this.telefono = data["telefono"];
+              this.direccion = data["direccion"];
+            }
+          }
+        }
+      }
+    },
+  },
+  mounted() {
+    this.listar(1, this.buscar, this.criterio);
+  },
+};
 </script>
 <style>
-    .modal-content{
-        width: 100% !important;
-        position: absolute !important;
-    }
-    .modal-content{
-        width: 100% !important;
-        position: absolute !important;
-    }
-    .mostrar{
-        display: list-item !important;
-        opacity: 1 !important;
-        position: absolute !important;
-        background-color: #3c29297a !important;
-    }
-    .mostrar{
-        display: list-item !important;
-        opacity: 1 !important;
-        position: absolute !important;
-        background-color: #3c29297a !important;
-    }
-    .div-error{
-         display: flex;
-         justify-content: center;
-    }
-    .text-error{
-        color:red !important;
-        font-weight: bold;
-    }
+.modal-content {
+  width: 100% !important;
+  position: absolute !important;
+}
+.modal-content {
+  width: 100% !important;
+  position: absolute !important;
+}
+.mostrar {
+  display: list-item !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  background-color: #3c29297a !important;
+}
+.mostrar {
+  display: list-item !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  background-color: #3c29297a !important;
+}
+.div-error {
+  display: flex;
+  justify-content: center;
+}
+.text-error {
+  color: red !important;
+  font-weight: bold;
+}
 </style>

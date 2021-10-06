@@ -8,14 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Agente extends Model
 {
     use HasFactory;
-    protected $table='agente';
-    protected $fillable=[
+
+    protected $table = 'agente';
+
+    protected $fillable = [
         'ci',
         'nombre',
         'apellidos',
         'telefono',
         'direccion',
-        'estado'
+        'fecha_nac',
+        'estado',
+        'id_user'
     ];
-    public $timestamps=false;
+
+    public $timestamps = false;
 }

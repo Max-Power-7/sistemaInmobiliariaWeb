@@ -2049,33 +2049,181 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       agenteId: 0,
-      ci: '',
-      nombre: '',
-      apellidos: '',
-      telefono: '',
-      direccion: '',
+      ci: "",
+      nombre: "",
+      apellidos: "",
+      telefono: "",
+      direccion: "",
       arrayAgente: [],
       modal: 0,
-      tituloModal: '',
+      tituloModal: "",
       errorAgente: 0,
       tipoAccion: 0,
-      message: '',
+      message: "",
       errorMostrarMsjAgente: [],
       pagination: {
-        'total': 0,
-        'current_page': 0,
-        'per_page': 0,
-        'last_page': 0,
-        'from': 0,
-        'to': 0
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0
       },
       offset: 3,
-      criterio: 'ci',
-      buscar: ''
+      criterio: "ci",
+      buscar: ""
     };
   },
   computed: {
@@ -2112,7 +2260,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     listar: function listar(page, buscar, criterio) {
       var me = this;
-      var url = '/agente?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = "/agente?page=" + page + "&buscar=" + buscar + "&criterio=" + criterio;
       axios.get(url).then(function (response) {
         me.arrayAgente = response.data.data;
         me.pagination = {
@@ -2138,15 +2286,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.post('/agente/guardar', {
-        'ci': this.ci,
-        'nombre': this.nombre,
-        'apellidos': this.apellidos,
-        'telefono': this.telefono,
-        'direccion': this.direccion
+      axios.post("/agente/guardar", {
+        ci: this.ci,
+        nombre: this.nombre,
+        apellidos: this.apellidos,
+        telefono: this.telefono,
+        direccion: this.direccion
       }).then(function (response) {
         me.cerrarModal();
-        me.listar(1, '', 'ci');
+        me.listar(1, "", "ci");
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2157,16 +2305,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var me = this;
-      axios.put('/agente/modificar', {
-        'id': this.agenteId,
-        'ci': this.ci,
-        'nombre': this.nombre,
-        'apellidos': this.apellidos,
-        'telefono': this.telefono,
-        'direccion': this.direccion
+      axios.put("/agente/modificar", {
+        id: this.agenteId,
+        ci: this.ci,
+        nombre: this.nombre,
+        apellidos: this.apellidos,
+        telefono: this.telefono,
+        direccion: this.direccion
       }).then(function (response) {
         me.cerrarModal();
-        me.listar(1, '', 'ci');
+        me.listar(1, "", "ci");
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2175,25 +2323,25 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       swal({
-        title: 'Esta seguro de desactivar este Agente?',
-        type: 'warning',
+        title: "Esta seguro de desactivar este Agente?",
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar!',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
         buttonsStyling: false,
         reverseButtons: true
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('/agente/desactivar', {
-            'id': id
+          axios.put("/agente/desactivar", {
+            id: id
           }).then(function (response) {
-            me.listar(1, '', 'ci');
-            swal('Desactivado!', 'El registro ha sido desactivado con éxito.', 'success');
+            me.listar(1, "", "ci");
+            swal("Desactivado!", "El registro ha sido desactivado con éxito.", "success");
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2205,25 +2353,25 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       swal({
-        title: 'Esta seguro de activar este Agente?',
-        type: 'warning',
+        title: "Esta seguro de activar este Agente?",
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar!',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar!",
+        cancelButtonText: "Cancelar",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
         buttonsStyling: false,
         reverseButtons: true
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.put('/agente/activar', {
-            'id': id
+          axios.put("/agente/activar", {
+            id: id
           }).then(function (response) {
-            me.listar(1, '', 'ci');
-            swal('Activado!', 'El registro ha sido activado con éxito.', 'success');
+            me.listar(1, "", "ci");
+            swal("Activado!", "El registro ha sido activado con éxito.", "success");
           })["catch"](function (error) {
             console.log(error);
           });
@@ -2234,53 +2382,53 @@ __webpack_require__.r(__webpack_exports__);
     validar: function validar() {
       this.errorAgente = 0;
       this.errorMostrarMsjAgente = [];
-      if (!this.ci) this.errorMostrarMsjAgente.push('La Cedula Identidad del Agente esta vacia!');
-      if (!this.nombre) this.errorMostrarMsjAgente.push('El Nombre del Agente esta vacia!');
-      if (!this.apellidos) this.errorMostrarMsjAgente.push('El Apellidos del Agente esta vacia!');
+      if (!this.ci) this.errorMostrarMsjAgente.push("La Cedula Identidad del Agente esta vacia!");
+      if (!this.nombre) this.errorMostrarMsjAgente.push("El Nombre del Agente esta vacia!");
+      if (!this.apellidos) this.errorMostrarMsjAgente.push("El Apellidos del Agente esta vacia!");
       if (this.errorMostrarMsjAgente.length) this.errorAgente = 1;
       return this.errorAgente;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
-      this.tituloModal = '';
-      this.ci = '';
-      this.nombre = '';
-      this.apellidos = '';
-      this.telefono = '';
-      this.direccion = '';
+      this.tituloModal = "";
+      this.ci = "";
+      this.nombre = "";
+      this.apellidos = "";
+      this.telefono = "";
+      this.direccion = "";
       this.errorMostrarMsjAgente = [];
     },
     abrirModal: function abrirModal(model, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
       switch (model) {
-        case 'agente':
+        case "agente":
           {
             switch (accion) {
-              case 'registrar':
+              case "registrar":
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Registrar Agente';
-                  this.ci = '';
-                  this.nombre = '';
-                  this.apellidos = '';
-                  this.telefono = '';
-                  this.direccion = '';
+                  this.tituloModal = "Registrar Agente";
+                  this.ci = "";
+                  this.nombre = "";
+                  this.apellidos = "";
+                  this.telefono = "";
+                  this.direccion = "";
                   this.tipoAccion = 1;
                   break;
                 }
 
-              case 'modificar':
+              case "modificar":
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Agente';
+                  this.tituloModal = "Actualizar Agente";
                   this.tipoAccion = 2;
-                  this.agenteId = data['id'];
-                  this.ci = data['ci'];
-                  this.nombre = data['nombre'];
-                  this.apellidos = data['apellidos'];
-                  this.telefono = data['telefono'];
-                  this.direccion = data['direccion'];
+                  this.agenteId = data["id"];
+                  this.ci = data["ci"];
+                  this.nombre = data["nombre"];
+                  this.apellidos = data["apellidos"];
+                  this.telefono = data["telefono"];
+                  this.direccion = data["direccion"];
                 }
             }
           }
@@ -12106,7 +12254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-content{\n    width: 100% !important;\n    position: absolute !important;\n}\n.modal-content{\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n     display: flex;\n     justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-content {\n  width: 100% !important;\n  position: absolute !important;\n}\n.modal-content {\n  width: 100% !important;\n  position: absolute !important;\n}\n.mostrar {\n  display: list-item !important;\n  opacity: 1 !important;\n  position: absolute !important;\n  background-color: #3c29297a !important;\n}\n.mostrar {\n  display: list-item !important;\n  opacity: 1 !important;\n  position: absolute !important;\n  background-color: #3c29297a !important;\n}\n.div-error {\n  display: flex;\n  justify-content: center;\n}\n.text-error {\n  color: red !important;\n  font-weight: bold;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -66288,7 +66436,7 @@ var render = function() {
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
-          _vm._v("\n                    Agente\n                    "),
+          _vm._v("\n        Agente\n        "),
           _c(
             "button",
             {
@@ -66300,10 +66448,7 @@ var render = function() {
                 }
               }
             },
-            [
-              _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\n                    ")
-            ]
+            [_c("i", { staticClass: "icon-plus" }), _vm._v(" Nuevo\n        ")]
           )
         ]),
         _vm._v(" "),
@@ -66400,7 +66545,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_c("i", { staticClass: "fa fa-search" }), _vm._v(" Buscar")]
+                  [
+                    _c("i", { staticClass: "fa fa-search" }),
+                    _vm._v(" Buscar\n              ")
+                  ]
                 )
               ])
             ])
@@ -66431,13 +66579,33 @@ var render = function() {
                     domProps: { textContent: _vm._s(agente.direccion) }
                   }),
                   _vm._v(" "),
+                  _c("td", {
+                    domProps: { textContent: _vm._s(agente.fecha_nac) }
+                  }),
+                  _vm._v(" "),
+                  _c("td", [
+                    agente.estado == "1"
+                      ? _c("div", [
+                          _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("Activo")
+                          ])
+                        ])
+                      : _c("div", [
+                          _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("Desactivado")
+                          ])
+                        ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
                   _c("td", [
                     _c("div", { staticClass: "dropdown" }, [
                       _c(
                         "button",
                         {
                           staticClass:
-                            "btn btn-outline-dark dropdown-toggle dropdown-toggle-split",
+                            "\n                      btn btn-outline-dark\n                      dropdown-toggle dropdown-toggle-split\n                    ",
                           attrs: {
                             type: "button",
                             id: "dropdownMenuButton",
@@ -66448,7 +66616,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                                Accion\n                                            "
+                            "\n                    Accion\n                  "
                           )
                         ]
                       ),
@@ -66530,20 +66698,6 @@ var render = function() {
                         2
                       )
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    agente.estado == "1"
-                      ? _c("div", [
-                          _c("span", { staticClass: "badge badge-success" }, [
-                            _vm._v("Activo")
-                          ])
-                        ])
-                      : _c("div", [
-                          _c("span", { staticClass: "badge badge-danger" }, [
-                            _vm._v("Desactivado")
-                          ])
-                        ])
                   ])
                 ])
               }),
@@ -66934,7 +67088,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 ),
                 _vm._v(" "),
                 _vm.tipoAccion == 1
@@ -66949,7 +67103,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Guardar")]
+                      [_vm._v("\n            Guardar\n          ")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -66965,7 +67119,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Modificar")]
+                      [_vm._v("\n            Modificar\n          ")]
                     )
                   : _vm._e()
               ])
@@ -66993,11 +67147,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Direccion")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Opciones")]),
+        _c("th", [_vm._v("Fecha de Nac")]),
         _vm._v(" "),
         _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Nº de Ventas")])
+        _c("td", [_vm._v("Nº de Ventas")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opciones")])
       ])
     ])
   }
@@ -76753,10 +76909,6 @@ var render = function() {
                 return _c("tr", { key: usuario.id }, [
                   _c("td", {
                     domProps: { textContent: _vm._s(usuario.login) }
-                  }),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(usuario.password) }
                   }),
                   _vm._v(" "),
                   _c("td", { domProps: { textContent: _vm._s(usuario.tipo) } }),
